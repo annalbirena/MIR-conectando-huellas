@@ -14,5 +14,14 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'react/jsx-one-expression-per-line': 0,
     'import/no-named-as-default': 0,
+    'operator-linebreak': [
+      'error',
+      'after',
+      {
+        overrides: {
+          ':': 'before',
+        },
+      },
+    ],
   },
 };
