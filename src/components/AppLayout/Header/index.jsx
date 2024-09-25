@@ -1,5 +1,6 @@
 import { Burger, Button, Group, Image } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { Link } from 'react-router-dom';
 import classes from './header.module.css';
 
 const links = [
@@ -21,14 +22,9 @@ function Header() {
   const [opened, { toggle }] = useDisclosure(false);
 
   const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      onClick={(event) => event.preventDefault()}
-    >
+    <Link key={link.label} to={link.link} className={classes.link}>
       {link.label}
-    </a>
+    </Link>
   ));
 
   return (
@@ -42,7 +38,9 @@ function Header() {
             size="sm"
             hiddenFrom="sm"
           />
-          <Image height={60} src="src/assets/images/logo-color.svg" />
+          <Link to="/">
+            <Image height={60} src="src/assets/images/logo-color.svg" />
+          </Link>
         </Group>
 
         <Group

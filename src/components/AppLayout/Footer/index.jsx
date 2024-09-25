@@ -1,4 +1,5 @@
 import { Divider, Group, Image, Stack, Text } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import classes from './footer.module.css';
 
 const links = [
@@ -18,21 +19,19 @@ const links = [
 
 function Footer() {
   const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      onClick={(event) => event.preventDefault()}
-    >
+    <Link key={link.label} to={link.link} className={classes.link}>
       {link.label}
-    </a>
+    </Link>
   ));
 
   return (
     <footer className={classes.footer}>
       <Stack className={classes.footerContent}>
         <Group py="xl" w="100%" justify="space-between">
-          <Image height={80} src="src/assets/images/logo-white.svg" />
+          <Link to="/">
+            <Image height={80} src="src/assets/images/logo-white.svg" />
+          </Link>
+
           <Group gap={5} className={classes.links}>
             {items}
           </Group>

@@ -1,12 +1,32 @@
 import '@mantine/core/styles.css';
-import Home from './pages/Home';
-import AppLayout from './components/AppLayout';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import LostsPetsPage from './pages/LostPetsPage';
+import AdoptionPage from './pages/AdoptionPage';
+import AdoptionPetRegistrationPage from './pages/AdoptionPetRegistrationPage';
+import RegistrationPage from './pages/RegistrationPage';
+import LostPetRegistrationPage from './pages/LostPetRegistrationPage';
+import SheltersPage from './pages/SheltersPage';
 
 function App() {
   return (
-    <AppLayout>
-      <Home />
-    </AppLayout>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/perdidos" element={<LostsPetsPage />} />
+        <Route path="/adopcion" element={<AdoptionPage />} />
+        <Route path="/albergues" element={<SheltersPage />} />
+        <Route path="/registro" element={<RegistrationPage />} />
+        <Route
+          path="/registro-perdidos"
+          element={<LostPetRegistrationPage />}
+        />
+        <Route
+          path="/registro-adopcion"
+          element={<AdoptionPetRegistrationPage />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
