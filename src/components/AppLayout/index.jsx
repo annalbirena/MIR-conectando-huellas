@@ -1,9 +1,9 @@
-import React from 'react';
 import { Stack } from '@mantine/core';
+import PropTypes from 'prop-types';
 import Footer from './Footer';
 import Header from './Header';
 
-function AppLayout(children) {
+function AppLayout({ children }) {
   return (
     <Stack mih="100vh" gap={0}>
       <Header />
@@ -20,5 +20,9 @@ function AppLayout(children) {
     </Stack>
   );
 }
+
+AppLayout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default AppLayout;
