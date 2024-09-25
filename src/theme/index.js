@@ -1,8 +1,6 @@
-import {
-  createTheme,
+import { createTheme,
   defaultVariantColorsResolver,
-  parseThemeColor,
-} from '@mantine/core';
+  parseThemeColor } from '@mantine/core';
 import { yellowGreen, brightPurple, darkBrand } from './colors';
 
 const theme = createTheme({
@@ -14,7 +12,21 @@ const theme = createTheme({
   primaryColor: 'brand',
   black: darkBrand,
   fontFamily: 'Poppins, sans-serif',
-  headings: { fontFamily: 'Poppins, sans-serif' },
+  headings: {
+    fontFamily: 'Poppins, sans-serif',
+  },
+  components: {
+    Button: {
+      styles: (t) => ({
+        root: {
+          height: '48px',
+          padding: '0px 28px',
+          borderRadius: '50px',
+          fontSize: t.fontSizes.md,
+        },
+      }),
+    },
+  },
   variantColorResolver: (input) => {
     const defaultResolvedColors = defaultVariantColorsResolver(input);
     const parsedColor = parseThemeColor({

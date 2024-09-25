@@ -1,16 +1,12 @@
 import '@mantine/core/styles.css';
-import { Button, MantineProvider, Title } from '@mantine/core';
-import theme from './theme';
+import Home from './pages/Home';
+import AppLayout from './components/AppLayout';
 
 function App() {
   return (
-    <MantineProvider theme={theme}>
-      <Title>Mascotas</Title>
-      <Button variant="filled">Hola</Button>
-      <Button variant="filled" color="purpleBrand">
-        Hola
-      </Button>
-    </MantineProvider>
+    <AppLayout>
+      <Home />
+    </AppLayout>
   );
 }
 

@@ -1,0 +1,27 @@
+.footer {
+  background-color: var(--mantine-color-purpleBrand-3);
+}
+
+.footerContent {
+  max-width: rem(1180px);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+  padding: rem(0px) rem(24px);
+}
+
+.link {
+  display: block;
+  padding: rem(8px) rem(12px);
+  border-radius: var(--mantine-radius-sm);
+  text-decoration: none;
+  color: var(--mantine-color-white);
+  font-size: var(--mantine-font-size-md);
+  font-weight: 500;
+
+  @mixin hover {
+    color: var(--mantine-color-brand-6);
+  }
+}
