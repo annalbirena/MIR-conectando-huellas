@@ -25,3 +25,8 @@
     background-color: var(--mantine-color-purpleBrand-0);
   }
 }
+
+.userMenuLink {
+  color: var(--mantine-color-dark);
+  text-decoration: none;
+}

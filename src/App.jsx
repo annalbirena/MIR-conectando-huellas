@@ -18,11 +18,11 @@ function App() {
         <Route path="/albergues" element={<SheltersPage />} />
         <Route path="/registro" element={<RegistrationPage />} />
         <Route
-          path="/registro-perdidos"
+          path="/registro-mascota-perdida"
           element={<LostPetRegistrationPage />}
         />
         <Route
-          path="/registro-adopcion"
+          path="/registro-mascota-adopcion"
           element={<AdoptionPetRegistrationPage />}
         />
       </Routes>

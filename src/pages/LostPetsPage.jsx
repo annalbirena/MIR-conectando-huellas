@@ -1,10 +1,14 @@
-import { Title } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
+import TitlePage from '../components/TitlePage';
 
 function LostsPetsPage() {
   return (
     <AppLayout>
-      <Title>Mascotas perdidas</Title>
+      <TitlePage
+        text="Mascotas"
+        image="src/assets/images/lost-text.svg"
+        imagePosition="right"
+      />
     </AppLayout>
   );
 }

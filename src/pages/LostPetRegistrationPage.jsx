@@ -1,10 +1,14 @@
-import { Title } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
+import TitlePage from '../components/TitlePage';
 
 function LostPetRegistrationPage() {
   return (
     <AppLayout>
-      <Title>Registro de Mascotas Perdidas</Title>
+      <TitlePage
+        text="Registro de"
+        image="src/assets/images/lost-pet-text.svg"
+        imagePosition="right"
+      />
     </AppLayout>
   );
 }

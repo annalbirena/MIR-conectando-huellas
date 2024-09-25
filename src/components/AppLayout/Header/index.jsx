@@ -1,4 +1,13 @@
-import { Burger, Button, Group, Image } from '@mantine/core';
+// eslint-disable-next-line object-curly-newline
+import {
+  Avatar,
+  Burger,
+  Group,
+  Image,
+  Menu,
+  UnstyledButton,
+  // eslint-disable-next-line object-curly-newline
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
 import classes from './header.module.css';
@@ -52,7 +61,28 @@ function Header() {
           {items}
         </Group>
 
-        <Button variant="filled">Inicia Sesión</Button>
+        <Group>
+          <Menu shadow="md" width={200}>
+            <Menu.Target>
+              <UnstyledButton>
+                <Avatar variant="filled" size="md" color="brand" radius="xl">
+                  MK
+                </Avatar>
+              </UnstyledButton>
+            </Menu.Target>
+
+            <Menu.Dropdown>
+              <Menu.Item>
+                <Link to="/registro" className={classes.userMenuLink}>
+                  Registrar mascota
+                </Link>
+              </Menu.Item>
+              <Menu.Item>Mascotas registradas</Menu.Item>
+              <Menu.Item color="red">Salir</Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+          {/* <Button variant="filled">Inicia Sesión</Button> */}
+        </Group>
       </div>
     </header>
   );

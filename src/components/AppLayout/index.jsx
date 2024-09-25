@@ -10,6 +10,8 @@ function AppLayout({ children }) {
       <main
         style={{
           flex: 1,
+          marginTop: 48,
+          marginBottom: 100,
         }}
       >
         <Stack gap={0} maw="900px" m="auto">

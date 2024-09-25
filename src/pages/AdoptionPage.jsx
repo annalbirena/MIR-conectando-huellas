@@ -1,10 +1,14 @@
-import { Title } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
+import TitlePage from '../components/TitlePage';
 
 function AdoptionPage() {
   return (
     <AppLayout>
-      <Title>Mascotas en adopción</Title>
+      <TitlePage
+        text="una Mascota"
+        image="src/assets/images/adoption-text.svg"
+        imagePosition="left"
+      />
     </AppLayout>
   );
 }
