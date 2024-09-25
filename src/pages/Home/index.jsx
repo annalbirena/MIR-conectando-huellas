@@ -1,7 +1,7 @@
-import { Title } from '@mantine/core';
+import PetCard from '../../components/PetCard';
 
 function Home() {
-  return <Title>Home</Title>;
+  return <PetCard />;
 }
 
 export default Home;
