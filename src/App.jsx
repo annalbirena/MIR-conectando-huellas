@@ -1,3 +1,4 @@
+import React from 'react';
 import '@mantine/core/styles.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';

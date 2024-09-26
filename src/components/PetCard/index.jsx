@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Card, Group, Image, Stack, Text, Title } from '@mantine/core';
 import PropTypes from 'prop-types';
 import classes from './petcard.module.css';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Stack } from '@mantine/core';
 import PropTypes from 'prop-types';
 import Footer from './Footer';
