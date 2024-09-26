@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function TitlePage({ text, image, imagePosition }) {
   return (
-    <Group justify="center">
+    <Group justify="center" pb={100}>
       {imagePosition === 'left' ? (
         <Image src={image} alt="title" height={70} />
       ) : null}

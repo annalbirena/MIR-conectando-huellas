@@ -1,10 +1,10 @@
-import PetCard from '../components/PetCard';
+import { Title } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 
 function HomePage() {
   return (
     <AppLayout>
-      <PetCard />
+      <Title>Home</Title>
     </AppLayout>
   );
 }
