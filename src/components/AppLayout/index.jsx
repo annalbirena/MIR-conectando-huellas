@@ -13,6 +13,7 @@ function AppLayout({ children }) {
           flex: 1,
           marginTop: 48,
           marginBottom: 100,
+          padding: '0px 16px',
         }}
       >
         <Stack gap={0} maw="900px" m="auto">

@@ -5,7 +5,7 @@ import classes from './petcard.module.css';
 
 function PetCard({ data, variant }) {
   return (
-    <Card w={300} className={classes.card}>
+    <Card w="100%" maw={350} className={classes.card}>
       <Card.Section>
         <Image src={data.image} alt={data.name} height={300} />
       </Card.Section>
@@ -16,13 +16,21 @@ function PetCard({ data, variant }) {
           </Title>
 
           <Group justify="space-between">
-            <Text c="dark.7">Edad: {data.age}</Text>
-            <Text c="dark.7">Sexo: {data.sex}</Text>
+            <Text c="dark.7" size="sm">
+              Edad: {data.age}
+            </Text>
+            <Text c="dark.7" size="sm">
+              Sexo: {data.sex}
+            </Text>
           </Group>
           {variant === 'lost' ? (
-            <Text c="dark.7">Fecha de perdida: {data.lostDate}</Text>
+            <Text c="dark.7" size="sm">
+              Fecha de perdida: {data.lostDate}
+            </Text>
           ) : null}
-          <Text c="dark.7">Tamaño: {data.size}</Text>
+          <Text c="dark.7" size="sm">
+            Tamaño: {data.size}
+          </Text>
         </Stack>
       </Card.Section>
       <Button mt="md" variant="filled" color="dark">

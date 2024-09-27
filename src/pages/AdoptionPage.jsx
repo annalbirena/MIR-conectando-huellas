@@ -1,13 +1,17 @@
 import React from 'react';
+import { SimpleGrid, Button, Stack, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';
 import PetCard from '../components/PetCard';
-import { SimpleGrid, Button, Stack } from '@mantine/core';
 import petData from '../data/petData';
+
 function AdoptionPage() {
-  const items = petData.map((pet) => (
-    <PetCard key={pet.id} data={pet} variant="adoption" />
+  const pets = petData.map((pet) => (
+    <Group key={pet.id} justify="center">
+      <PetCard data={pet} variant="adoption" />
+    </Group>
   ));
+
   return (
     <AppLayout justifyContent="center">
       <Stack>
@@ -16,8 +20,16 @@ function AdoptionPage() {
           image="src/assets/images/adoption-text.svg"
           imagePosition="left"
         />
-        <SimpleGrid cols={3} spacing="15%" verticalSpacing={'xl'}>
-          {items}
+        <SimpleGrid
+          cols={{
+            base: 1,
+            sm: 2,
+            md: 3,
+          }}
+          spacing="xl"
+          verticalSpacing="xl"
+        >
+          {pets}
         </SimpleGrid>
         <Button variant="filled" color="purpleBrand.3" mt="xl" m="auto">
           Mostrar Más
