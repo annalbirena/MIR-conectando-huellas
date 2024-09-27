@@ -33,16 +33,14 @@ function PetCard({ data, variant }) {
 }
 
 PetCard.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      age: PropTypes.string.isRequired,
-      sex: PropTypes.string.isRequired,
-      size: PropTypes.string.isRequired,
-      lostDate: PropTypes.string,
-    }),
-  ).isRequired,
+  data: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    age: PropTypes.string.isRequired,
+    sex: PropTypes.string.isRequired,
+    size: PropTypes.string.isRequired,
+    lostDate: PropTypes.string,
+  }).isRequired,
   variant: PropTypes.string.isRequired, // lost / adoption
 };
 
