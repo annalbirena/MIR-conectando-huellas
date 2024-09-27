@@ -69,7 +69,6 @@ function LostPetRegistrationPage() {
           </Input.Wrapper>
           <Group grow>
             <Textarea
-              withAsterisk
               label="Descripción adicional"
               placeholder="Ingrese descripción"
             />
