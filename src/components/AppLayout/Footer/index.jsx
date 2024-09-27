@@ -1,3 +1,4 @@
+import React from 'react';
 import { Divider, Group, Image, Stack, Text } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import classes from './footer.module.css';

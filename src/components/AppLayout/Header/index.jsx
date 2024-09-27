@@ -1,4 +1,5 @@
 // eslint-disable-next-line object-curly-newline
+import React from 'react';
 import {
   Avatar,
   Burger,

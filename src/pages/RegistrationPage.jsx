@@ -1,3 +1,4 @@
+import React from 'react';
 import { Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';

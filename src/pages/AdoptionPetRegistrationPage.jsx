@@ -1,3 +1,4 @@
+import React from 'react';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';
 

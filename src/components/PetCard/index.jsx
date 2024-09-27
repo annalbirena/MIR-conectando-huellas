@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Card, Group, Image, Stack, Text, Title } from '@mantine/core';
 import PropTypes from 'prop-types';
 import classes from './petcard.module.css';
@@ -32,16 +33,14 @@ function PetCard({ data, variant }) {
 }
 
 PetCard.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      age: PropTypes.string.isRequired,
-      sex: PropTypes.string.isRequired,
-      size: PropTypes.string.isRequired,
-      lostDate: PropTypes.string,
-    }),
-  ).isRequired,
+  data: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    age: PropTypes.string.isRequired,
+    sex: PropTypes.string.isRequired,
+    size: PropTypes.string.isRequired,
+    lostDate: PropTypes.string,
+  }).isRequired,
   variant: PropTypes.string.isRequired, // lost / adoption
 };
 

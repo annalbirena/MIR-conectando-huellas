@@ -1,3 +1,4 @@
+import React from 'react';
 import { Group, Image, Title } from '@mantine/core';
 import PropTypes from 'prop-types';
 

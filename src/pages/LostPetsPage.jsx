@@ -1,3 +1,4 @@
+import React from 'react';
 import AppLayout from '../components/AppLayout';
 import PetCard from '../components/PetCard';
 import TitlePage from '../components/TitlePage';
@@ -9,7 +10,7 @@ const petData = {
   age: '5',
   sex: 'Hembra',
   size: 'Mediano',
-  lostDate: '29/25/24',
+  lostDate: '25/09/24',
 };
 
 function LostsPetsPage() {
