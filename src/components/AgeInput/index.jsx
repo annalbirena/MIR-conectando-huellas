@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { NativeSelect, rem, TextInput } from '@mantine/core';
+import PropTypes from 'prop-types';
 
 const data = [
   {
@@ -11,7 +13,7 @@ const data = [
   },
 ];
 
-function AgeInput() {
+function AgeInput({ form }) {
   const select = (
     <NativeSelect
       data={data}
@@ -24,19 +26,27 @@ function AgeInput() {
           marginRight: rem(-2),
         },
       }}
+      {...form.getInputProps('pet.age.type')}
     />
   );
 
   return (
     <TextInput
-      type="number"
-      placeholder="Edad"
-      label="Edad"
       withAsterisk
+      type="number"
+      label="Edad"
+      placeholder="Edad"
       rightSection={select}
       rightSectionWidth={92}
+      {...form.getInputProps('pet.age.number')}
     />
   );
 }
+
+AgeInput.propTypes = {
+  form: PropTypes.shape({
+    getInputProps: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default AgeInput;

@@ -1,5 +1,7 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
-import { Button,
+import {
+  Button,
   Group,
   Image,
   Input,
@@ -7,7 +9,8 @@ import { Button,
   Select,
   Stack,
   Text,
-  Textarea } from '@mantine/core';
+  Textarea,
+} from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';
 
