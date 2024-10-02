@@ -1,18 +1,32 @@
 import React from 'react';
 import { Button,
+  Checkbox,
+  FileInput,
   Group,
-  Image,
   Input,
-  NumberInput,
+  rem,
   Select,
   Stack,
   Text,
   Textarea } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
+import { IconPhotoScan } from '@tabler/icons-react';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';
+import AgeInput from '../components/AgeInput';
+import MapCard from '../components/MapCard';
 
 function LostPetRegistrationPage() {
+  const icon = (
+    <IconPhotoScan
+      style={{
+        width: rem(18),
+        height: rem(18),
+      }}
+      stroke={1.5}
+    />
+  );
+
   return (
     <AppLayout>
       <Stack>
@@ -34,7 +48,7 @@ function LostPetRegistrationPage() {
             />
           </Group>
           <Group grow>
-            <NumberInput label="Edad" withAsterisk placeholder="Ingrese Edad" />
+            <AgeInput />
             <Select
               label="Sexo"
               withAsterisk
@@ -61,31 +75,47 @@ function LostPetRegistrationPage() {
               label="Estado"
               withAsterisk
               placeholder="Seleccione estado"
+              defaultValue="Perdido"
               data={['Encontrado', 'Perdido']}
             />
           </Group>
-          <Input.Wrapper label="Contacto" withAsterisk>
-            <Input placeholder="Ingrese contacto" />
-          </Input.Wrapper>
+          <FileInput
+            leftSection={icon}
+            label="Cargar imagen"
+            placeholder="Seleccione imagen desde su equipo"
+            withAsterisk
+            leftSectionPointerEvents="none"
+          />
+          <Checkbox label="Usar dirección de usuario registrada" />
           <Group grow>
+            <Input.Wrapper label="Nombre de Contacto" withAsterisk>
+              <Input placeholder="Ingrese Nombre" />
+            </Input.Wrapper>
+            <Input.Wrapper label="Teléfono de Contacto" withAsterisk>
+              <Input placeholder="Ingrese Teléfono" />
+            </Input.Wrapper>
+          </Group>
+          <Input.Wrapper label="Dirección de Contacto" withAsterisk>
+            <Input placeholder="Ingrese Dirección" />
+          </Input.Wrapper>
+          <Group grow align="flex-start">
+            <Stack gap={4}>
+              <Text fw={500} size="sm">
+                Ubicación de lugar de perdida{' '}
+                <Text span c="red">
+                  *
+                </Text>
+              </Text>
+              <MapCard />
+            </Stack>
             <Textarea
               label="Descripción adicional"
               placeholder="Ingrese descripción"
             />
-            <Stack>
-              <Text fw={500}>Ubicación de lugar de perdida</Text>
-              <Image
-                radius="md"
-                h={100}
-                w="auto"
-                fit="contain"
-                src="src/assets/images/mapa.png"
-              />
-            </Stack>
           </Group>
         </Stack>
-        <Group mt="xl">
-          <Button m="auto">Guardar datos</Button>
+        <Group mt="xl" justify="flex-end">
+          <Button>Guardar datos</Button>
         </Group>
       </Stack>
     </AppLayout>
