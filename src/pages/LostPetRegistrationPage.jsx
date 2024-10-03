@@ -222,6 +222,8 @@ function LostPetRegistrationPage() {
               )}
             </Stack>
             <Textarea
+              autosize
+              minRows={2}
               label="Descripción adicional"
               placeholder="Ingrese descripción"
               {...form.getInputProps('pet.description')}
