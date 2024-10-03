@@ -5,7 +5,7 @@ import TitlePage from '../components/TitlePage';
 import petData from '../data/petData';
 import PetRegistered from '../components/PetRegistered';
 
-function RegisteredPetsPage() {
+function UserPetsPage() {
   const pets = petData.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetRegistered data={pet} variant="lost" />
@@ -34,4 +34,4 @@ function RegisteredPetsPage() {
   );
 }
 
-export default RegisteredPetsPage;
+export default UserPetsPage;

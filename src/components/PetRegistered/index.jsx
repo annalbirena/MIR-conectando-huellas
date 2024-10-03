@@ -1,5 +1,7 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
-import { Button,
+import {
+  Button,
   Card,
   Group,
   Image,
@@ -10,7 +12,8 @@ import { Button,
   Input,
   NumberInput,
   Select,
-  Textarea } from '@mantine/core';
+  Textarea,
+} from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { useDisclosure } from '@mantine/hooks';
 import PropTypes from 'prop-types';
