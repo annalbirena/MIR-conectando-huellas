@@ -207,6 +207,25 @@ function LostPetRegistrationPage() {
               }
               {...form.getInputProps('pet.image')}
             />
+            <Stack gap={4}>
+              <Text fw={500} size="sm">
+                Ubicación de lugar de perdida{' '}
+                <Text span c="red">
+                  *
+                </Text>
+              </Text>
+              <MapCard location={location} setLocation={setLocation} />
+              {locationError && (
+                <Text c="red" size="xs">
+                  Seleccionar ubicación en mapa
+                </Text>
+              )}
+            </Stack>
+            <Textarea
+              label="Descripción adicional"
+              placeholder="Ingrese descripción"
+              {...form.getInputProps('pet.description')}
+            />
             <Checkbox
               label="Usar dirección de usuario registrada"
               onChange={(event) =>
@@ -233,27 +252,6 @@ function LostPetRegistrationPage() {
               placeholder="Ingrese Dirección"
               {...form.getInputProps('contact.address')}
             />
-            <Group grow align="flex-start">
-              <Stack gap={4}>
-                <Text fw={500} size="sm">
-                  Ubicación de lugar de perdida{' '}
-                  <Text span c="red">
-                    *
-                  </Text>
-                </Text>
-                {locationError && (
-                  <Text c="red" size="xs">
-                    Seleccionar ubicación en mapa
-                  </Text>
-                )}
-                <MapCard location={location} setLocation={setLocation} />
-              </Stack>
-              <Textarea
-                label="Descripción adicional"
-                placeholder="Ingrese descripción"
-                {...form.getInputProps('pet.description')}
-              />
-            </Group>
 
             <Group mt="xl" justify="flex-end">
               <Button type="submit">Registrar mascota</Button>

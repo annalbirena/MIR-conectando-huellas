@@ -31,7 +31,7 @@ function MapCard({ location = null, setLocation }) {
   }
 
   return (
-    <Box h={400}>
+    <Box h={300}>
       <Map
         ref={mapRef}
         initialViewState={viewPort}
