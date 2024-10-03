@@ -7,6 +7,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useState, useEffect } from 'react';
 import {
+  Breadcrumbs,
   Button,
   Checkbox,
   FileInput,
@@ -21,6 +22,7 @@ import {
 import { DateInput } from '@mantine/dates';
 import { IconPhotoScan } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
+import { Link } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';
 import AgeInput from '../components/AgeInput';
@@ -116,7 +118,17 @@ function LostPetRegistrationPage() {
 
   return (
     <AppLayout>
-      <Stack>
+      <Stack gap={0}>
+        <Breadcrumbs pb="xl">
+          <Link to="/registro">
+            <Text c="purpleBrand.4" fw={500} size="lg">
+              Registro
+            </Text>
+          </Link>
+          <Text fw={500} size="lg">
+            Registro de Mascota Perdida
+          </Text>
+        </Breadcrumbs>
         <TitlePage
           text="Registro de"
           image="src/assets/images/lost-pet-text.svg"
@@ -255,7 +267,7 @@ function LostPetRegistrationPage() {
               {...form.getInputProps('contact.address')}
             />
 
-            <Group mt="xl" justify="flex-end">
+            <Group mt="lg" justify="flex-end">
               <Button type="submit">Registrar mascota</Button>
             </Group>
           </Stack>
