@@ -1,6 +1,8 @@
+/* eslint-disable object-curly-newline */
 // eslint-disable-next-line object-curly-newline
 import React from 'react';
-import { Avatar,
+import {
+  Avatar,
   Burger,
   Group,
   Image,
