@@ -11,6 +11,7 @@ import SheltersPage from './pages/SheltersPage';
 import RegisteredPetsPage from './pages/RegisteredPetsPage';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
+import PetDetailsPage from './pages/PetDetailsPage';
 
 function App() {
   return (
@@ -18,7 +19,12 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/perdidos" element={<LostsPetsPage />} />
+        <Route path="/perdidos/:id" element={<PetDetailsPage isLost />} />
         <Route path="/adopcion" element={<AdoptionPage />} />
+        <Route
+          path="/adopcion/:id"
+          element={<PetDetailsPage isLost={false} />}
+        />
         <Route path="/albergues" element={<SheltersPage />} />
         <Route path="/registro" element={<RegistrationPage />} />
         <Route

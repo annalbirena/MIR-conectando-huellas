@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 // eslint-disable-next-line object-curly-newline
 import React from 'react';
 import {
@@ -49,7 +50,7 @@ function Header() {
             hiddenFrom="sm"
           />
           <Link to="/">
-            <Image height={60} src="src/assets/images/logo-color.svg" />
+            <Image height={60} src="/src/assets/images/logo-color.svg" />
           </Link>
         </Group>
 
