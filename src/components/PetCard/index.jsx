@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Card, Group, Image, Stack, Text, Title } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classes from './petcard.module.css';
 
-function PetCard({ data, variant }) {
+function PetCard({ data, isLost }) {
   return (
     <Card w="100%" maw={350} className={classes.card}>
       <Card.Section>
@@ -23,7 +24,7 @@ function PetCard({ data, variant }) {
               Sexo: {data.sex}
             </Text>
           </Group>
-          {variant === 'lost' ? (
+          {isLost ? (
             <Text c="dark.7" size="sm">
               Fecha de perdida: {data.lostDate}
             </Text>
@@ -33,15 +34,18 @@ function PetCard({ data, variant }) {
           </Text>
         </Stack>
       </Card.Section>
-      <Button mt="md" variant="filled" color="dark">
-        Ver más
-      </Button>
+      <Link to={`/${isLost ? 'perdidos' : 'adopcion'}/${data.id}`}>
+        <Button w="100%" mt="md" variant="filled" color="dark">
+          Ver más
+        </Button>
+      </Link>
     </Card>
   );
 }
 
 PetCard.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     age: PropTypes.string.isRequired,
@@ -49,7 +53,7 @@ PetCard.propTypes = {
     size: PropTypes.string.isRequired,
     lostDate: PropTypes.string,
   }).isRequired,
-  variant: PropTypes.string.isRequired, // lost / adoption
+  isLost: PropTypes.bool.isRequired, // lost / adoption
 };
 
 export default PetCard;

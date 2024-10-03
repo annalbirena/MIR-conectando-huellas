@@ -128,7 +128,7 @@ function AdoptionPetRegistrationPage() {
 
         <TitlePage
           text="Registro de"
-          image="src/assets/images/lost-pet-text.svg"
+          image="/src/assets/images/lost-pet-text.svg"
           imagePosition="right"
         />
 

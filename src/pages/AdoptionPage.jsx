@@ -8,7 +8,7 @@ import petData from '../data/petData';
 function AdoptionPage() {
   const pets = petData.map((pet) => (
     <Group key={pet.id} justify="center">
-      <PetCard data={pet} variant="adoption" />
+      <PetCard data={pet} isLost={false} />
     </Group>
   ));
 
@@ -17,7 +17,7 @@ function AdoptionPage() {
       <Stack>
         <TitlePage
           text="una Mascota"
-          image="src/assets/images/adoption-text.svg"
+          image="/src/assets/images/adoption-text.svg"
           imagePosition="left"
         />
         <SimpleGrid
