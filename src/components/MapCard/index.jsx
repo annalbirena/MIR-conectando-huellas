@@ -1,33 +1,66 @@
+/* eslint-disable react/require-default-props */
 import * as React from 'react';
 import { Box } from '@mantine/core';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import MapLibreGl from 'maplibre-gl';
-import Map from 'react-map-gl/maplibre';
+import PropTypes from 'prop-types';
+import { useRef } from 'react';
+import { Map, Marker } from 'react-map-gl';
 
-function MapCard() {
+const containerStyle = {
+  width: '100%',
+  height: '100%',
+  borderRadius: 5,
+};
+
+const viewPort = {
+  latitude: -12.113887,
+  longitude: -77.033996,
+  zoom: 10,
+};
+
+function MapCard({ location = null, setLocation }) {
+  const mapRef = useRef(null);
+
   function handleClick(e) {
     const { lat, lng } = e.lngLat;
-    console.log(lat, lng);
+    setLocation({
+      latitude: lat,
+      longitude: lng,
+    });
   }
 
   return (
     <Box h={400}>
       <Map
+        ref={mapRef}
+        initialViewState={viewPort}
         mapLib={MapLibreGl}
-        initialViewState={{
-          latitude: 37.8,
-          longitude: -122.4,
-          zoom: 14,
-        }}
-        style={{
-          width: '100%',
-          height: '100%',
-          borderRadius: 5,
-        }}
+        style={containerStyle}
         onClick={(e) => handleClick(e)}
-        mapStyle="https://api.maptiler.com/maps/1d71cf3c-e33e-4a5e-b843-01ab183daad4/style.json?key=vRaFa8XivVdO0slo056m"
-      />
+        mapStyle="https://api.maptiler.com/maps/streets-v2/style.json?key=vRaFa8XivVdO0slo056m"
+      >
+        {location ? (
+          <Marker
+            latitude={location.latitude}
+            longitude={location.longitude}
+            color="red"
+          />
+        ) : null}
+      </Map>
     </Box>
   );
 }
+
+MapCard.propTypes = {
+  location: PropTypes.oneOfType([
+    PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+    }),
+    PropTypes.oneOf([null]),
+  ]),
+  setLocation: PropTypes.func.isRequired,
+};
 
 export default MapCard;

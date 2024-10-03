@@ -1,15 +1,16 @@
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-wrap-multilines */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Checkbox,
   FileInput,
   Group,
-  Input,
   rem,
   Select,
   Stack,
@@ -26,6 +27,9 @@ import AgeInput from '../components/AgeInput';
 import MapCard from '../components/MapCard';
 
 function LostPetRegistrationPage() {
+  const [location, setLocation] = useState(null);
+  const [locationError, setLocationError] = useState(false);
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -34,18 +38,15 @@ function LostPetRegistrationPage() {
         type: '',
         age: {
           number: 0,
-          type: '',
+          type: 'year',
         },
         sex: '',
         breed: '', // raza
         size: '',
-        lostDate: null, // valor inicial?
-        lostlocation: {
-          latitude: 0,
-          longitude: 0,
-        },
+        lostDate: null,
+        lostLocation: null,
         state: 'perdido',
-        image: '', // valor inicial?
+        image: null,
         description: '',
       },
       contact: {
@@ -68,9 +69,50 @@ function LostPetRegistrationPage() {
           value.length < 2 ? 'Debe seleccionar el tamaño' : null,
         lostDate: (value) =>
           value === null ? 'Debe seleccionar una fecha' : null,
+        image: (value) => (value === null ? 'Debe cargar una foto' : null),
+        lostLocation: (value) => (value === null ? 'Error' : null),
+      },
+      contact: {
+        name: (value) =>
+          value.length < 2 ? 'Nombre debe tener al menos 3 carácteres' : null,
+        phone: (value) =>
+          value.length < 8 ? 'Celular debe tener al menos 9 carácteres' : null,
+        address: (value) =>
+          value.length < 2
+            ? 'Dirección debe tener al menos 10 carácteres'
+            : null,
       },
     },
   });
+
+  const onSetDefaultDirection = (checked) => {
+    if (checked) {
+      form.setFieldValue('contact.name', 'Jane');
+      form.setFieldValue('contact.phone', '999165999');
+      form.setFieldValue('contact.address', 'Av. 7 de Abril 2020, Lima');
+    } else {
+      form.setFieldValue('contact.name', '');
+      form.setFieldValue('contact.phone', '');
+      form.setFieldValue('contact.address', '');
+    }
+  };
+
+  useEffect(() => {
+    form.setFieldValue('pet.lostLocation', location);
+  }, [location]);
+
+  const handleError = (errors) => {
+    if (errors['pet.lostLocation']) {
+      setLocationError(true);
+    } else {
+      setLocationError(false);
+    }
+  };
+
+  const handleSubmit = (values) => {
+    setLocationError(false);
+    console.log(values);
+  };
 
   return (
     <AppLayout>
@@ -81,7 +123,7 @@ function LostPetRegistrationPage() {
           imagePosition="right"
         />
 
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={form.onSubmit(handleSubmit, handleError)}>
           <Stack>
             <Group grow align="flex-start">
               <TextInput
@@ -150,6 +192,10 @@ function LostPetRegistrationPage() {
               />
             </Group>
             <FileInput
+              withAsterisk
+              label="Cargar imagen"
+              placeholder="Seleccione imagen desde su equipo"
+              leftSectionPointerEvents="none"
               leftSection={
                 <IconPhotoScan
                   style={{
@@ -159,23 +205,34 @@ function LostPetRegistrationPage() {
                   stroke={1.5}
                 />
               }
-              label="Cargar imagen"
-              placeholder="Seleccione imagen desde su equipo"
-              withAsterisk
-              leftSectionPointerEvents="none"
+              {...form.getInputProps('pet.image')}
             />
-            <Checkbox label="Usar dirección de usuario registrada" />
+            <Checkbox
+              label="Usar dirección de usuario registrada"
+              onChange={(event) =>
+                onSetDefaultDirection(event.currentTarget.checked)
+              }
+            />
             <Group grow align="flex-start">
-              <Input.Wrapper label="Nombre de Contacto" withAsterisk>
-                <Input placeholder="Ingrese Nombre" />
-              </Input.Wrapper>
-              <Input.Wrapper label="Teléfono de Contacto" withAsterisk>
-                <Input placeholder="Ingrese Teléfono" />
-              </Input.Wrapper>
+              <TextInput
+                withAsterisk
+                label="Nombre de Contacto"
+                placeholder="Nombre de Contacto"
+                {...form.getInputProps('contact.name')}
+              />
+              <TextInput
+                withAsterisk
+                label="Celular de Contacto"
+                placeholder="Ingrese Celular"
+                {...form.getInputProps('contact.phone')}
+              />
             </Group>
-            <Input.Wrapper label="Dirección de Contacto" withAsterisk>
-              <Input placeholder="Ingrese Dirección" />
-            </Input.Wrapper>
+            <TextInput
+              withAsterisk
+              label="Dirección de Contacto"
+              placeholder="Ingrese Dirección"
+              {...form.getInputProps('contact.address')}
+            />
             <Group grow align="flex-start">
               <Stack gap={4}>
                 <Text fw={500} size="sm">
@@ -184,16 +241,22 @@ function LostPetRegistrationPage() {
                     *
                   </Text>
                 </Text>
-                <MapCard />
+                {locationError && (
+                  <Text c="red" size="xs">
+                    Seleccionar ubicación en mapa
+                  </Text>
+                )}
+                <MapCard location={location} setLocation={setLocation} />
               </Stack>
               <Textarea
                 label="Descripción adicional"
                 placeholder="Ingrese descripción"
+                {...form.getInputProps('pet.description')}
               />
             </Group>
 
             <Group mt="xl" justify="flex-end">
-              <Button type="submit">Guardar datos</Button>
+              <Button type="submit">Registrar mascota</Button>
             </Group>
           </Stack>
         </form>
