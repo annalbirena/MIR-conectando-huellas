@@ -8,7 +8,7 @@ import petData from '../data/petData';
 function LostsPetsPage() {
   const pets = petData.map((pet) => (
     <Group key={pet.id} justify="center">
-      <PetCard data={pet} variant="lost" />
+      <PetCard data={pet} isLost />
     </Group>
   ));
 
@@ -17,7 +17,7 @@ function LostsPetsPage() {
       <Stack>
         <TitlePage
           text="Mascotas"
-          image="src/assets/images/lost-text.svg"
+          image="/src/assets/images/lost-text.svg"
           imagePosition="right"
         />
         <SimpleGrid
