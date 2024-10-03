@@ -8,6 +8,9 @@ import AdoptionPetRegistrationPage from './pages/AdoptionPetRegistrationPage';
 import RegistrationPage from './pages/RegistrationPage';
 import LostPetRegistrationPage from './pages/LostPetRegistrationPage';
 import SheltersPage from './pages/SheltersPage';
+import RegisteredPetsPage from './pages/RegisteredPetsPage';
+import Login from './pages/Login';
+import Registration from './pages/Registration';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           path="/registro-mascota-adopcion"
           element={<AdoptionPetRegistrationPage />}
         />
+        <Route path="/mascotas-registradas" element={<RegisteredPetsPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
       </Routes>
     </BrowserRouter>
   );
