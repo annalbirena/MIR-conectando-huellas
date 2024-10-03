@@ -14,7 +14,7 @@ function AppLayout({ children }) {
           padding: '48px 16px 100px 16px',
         }}
       >
-        <Stack gap={0} maw="900px" m="auto">
+        <Stack gap={0} maw="980px" m="auto">
           {children}
         </Stack>
       </main>
