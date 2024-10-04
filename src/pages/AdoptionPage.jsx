@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SimpleGrid, Button, Stack, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';
 import PetCard from '../components/PetCard';
-import petData from '../data/petData';
 import Filters from '../components/Filter';
 
 function AdoptionPage() {
-  const pets = petData.map((pet) => (
+  const [mascotas, setMascotas] = useState([]);
+  useEffect(() => {
+    // const url=import.meta.env.VITE_API_URL_ADOPT
+    fetch('http://localhost:8080/api/adoptPetData')
+      .then((response) => {
+        return response.json();
+      })
+      .then((mascotas) => {
+        setMascotas(mascotas);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+  const pets = mascotas.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetCard data={pet} isLost={false} />
     </Group>

@@ -6,13 +6,12 @@ import AppLayout from '../components/AppLayout';
 import PetCard from '../components/PetCard';
 import TitlePage from '../components/TitlePage';
 import Filters from '../components/Filter';
-import petData from '../data/petData';
 
 function LostsPetsPage() {
   const [mascotas, setMascotas] = useState([]);
-
   useEffect(() => {
-    fetch('http://localhost:8080/api/petData')
+    //const url=import.meta.env.VITE_API_URL_LOST
+    fetch('http://localhost:8080/api/lostPetData')
       .then((response) => {
         return response.json();
       })
@@ -23,10 +22,6 @@ function LostsPetsPage() {
         console.error('Error:', error);
       });
   }, []);
-  console.log(mascotas);
-  const petsImage = petData.map((pet) => pet.image);
-  console.log(petsImage);
-  console.log(mascotas.image);
   const pets = mascotas.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetCard data={pet} isLost />

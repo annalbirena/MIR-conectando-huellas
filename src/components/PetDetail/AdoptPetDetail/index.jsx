@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { Group, Image, Stack, Text, Title } from '@mantine/core';
 import PropTypes from 'prop-types';
 import PetMapCard from '../../PetMapCard';
+import { useParams } from 'react-router-dom';
 
 function Field({ label, value }) {
   return (
@@ -18,14 +20,27 @@ Field.propTypes = {
 };
 
 function AdoptPetDetail() {
+  const { id } = useParams();
+  console.log('Lost Pet details', id);
+  const [data, setData] = useState({});
+  useEffect(() => {
+    // const url=import.meta.env.VITE_API_URL_ADOPT
+    fetch(`http://localhost:8080/api/adoptPetData/${id}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setData(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+  console.log(data);
   return (
     <Stack>
       <Group grow justify="space-between">
-        <Image
-          src="https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Foto de mascota"
-          h={550}
-        />
+        <Image src={data.pet.image} alt="Foto de mascota" h={550} />
 
         <Stack gap="xl">
           <Title
@@ -35,32 +50,35 @@ function AdoptPetDetail() {
             fw={400}
             size={48}
           >
-            Kiara
+            {data.pet.name}
           </Title>
           <Stack gap="xs">
             <Group grow>
-              <Field label="Edad" value="4 años" />
-              <Field label="Especie" value="Perro" />
+              <Field
+                label="Edad"
+                value={data.pet.age.number + ' ' + data.pet.age.type}
+              />
+              <Field label="Especie" value={data.pet.type} />
             </Group>
             <Group grow>
-              <Field label="Sexo" value="Macho" />
-              <Field label="Raza" value="Labrador" />
+              <Field label="Sexo" value={data.pet.sex} />
+              <Field label="Raza" value={data.pet.breed} />
             </Group>
             <Group grow>
-              <Field label="Tamaño" value="Mediano" />
-              <Field label="Estado" value="En adopción" />
+              <Field label="Tamaño" value={data.pet.size} />
+              <Field label="Estado" value={data.pet.state} />
             </Group>
           </Stack>
 
           <Stack gap="xs">
             <Text fw="600">Contacto</Text>
-            <Field label="Nombre" value="Jane Mayta" />
-            <Field label="Celular" value="999165999" />
-            <Field label="Dirección" value="Av. 7 de Abril Nº2020 Lima" />
+            <Field label="Nombre" value={data.contact.name} />
+            <Field label="Celular" value={data.contact.phone} />
+            <Field label="Dirección" value={data.contact.address} />
           </Stack>
         </Stack>
       </Group>
-      <Field label="Descripción adicional" value="-" />
+      <Field label="Descripción adicional" value={data.pet.description} />
       <Text size="sm" c="dimmed">
         Ubicación de mascota
       </Text>

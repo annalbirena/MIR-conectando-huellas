@@ -115,7 +115,8 @@ function LostPetRegistrationPage() {
 
   const handleSubmit = (values) => {
     setLocationError(false);
-    fetch('http://localhost:8080/petData', {
+    // const url=import.meta.env.VITE_API_URL_LOST;
+    fetch('http://localhost:8080/api/lostPetData', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -231,7 +232,7 @@ function LostPetRegistrationPage() {
                   stroke={1.5}
                 />
               }
-              {...form.getInputProps('pet.image')}
+              //{...form.getInputProps('pet.image')}
             />
             <Stack gap={4}>
               <Text fw={500} size="sm">

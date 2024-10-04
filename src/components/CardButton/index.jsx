@@ -1,3 +1,4 @@
+import React from 'react';
 import { BackgroundImage, Center, Title } from '@mantine/core';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';

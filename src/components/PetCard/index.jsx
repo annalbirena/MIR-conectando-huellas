@@ -47,7 +47,7 @@ PetCard.propTypes = {
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       age: PropTypes.shape({
-        number: PropTypes.number.isRequired,
+        number: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
       }),
       sex: PropTypes.string.isRequired,
