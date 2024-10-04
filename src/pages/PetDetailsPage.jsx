@@ -24,9 +24,6 @@ Field.propTypes = {
 };
 
 function PetDetailsPage({ isLost }) {
-  /* const { id } = useParams(); */
-  /* console.log('Pet details', id); */
-
   return (
     <AppLayout>
       <>

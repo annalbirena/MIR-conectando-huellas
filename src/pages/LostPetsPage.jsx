@@ -1,19 +1,30 @@
 /* eslint-disable object-curly-newline */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SimpleGrid, Button, Stack, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import PetCard from '../components/PetCard';
 import TitlePage from '../components/TitlePage';
-import petData from '../data/petData';
 import Filters from '../components/Filter';
 
 function LostsPetsPage() {
-  const pets = petData.map((pet) => (
+  const [lostPetData, setLostPetData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/lostPetData')
+      .then((response) => response.json())
+      .then((data) => {
+        setLostPetData(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+  const pets = lostPetData.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetCard data={pet} isLost />
     </Group>
   ));
-
   return (
     <AppLayout>
       <Stack>

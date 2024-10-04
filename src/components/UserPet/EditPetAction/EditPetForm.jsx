@@ -4,6 +4,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 import {
   Button,
   FileInput,

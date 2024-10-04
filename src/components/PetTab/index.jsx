@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Group, SimpleGrid, Stack, Tabs } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import classes from './pettab.module.css';

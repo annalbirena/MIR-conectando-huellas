@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';

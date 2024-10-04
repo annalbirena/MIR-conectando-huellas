@@ -48,7 +48,8 @@ function LostPetRegistrationPage() {
         lostDate: null,
         lostLocation: null,
         state: 'perdido',
-        image: null,
+        image:
+          'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
         description: '',
       },
       contact: {
@@ -114,7 +115,18 @@ function LostPetRegistrationPage() {
 
   const handleSubmit = (values) => {
     setLocationError(false);
-    console.log(values);
+    // const url=import.meta.env.VITE_API_URL_LOST;
+    fetch('http://localhost:8080/api/lostPetData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then()
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -218,7 +230,7 @@ function LostPetRegistrationPage() {
                   stroke={1.5}
                 />
               }
-              {...form.getInputProps('pet.image')}
+              // {...form.getInputProps('pet.image')}
             />
             <Stack gap={4}>
               <Text fw={500} size="sm">
@@ -267,7 +279,6 @@ function LostPetRegistrationPage() {
               placeholder="Ingrese Dirección"
               {...form.getInputProps('contact.address')}
             />
-
             <Group mt="lg" justify="flex-end">
               <Button type="submit">Registrar mascota</Button>
             </Group>

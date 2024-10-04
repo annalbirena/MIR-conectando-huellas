@@ -1,3 +1,4 @@
+import React from 'react';
 import { Accordion, Checkbox, Stack, Title } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import PropTypes from 'prop-types';

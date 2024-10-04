@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 import { NativeSelect, rem, TextInput } from '@mantine/core';
 import PropTypes from 'prop-types';
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Modal, Text } from '@mantine/core';
 import PropTypes from 'prop-types';
 
