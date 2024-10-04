@@ -1,6 +1,9 @@
-import { createTheme,
+/* eslint-disable object-curly-newline */
+import {
+  createTheme,
   defaultVariantColorsResolver,
-  parseThemeColor } from '@mantine/core';
+  parseThemeColor,
+} from '@mantine/core';
 import { yellowGreen, brightPurple, darkBrand } from './colors';
 
 const theme = createTheme({

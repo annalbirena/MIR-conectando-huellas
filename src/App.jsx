@@ -9,6 +9,9 @@ import RegistrationPage from './pages/RegistrationPage';
 import LostPetRegistrationPage from './pages/LostPetRegistrationPage';
 import SheltersPage from './pages/SheltersPage';
 import PetDetailsPage from './pages/PetDetailsPage';
+import UserPetsPage from './pages/UserPetsPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
           path="/registro-mascota-adopcion"
           element={<AdoptionPetRegistrationPage />}
         />
+        <Route path="/mis-mascotas" element={<UserPetsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </BrowserRouter>
   );
