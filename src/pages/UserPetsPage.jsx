@@ -1,24 +1,26 @@
 import React from 'react';
-import { Group, Stack, SimpleGrid } from '@mantine/core';
+import { Stack, SimpleGrid, Title, Checkbox, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
-import TitlePage from '../components/TitlePage';
 import petData from '../data/petData';
-import PetRegistered from '../components/PetRegistered';
+import UserPetCard from '../components/UserPet/UserPetCard';
 
 function UserPetsPage() {
   const pets = petData.map((pet) => (
-    <Group key={pet.id} justify="center">
-      <PetRegistered data={pet} variant="lost" />
-    </Group>
+    <UserPetCard key={pet.id} data={pet} isLost />
   ));
+
   return (
     <AppLayout>
       <Stack>
-        <TitlePage
-          text="Tus Mascotas  "
-          image="src/assets/images/adoption-pet-text.svg"
-          imagePosition="right"
-        />
+        <Title order={1} ta="center" fw={600} pb={48}>
+          Mis mascotas
+        </Title>
+        <Checkbox.Group label="Filtrar por:" pb={24}>
+          <Group mt="xs">
+            <Checkbox value="perdido" label="Perdidos" />
+            <Checkbox value="adopcion" label="En adopción" />
+          </Group>
+        </Checkbox.Group>
         <SimpleGrid
           cols={{
             base: 1,

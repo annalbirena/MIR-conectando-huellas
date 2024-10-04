@@ -35,7 +35,7 @@ function App() {
           path="/registro-mascota-adopcion"
           element={<AdoptionPetRegistrationPage />}
         />
-        <Route path="/mascotas-registradas" element={<UserPetsPage />} />
+        <Route path="/mis-mascotas" element={<UserPetsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Routes>
