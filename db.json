@@ -1,0 +1,33 @@
+{
+  "petData": [
+    {
+      "pet": {
+        "name": "lost",
+        "type": "perro",
+        "age": {
+          "number": "8",
+          "type": "year"
+        },
+        "sex": "macho",
+        "breed": "monches",
+        "size": "mediano",
+        "lostDate": "2024-10-01T05:00:00.000Z",
+        "lostLocation": {
+          "latitude": -12.070727940830594,
+          "longitude": -77.0576852700199
+        },
+        "state": "perdido",
+        "image": {},
+        "description": ""
+      },
+      "contact": {
+        "name": "Jane",
+        "phone": "999165999",
+        "address": "Av. 7 de Abril 2020, Lima"
+      },
+      "userId": "123456",
+      "id": 1
+    }
+  ],
+  "users": []
+}
