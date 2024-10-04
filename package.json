@@ -11,11 +11,25 @@
     "prettier": "prettier --write --ignore-unknown .",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "api": "json-server --watch db.json --port 8080 --routes routes.json"
   },
   "dependencies": {
+    "@mantine/core": "^7.12.2",
+    "@mantine/dates": "^7.13.0",
+    "@mantine/form": "^7.13.1",
+    "@mantine/hooks": "^7.12.2",
+    "@tabler/icons-react": "^3.19.0",
+    "@types/mapbox-gl": "^3.4.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "mapbox-gl": "^3.7.0",
+    "maplibre-gl": "^4.7.1",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-map-gl": "^7.1.7",
+    "react-router-dom": "^6.26.2",
+    "vite": "^5.4.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
@@ -23,7 +37,6 @@
     "@eslint/js": "^9.9.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.30.0",
@@ -33,9 +46,12 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
     "husky": "^9.1.6",
+    "json-server": "0.17.4",
     "lint-staged": "^15.2.10",
-    "prettier": "3.3.3",
-    "vite": "^5.4.1"
+    "postcss": "^8.4.47",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
+    "prettier": "3.3.3"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

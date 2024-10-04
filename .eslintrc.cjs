@@ -13,5 +13,29 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 0,
     'react/jsx-one-expression-per-line': 0,
+    'import/no-named-as-default': 0,
+    'operator-linebreak': [
+      'error',
+      'after',
+      {
+        overrides: {
+          ':': 'before',
+        },
+      },
+    ],
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: 'always',
+        ObjectPattern: {
+          multiline: true,
+        },
+        ImportDeclaration: 'never',
+        ExportDeclaration: {
+          multiline: true,
+          minProperties: 3,
+        },
+      },
+    ],
   },
 };

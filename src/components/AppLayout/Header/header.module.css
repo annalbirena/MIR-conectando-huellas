@@ -1,0 +1,32 @@
+.header {
+  height: rem(120px);
+  max-width: rem(1180px);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: rem(0px) rem(24px);
+}
+
+.links {
+  flex: 1;
+}
+
+.link {
+  display: block;
+  padding: rem(8px) rem(12px);
+  border-radius: var(--mantine-radius-sm);
+  text-decoration: none;
+  color: var(--mantine-color-dark);
+  font-size: var(--mantine-font-size-md);
+  font-weight: 500;
+
+  @mixin hover {
+    background-color: var(--mantine-color-purpleBrand-0);
+  }
+}
+
+.userMenuLink {
+  color: var(--mantine-color-dark);
+  text-decoration: none;
+}
