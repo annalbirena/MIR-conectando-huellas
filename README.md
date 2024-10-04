@@ -60,5 +60,5 @@ Implementación de la librería React-Map-gl para el uso de la implementación e
 
 # Integrantes
 - Ana Albirena
-- Enrique Villareal
+- Antony Antezana
 - Alexander Puma
