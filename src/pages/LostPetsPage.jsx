@@ -1,6 +1,5 @@
 /* eslint-disable object-curly-newline */
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SimpleGrid, Button, Stack, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import PetCard from '../components/PetCard';
@@ -8,21 +7,20 @@ import TitlePage from '../components/TitlePage';
 import Filters from '../components/Filter';
 
 function LostsPetsPage() {
-  const [mascotas, setMascotas] = useState([]);
+  const [lostPetData, setLostPetData] = useState([]);
+
   useEffect(() => {
-    //const url=import.meta.env.VITE_API_URL_LOST
     fetch('http://localhost:8080/api/lostPetData')
-      .then((response) => {
-        return response.json();
-      })
-      .then((mascotas) => {
-        setMascotas(mascotas);
+      .then((response) => response.json())
+      .then((data) => {
+        setLostPetData(data);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
-  const pets = mascotas.map((pet) => (
+
+  const pets = lostPetData.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetCard data={pet} isLost />
     </Group>

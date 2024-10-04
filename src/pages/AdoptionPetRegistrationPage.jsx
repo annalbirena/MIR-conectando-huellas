@@ -45,7 +45,7 @@ function AdoptionPetRegistrationPage() {
         breed: '', // raza
         size: '',
         location: null,
-        state: 'en adopción',
+        state: 'enAdopcion',
         image:
           'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
         description: '',
@@ -111,7 +111,7 @@ function AdoptionPetRegistrationPage() {
 
   const handleSubmit = (values) => {
     setLocationError(false);
-    //const url=import.meta.env.VITE_API_URL_ADOPT;
+    // const url=import.meta.env.VITE_API_URL_ADOPT;
     fetch('http://localhost:8080/api/adoptPetData', {
       method: 'POST',
       headers: {
@@ -123,8 +123,6 @@ function AdoptionPetRegistrationPage() {
       .catch((error) => {
         console.error('Error:', error);
       });
-
-    console.log(values);
   };
 
   return (
@@ -212,14 +210,14 @@ function AdoptionPetRegistrationPage() {
                     stroke={1.5}
                   />
                 }
-                //{...form.getInputProps('pet.image')}
+                // {...form.getInputProps('pet.image')}
               />
               <Select
                 withAsterisk
                 label="Estado"
                 placeholder="Seleccione estado"
                 data={[
-                  { value: 'en adopcion', label: 'En Adopción' },
+                  { value: 'enAdopcion', label: 'En Adopción' },
                   { value: 'adoptado', label: 'Adoptado' },
                 ]}
                 {...form.getInputProps('pet.state')}

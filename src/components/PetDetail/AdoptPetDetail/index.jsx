@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Group, Image, Stack, Text, Title } from '@mantine/core';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PetMapCard from '../../PetMapCard';
-import { useParams } from 'react-router-dom';
 
 function Field({ label, value }) {
   return (
@@ -21,26 +21,23 @@ Field.propTypes = {
 
 function AdoptPetDetail() {
   const { id } = useParams();
-  console.log('Lost Pet details', id);
-  const [data, setData] = useState({});
+  const [petData, setPetData] = useState();
+
   useEffect(() => {
-    // const url=import.meta.env.VITE_API_URL_ADOPT
     fetch(`http://localhost:8080/api/adoptPetData/${id}`)
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        setData(data);
+        setPetData(data);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
-  console.log(data);
-  return (
+
+  return petData ? (
     <Stack>
       <Group grow justify="space-between">
-        <Image src={data.pet.image} alt="Foto de mascota" h={550} />
+        <Image src={petData.pet.image} alt="Foto de mascota" h={550} />
 
         <Stack gap="xl">
           <Title
@@ -50,41 +47,41 @@ function AdoptPetDetail() {
             fw={400}
             size={48}
           >
-            {data.pet.name}
+            {petData.pet.name}
           </Title>
           <Stack gap="xs">
             <Group grow>
               <Field
                 label="Edad"
-                value={data.pet.age.number + ' ' + data.pet.age.type}
+                value={`${petData.pet.age.number} ${petData.pet.age.type}`}
               />
-              <Field label="Especie" value={data.pet.type} />
+              <Field label="Especie" value={petData.pet.type} />
             </Group>
             <Group grow>
-              <Field label="Sexo" value={data.pet.sex} />
-              <Field label="Raza" value={data.pet.breed} />
+              <Field label="Sexo" value={petData.pet.sex} />
+              <Field label="Raza" value={petData.pet.breed} />
             </Group>
             <Group grow>
-              <Field label="Tamaño" value={data.pet.size} />
-              <Field label="Estado" value={data.pet.state} />
+              <Field label="Tamaño" value={petData.pet.size} />
+              <Field label="Estado" value={petData.pet.state} />
             </Group>
           </Stack>
 
           <Stack gap="xs">
             <Text fw="600">Contacto</Text>
-            <Field label="Nombre" value={data.contact.name} />
-            <Field label="Celular" value={data.contact.phone} />
-            <Field label="Dirección" value={data.contact.address} />
+            <Field label="Nombre" value={petData.contact.name} />
+            <Field label="Celular" value={petData.contact.phone} />
+            <Field label="Dirección" value={petData.contact.address} />
           </Stack>
         </Stack>
       </Group>
-      <Field label="Descripción adicional" value={data.pet.description} />
+      <Field label="Descripción adicional" value={petData.pet.description} />
       <Text size="sm" c="dimmed">
         Ubicación de mascota
       </Text>
       <PetMapCard />
     </Stack>
-  );
+  ) : null;
 }
 
 export default AdoptPetDetail;

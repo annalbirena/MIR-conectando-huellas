@@ -127,8 +127,6 @@ function LostPetRegistrationPage() {
       .catch((error) => {
         console.error('Error:', error);
       });
-
-    console.log(values);
   };
 
   return (
@@ -232,7 +230,7 @@ function LostPetRegistrationPage() {
                   stroke={1.5}
                 />
               }
-              //{...form.getInputProps('pet.image')}
+              // {...form.getInputProps('pet.image')}
             />
             <Stack gap={4}>
               <Text fw={500} size="sm">

@@ -70,7 +70,7 @@ PetCard.propTypes = {
     userId: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
   }).isRequired,
-  isLost: PropTypes.bool.isRequired, // lost / adoption
+  isLost: PropTypes.bool.isRequired,
 };
 
 export default PetCard;

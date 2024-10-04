@@ -6,22 +6,20 @@ import PetCard from '../components/PetCard';
 import Filters from '../components/Filter';
 
 function AdoptionPage() {
-  const [mascotas, setMascotas] = useState([]);
+  const [petData, setPetData] = useState([]);
+
   useEffect(() => {
-    // const url=import.meta.env.VITE_API_URL_ADOPT
     fetch('http://localhost:8080/api/adoptPetData')
-      .then((response) => {
-        return response.json();
-      })
-      .then((mascotas) => {
-        setMascotas(mascotas);
+      .then((response) => response.json())
+      .then((data) => {
+        setPetData(data);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
 
-  const pets = mascotas.map((pet) => (
+  const pets = petData.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetCard data={pet} isLost={false} />
     </Group>
