@@ -56,6 +56,7 @@ function LostPetRegistrationPage() {
         phone: '',
         address: '',
       },
+      userId: '123456',
     },
 
     validate: {
