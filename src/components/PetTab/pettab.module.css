@@ -1,0 +1,8 @@
+.tabLabel {
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 600;
+}
+
+.tab:where([data-active]) {
+  background-color: #e5ff6e;
+}

@@ -54,6 +54,7 @@ function AdoptionPetRegistrationPage() {
         phone: '',
         address: '',
       },
+      userId: '123456',
     },
 
     validate: {
@@ -128,7 +129,7 @@ function AdoptionPetRegistrationPage() {
 
         <TitlePage
           text="Registro de"
-          image="/src/assets/images/lost-pet-text.svg"
+          image="/src/assets/images/adoption-pet-text.svg"
           imagePosition="right"
         />
 

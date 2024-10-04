@@ -52,10 +52,10 @@ function Filters({ isLost }) {
           </Accordion.Item>
         ) : null}
 
-        <Accordion.Item value="ubicacion">
+        {/*  <Accordion.Item value="ubicacion">
           <Accordion.Control disabled>Ubicacion</Accordion.Control>
           <Accordion.Panel>Content</Accordion.Panel>
-        </Accordion.Item>
+        </Accordion.Item> */}
       </Accordion>
     </Stack>
   );
