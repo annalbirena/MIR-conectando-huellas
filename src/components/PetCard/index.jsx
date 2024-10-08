@@ -8,7 +8,12 @@ function PetCard({ data, isLost }) {
   return (
     <Card w="100%" maw={250} className={classes.card}>
       <Card.Section>
-        <Image src={data.pet.image} alt={data.pet.name} height={250} />
+        <Image
+          /* src={data.pet.image} */
+          src="https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg"
+          alt={data.pet.name}
+          height={250}
+        />
       </Card.Section>
       <Card.Section p="sm">
         <Stack gap="xs">
@@ -27,7 +32,7 @@ function PetCard({ data, isLost }) {
           </Text>
           {isLost ? (
             <Text c="dark.7" size="sm">
-              Fecha de perdida: {data.pet.lostDate.slice(0, 10)}
+              Fecha de perdida: {data.pet.lostDate}
             </Text>
           ) : null}
         </Stack>
@@ -43,6 +48,7 @@ function PetCard({ data, isLost }) {
 
 PetCard.propTypes = {
   data: PropTypes.shape({
+    type: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
@@ -54,12 +60,12 @@ PetCard.propTypes = {
       breed: PropTypes.string.isRequired,
       size: PropTypes.string.isRequired,
       lostDate: PropTypes.string,
-      lostLocation: PropTypes.shape({
+      location: PropTypes.shape({
         latitude: PropTypes.number.isRequired,
         longitude: PropTypes.number.isRequired,
-      }),
+      }).isRequired,
       state: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+      image: PropTypes.shape().isRequired,
       description: PropTypes.string.isRequired,
     }),
     contact: PropTypes.shape({

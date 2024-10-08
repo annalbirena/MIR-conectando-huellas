@@ -26,7 +26,7 @@ function LostPetDetail() {
 
   useEffect(() => {
     // const url=import.meta.env.VITE_API_URL_LOST
-    fetch(`http://localhost:8080/api/lostPetData/${id}`)
+    fetch(`http://localhost:8080/api/pets/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setPetData(data);
@@ -39,7 +39,12 @@ function LostPetDetail() {
   return petData ? (
     <Stack>
       <Group grow justify="space-between">
-        <Image src={petData.pet.image} alt="Foto de mascota" h={550} />
+        <Image
+          /* src={petData.pet.image} */
+          src="https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg"
+          alt="Foto de mascota"
+          h={550}
+        />
         <Stack gap="xl">
           <Title
             order={1}
@@ -59,17 +64,14 @@ function LostPetDetail() {
               <Field label="Especie" value={petData.pet.type} />
             </Group>
             <Group grow>
-              <Field label="Sexo" value={petData.pet.gender} />
+              <Field label="Sexo" value={petData.pet.sex} />
               <Field label="Raza" value={petData.pet.breed} />
             </Group>
             <Group grow>
               <Field label="Tamaño" value={petData.pet.size} />
               <Field label="Estado" value={petData.pet.state} />
             </Group>
-            <Field
-              label="Fecha de Perdida"
-              value={petData.pet.lostDate.slice(0, 10)}
-            />
+            <Field label="Fecha de Perdida" value={petData.pet.lostDate} />
           </Stack>
 
           <Stack gap="xs">
@@ -84,7 +86,7 @@ function LostPetDetail() {
       <Text size="sm" c="dimmed">
         Ubicación de lugar de perdida
       </Text>
-      <PetMapCard />
+      <PetMapCard location={petData.pet.location} />
     </Stack>
   ) : null;
 }

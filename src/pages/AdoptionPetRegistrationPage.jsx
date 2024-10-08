@@ -36,21 +36,21 @@ function AdoptionPetRegistrationPage() {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
+      type: 'adoption', // lost / adoption
       pet: {
         name: '',
-        type: '',
+        type: '', // dog / cat / other
         age: {
           number: 0,
-          type: 'year',
+          type: 'year', // year / month
         },
-        sex: '',
+        sex: '', // female / male
         breed: '', // raza
-        size: '',
+        size: '', // small / medium / large
+        lostDate: null,
         location: null,
-        state: 'enAdopcion',
-        /* image: null, */
-        image:
-          'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
+        state: 'available', // available / adopted
+        image: null,
         description: '',
       },
       contact: {
@@ -121,19 +121,18 @@ function AdoptionPetRegistrationPage() {
     setLocationError(false);
 
     try {
-      const res = await fetch('http://localhost:8080/api/lostPetData', {
+      const res = await fetch('http://localhost:8080/api/pets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
-      console.log(res);
 
       if (res.ok) {
         notifications.show({
           title: 'Mascota registrada',
-          message: 'Se registro tu mascota perdida',
+          message: 'Se registro tu mascota en adopción',
           icon: <IconCheck size={20} />,
         });
 
@@ -182,9 +181,9 @@ function AdoptionPetRegistrationPage() {
                 label="Tipo"
                 placeholder="Seleccione tipo"
                 data={[
-                  { value: 'perro', label: 'Perro' },
-                  { value: 'gato', label: 'Gato' },
-                  { value: 'otro', label: 'Otro' },
+                  { value: 'dog', label: 'Perro' },
+                  { value: 'cat', label: 'Gato' },
+                  { value: 'other', label: 'Otro' },
                 ]}
                 key={form.key('pet.type')}
                 {...form.getInputProps('pet.type')}
@@ -197,8 +196,8 @@ function AdoptionPetRegistrationPage() {
                 label="Sexo"
                 placeholder="Seleccione sexo"
                 data={[
-                  { value: 'hembra', label: 'Hembra' },
-                  { value: 'macho', label: 'Macho' },
+                  { value: 'female', label: 'Hembra' },
+                  { value: 'male', label: 'Macho' },
                 ]}
                 key={form.key('pet.sex')}
                 {...form.getInputProps('pet.sex')}
@@ -214,9 +213,9 @@ function AdoptionPetRegistrationPage() {
                 label="Tamaño"
                 placeholder="Seleccione tamaño"
                 data={[
-                  { value: 'pequeño', label: 'Pequeño' },
-                  { value: 'mediano', label: 'Mediano' },
-                  { value: 'grande', label: 'Grande' },
+                  { value: 'small', label: 'Pequeño' },
+                  { value: 'medium', label: 'Mediano' },
+                  { value: 'large', label: 'Grande' },
                 ]}
                 key={form.key('pet.size')}
                 {...form.getInputProps('pet.size')}
@@ -237,16 +236,16 @@ function AdoptionPetRegistrationPage() {
                     stroke={1.5}
                   />
                 }
-                /* key={form.key('pet.image')}
-              {...form.getInputProps('pet.image')} */
+                key={form.key('pet.image')}
+                {...form.getInputProps('pet.image')}
               />
               <Select
                 withAsterisk
                 label="Estado"
                 placeholder="Seleccione estado"
                 data={[
-                  { value: 'enAdopcion', label: 'En Adopción' },
-                  { value: 'adoptado', label: 'Adoptado' },
+                  { value: 'available', label: 'En Adopción' },
+                  { value: 'adopted', label: 'Adoptado' },
                 ]}
                 key={form.key('pet.state')}
                 {...form.getInputProps('pet.state')}

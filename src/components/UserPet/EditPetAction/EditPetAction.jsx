@@ -3,8 +3,9 @@ import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';
 import PropTypes from 'prop-types';
-import EditPetForm from './EditPetForm';
 import classes from './editpetaction.module.css';
+import EditAdoptionPetForm from './EditAdoptionPetForm';
+import EditLostPetForm from './EditLostPetForm';
 
 function EditPetAction({ data }) {
   const [isOpen, { open, close }] = useDisclosure(false);
@@ -19,21 +20,54 @@ function EditPetAction({ data }) {
       >
         Editar
       </Button>
-
-      <EditPetForm data={data} isOpen={isOpen} close={close} onClose={close} />
+      {data.type === 'lost' ? (
+        <EditLostPetForm
+          data={data}
+          isOpen={isOpen}
+          close={close}
+          onClose={close}
+        />
+      ) : (
+        <EditAdoptionPetForm
+          data={data}
+          isOpen={isOpen}
+          close={close}
+          onClose={close}
+        />
+      )}
     </>
   );
 }
 
 EditPetAction.propTypes = {
   data: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    pet: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      age: PropTypes.shape({
+        number: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }),
+      sex: PropTypes.string.isRequired,
+      breed: PropTypes.string.isRequired,
+      size: PropTypes.string.isRequired,
+      lostDate: PropTypes.string,
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+      }).isRequired,
+      state: PropTypes.string.isRequired,
+      image: PropTypes.shape().isRequired,
+      description: PropTypes.string.isRequired,
+    }),
+    contact: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+    }),
+    userId: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    age: PropTypes.string.isRequired,
-    sex: PropTypes.string.isRequired,
-    size: PropTypes.string.isRequired,
-    lostDate: PropTypes.string,
   }).isRequired,
 };
 

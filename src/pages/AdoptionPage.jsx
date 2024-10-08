@@ -6,20 +6,25 @@ import PetCard from '../components/PetCard';
 import Filters from '../components/Filter';
 
 function AdoptionPage() {
-  const [petData, setPetData] = useState([]);
+  const [adoption, setPetsData] = useState([]);
+
+  const getPetsData = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:8080/api/pets?type=adoption',
+      );
+      const data = await response.json();
+      setPetsData(data);
+    } catch (error) {
+      console.error('Error al obtener las mascotas:', error);
+    }
+  };
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/adoptPetData')
-      .then((response) => response.json())
-      .then((data) => {
-        setPetData(data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    getPetsData();
   }, []);
 
-  const pets = petData.map((pet) => (
+  const pets = adoption.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetCard data={pet} isLost={false} />
     </Group>

@@ -19,7 +19,7 @@ const viewPort = {
   zoom: 10,
 };
 
-function PetMapCard({ location = null }) {
+function PetMapCard({ location }) {
   const mapRef = useRef(null);
 
   return (
@@ -44,13 +44,10 @@ function PetMapCard({ location = null }) {
 }
 
 PetMapCard.propTypes = {
-  location: PropTypes.oneOfType([
-    PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-    }),
-    PropTypes.oneOf([null]),
-  ]),
+  location: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+  }).isRequired,
 };
 
 export default PetMapCard;

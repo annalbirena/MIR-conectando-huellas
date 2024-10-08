@@ -4,9 +4,10 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
+  Checkbox,
   FileInput,
   Group,
   Modal,
@@ -22,32 +23,35 @@ import { DateInput } from '@mantine/dates';
 import { IconPhotoScan } from '@tabler/icons-react';
 import PropTypes from 'prop-types';
 import AgeInput from '../../AgeInput';
-import PetMapCard from '../../PetMapCard';
+import MapCard from '../../MapCard';
 
-function EditPetForm({ data, isOpen, close, onClose }) {
+function EditLostPetForm({ data, isOpen, close, onClose }) {
+  const [location, setLocation] = useState(data.pet.location);
+  const [checked, setChecked] = useState(false);
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
       pet: {
-        name: data.name,
-        type: '',
+        name: data.pet.name,
+        type: data.pet.type,
         age: {
-          number: 0,
-          type: 'year',
+          number: data.pet.age.number,
+          type: data.pet.age.type,
         },
-        sex: '',
-        breed: '', // raza
-        size: '',
-        lostDate: null,
-        lostLocation: null,
-        state: 'perdido',
+        sex: data.pet.sex,
+        breed: data.pet.breed || '',
+        size: data.pet.size,
+        lostDate: new Date(data.pet.lostDate),
+        location: data.pet.location,
+        state: data.pet.state,
         image: null,
-        description: '',
+        description: data.pet.description || '',
       },
       contact: {
-        name: '',
-        phone: '',
-        address: '',
+        name: data.contact.name,
+        phone: data.contact.phone,
+        address: data.contact.address,
       },
     },
 
@@ -65,7 +69,7 @@ function EditPetForm({ data, isOpen, close, onClose }) {
         lostDate: (value) =>
           value === null ? 'Debe seleccionar una fecha' : null,
         image: (value) => (value === null ? 'Debe cargar una foto' : null),
-        lostLocation: (value) => (value === null ? 'Error' : null),
+        location: (value) => (value === null ? 'Error' : null),
       },
       contact: {
         name: (value) =>
@@ -80,8 +84,30 @@ function EditPetForm({ data, isOpen, close, onClose }) {
     },
   });
 
+  const onSetDefaultDirection = (isChecked) => {
+    if (isChecked) {
+      form.setFieldValue('contact.name', 'Jane');
+      form.setFieldValue('contact.phone', '999165999');
+      form.setFieldValue('contact.address', 'Av. 7 de Abril 2020, Lima');
+    }
+  };
+
+  useEffect(() => {
+    const isChecked = checked;
+    onSetDefaultDirection(isChecked);
+  }, [checked]);
+
+  useEffect(() => {
+    form.setFieldValue('pet.location', location);
+  }, [location]);
+
   const handleSubmit = (values) => {
     console.log(values);
+
+    // Resetear valores
+    form.reset();
+    setChecked(false);
+
     close();
   };
 
@@ -104,6 +130,7 @@ function EditPetForm({ data, isOpen, close, onClose }) {
               withAsterisk
               label="Nombre de mascota"
               placeholder="Ingrese nombre de mascota"
+              key={form.key('pet.name')}
               {...form.getInputProps('pet.name')}
             />
             <Select
@@ -111,10 +138,11 @@ function EditPetForm({ data, isOpen, close, onClose }) {
               label="Tipo"
               placeholder="Seleccione tipo"
               data={[
-                { value: 'perro', label: 'Perro' },
-                { value: 'gato', label: 'Gato' },
-                { value: 'otro', label: 'Otro' },
+                { value: 'dog', label: 'Perro' },
+                { value: 'cat', label: 'Gato' },
+                { value: 'other', label: 'Otro' },
               ]}
+              key={form.key('pet.type')}
               {...form.getInputProps('pet.type')}
             />
           </Group>
@@ -125,14 +153,16 @@ function EditPetForm({ data, isOpen, close, onClose }) {
               label="Sexo"
               placeholder="Seleccione sexo"
               data={[
-                { value: 'hembra', label: 'Hembra' },
-                { value: 'macho', label: 'Macho' },
+                { value: 'female', label: 'Hembra' },
+                { value: 'male', label: 'Macho' },
               ]}
+              key={form.key('pet.sex')}
               {...form.getInputProps('pet.sex')}
             />
             <TextInput
               label="Raza"
               placeholder="Ingrese raza"
+              key={form.key('pet.breed')}
               {...form.getInputProps('pet.breed')}
             />
             <Select
@@ -140,10 +170,11 @@ function EditPetForm({ data, isOpen, close, onClose }) {
               label="Tamaño"
               placeholder="Seleccione tamaño"
               data={[
-                { value: 'pequeño', label: 'Pequeño' },
-                { value: 'mediano', label: 'Mediano' },
-                { value: 'grande', label: 'Grande' },
+                { value: 'small', label: 'Pequeño' },
+                { value: 'medium', label: 'Mediano' },
+                { value: 'large', label: 'Grande' },
               ]}
+              key={form.key('pet.size')}
               {...form.getInputProps('pet.size')}
             />
           </Group>
@@ -152,6 +183,7 @@ function EditPetForm({ data, isOpen, close, onClose }) {
               withAsterisk
               label="Fecha de perdida"
               placeholder="Seleccione fecha"
+              key={form.key('pet.lostDate')}
               {...form.getInputProps('pet.lostDate')}
             />
             <Select
@@ -159,9 +191,10 @@ function EditPetForm({ data, isOpen, close, onClose }) {
               label="Estado"
               placeholder="Seleccione estado"
               data={[
-                { value: 'perdido', label: 'Perdido' },
-                { value: 'encontrado', label: 'Encontrado' },
+                { value: 'lost', label: 'Perdido' },
+                { value: 'found', label: 'Encontrado' },
               ]}
+              key={form.key('pet.state')}
               {...form.getInputProps('pet.state')}
             />
           </Group>
@@ -179,35 +212,45 @@ function EditPetForm({ data, isOpen, close, onClose }) {
                 stroke={1.5}
               />
             }
+            key={form.key('pet.image')}
             {...form.getInputProps('pet.image')}
           />
+
           <Stack gap={4}>
             <Text fw={500} size="sm">
-              Ubicación de lugar de perdida{' '}
+              Ubicación de lugar de perdida
               <Text span c="red">
                 *
               </Text>
             </Text>
-            <PetMapCard />
+            <MapCard location={location} setLocation={setLocation} />
           </Stack>
           <Textarea
             autosize
             minRows={2}
             label="Descripción adicional"
             placeholder="Ingrese descripción"
+            key={form.key('pet.description')}
             {...form.getInputProps('pet.description')}
+          />
+          <Checkbox
+            label="Usar dirección de usuario registrada"
+            checked={checked}
+            onChange={(event) => setChecked(event.currentTarget.checked)}
           />
           <Group grow align="flex-start">
             <TextInput
               withAsterisk
               label="Nombre de Contacto"
               placeholder="Nombre de Contacto"
+              key={form.key('contact.name')}
               {...form.getInputProps('contact.name')}
             />
             <TextInput
               withAsterisk
               label="Celular de Contacto"
               placeholder="Ingrese Celular"
+              key={form.key('contact.phone')}
               {...form.getInputProps('contact.phone')}
             />
           </Group>
@@ -215,6 +258,7 @@ function EditPetForm({ data, isOpen, close, onClose }) {
             withAsterisk
             label="Dirección de Contacto"
             placeholder="Ingrese Dirección"
+            key={form.key('contact.address')}
             {...form.getInputProps('contact.address')}
           />
 
@@ -227,19 +271,39 @@ function EditPetForm({ data, isOpen, close, onClose }) {
   );
 }
 
-EditPetForm.propTypes = {
+EditLostPetForm.propTypes = {
   data: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    pet: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      age: PropTypes.shape({
+        number: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }),
+      sex: PropTypes.string.isRequired,
+      breed: PropTypes.string.isRequired,
+      size: PropTypes.string.isRequired,
+      lostDate: PropTypes.string,
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+      }).isRequired,
+      state: PropTypes.string.isRequired,
+      image: PropTypes.shape().isRequired,
+      description: PropTypes.string.isRequired,
+    }),
+    contact: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+    }),
+    userId: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    age: PropTypes.string.isRequired,
-    sex: PropTypes.string.isRequired,
-    size: PropTypes.string.isRequired,
-    lostDate: PropTypes.string,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default EditPetForm;
+export default EditLostPetForm;

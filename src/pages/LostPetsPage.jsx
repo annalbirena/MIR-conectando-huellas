@@ -7,24 +7,28 @@ import TitlePage from '../components/TitlePage';
 import Filters from '../components/Filter';
 
 function LostsPetsPage() {
-  const [lostPetData, setLostPetData] = useState([]);
+  const [petsData, setPetsData] = useState([]);
+
+  const getPetsData = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/pets?type=lost');
+      const data = await response.json();
+      setPetsData(data);
+    } catch (error) {
+      console.error('Error al obtener las mascotas:', error);
+    }
+  };
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/lostPetData')
-      .then((response) => response.json())
-      .then((data) => {
-        setLostPetData(data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    getPetsData();
   }, []);
 
-  const pets = lostPetData.map((pet) => (
+  const pets = petsData.map((pet) => (
     <Group key={pet.id} justify="center">
       <PetCard data={pet} isLost />
     </Group>
   ));
+
   return (
     <AppLayout>
       <Stack>

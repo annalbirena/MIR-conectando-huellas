@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack, SimpleGrid, Title, Checkbox, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
-import petData from '../data/petData';
 import UserPetCard from '../components/UserPet/UserPetCard';
 
 function UserPetsPage() {
-  const pets = petData.map((pet) => (
-    <UserPetCard key={pet.id} data={pet} isLost />
+  const [petsData, setPetsData] = useState([]);
+
+  const getUserPetsData = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/pets');
+      const data = await response.json();
+      setPetsData(data);
+    } catch (error) {
+      console.error('Error al obtener las mascotas:', error);
+    }
+  };
+
+  useEffect(() => {
+    getUserPetsData();
+  }, []);
+
+  const pets = petsData.map((pet) => (
+    <UserPetCard key={pet.id} data={pet} isLost={pet.type === 'lost'} />
   ));
 
   return (

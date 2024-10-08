@@ -24,7 +24,7 @@ function AdoptPetDetail() {
   const [petData, setPetData] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/adoptPetData/${id}`)
+    fetch(`http://localhost:8080/api/pets/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setPetData(data);
@@ -37,7 +37,12 @@ function AdoptPetDetail() {
   return petData ? (
     <Stack>
       <Group grow justify="space-between">
-        <Image src={petData.pet.image} alt="Foto de mascota" h={550} />
+        <Image
+          /* src={petData.pet.image} */
+          src="https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg"
+          alt="Foto de mascota"
+          h={550}
+        />
 
         <Stack gap="xl">
           <Title
@@ -79,7 +84,7 @@ function AdoptPetDetail() {
       <Text size="sm" c="dimmed">
         Ubicación de mascota
       </Text>
-      <PetMapCard />
+      <PetMapCard location={petData.pet.location} />
     </Stack>
   ) : null;
 }
