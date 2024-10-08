@@ -27,6 +27,7 @@ function AgeInput({ form }) {
           marginRight: rem(-2),
         },
       }}
+      key={form.key('pet.age.type')}
       {...form.getInputProps('pet.age.type')}
     />
   );
@@ -39,6 +40,7 @@ function AgeInput({ form }) {
       placeholder="Edad"
       rightSection={select}
       rightSectionWidth={92}
+      key={form.key('pet.age.number')}
       {...form.getInputProps('pet.age.number')}
     />
   );
@@ -47,6 +49,7 @@ function AgeInput({ form }) {
 AgeInput.propTypes = {
   form: PropTypes.shape({
     getInputProps: PropTypes.func.isRequired,
+    key: PropTypes.func.isRequired,
   }).isRequired,
 };
 
