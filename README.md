@@ -4,17 +4,32 @@
 
 Conectando Huellas es una aplicación web que busca ayudar a conectar refugios de animales con futuros dueños y ayudar a difundir información de mascotas perdidas.
 
-### Diseño
-
-![image](https://github.com/user-attachments/assets/e135dcbb-9869-41cf-a28f-5a8f23b6ecd9)
-
 ## Funcionalidades Principales
 
-- Buscar mascotas perdidas y en adopción
-- Filtrar busqueda
+- Visualizar mascotas perdidas y en adopción 
+- Filtrar mascotas
 - Registrar mascotas
-- Gestion de mascotas por usuario
-- Creación de usuarios
+- Gestión de mascotas por usuario
+- Registro y autenticación de usuarios
+- Visualizacion de datos en mapa.
+- Carga de Imágenes.
+- Envío de Correos.
+
+## Tecnologías utilizadas
+
+Frontend:
+
+- React, Vite, Mantine, React Map GL
+- React Router DOM
+- JSON Server
+- ESLint, Prettier, ESLint y Prettier
+
+Backend:
+
+- Node.js (Express) usando TypeScript
+- PostgreSQL
+- Cypress para pruebas end-to-end
+
 
 ## Avances 04/10/2024
 
@@ -23,6 +38,16 @@ Conectando Huellas es una aplicación web que busca ayudar a conectar refugios d
 - Validación de datos en formularios
 - Implementación de json server para el registro y lectura de mascotas
 - Actualización de ReadMe
+
+## Avances 11/10/2024
+
+- Crear el diagrama relacional que incluya las tablas necesarias para la aplicación
+- Especificar las relaciones entre las tablas
+- Definir las operaciones CRUD para cada tabla
+- Agregar ejemplos de peticiones para cada una de las operaciones definidas al ReadMe
+- Registro y actualización de registros de mascotas con json-server
+- Registro de usuarios con json-server
+- Implementación de contexto en la aplicación
 
 ## Integrantes
 
