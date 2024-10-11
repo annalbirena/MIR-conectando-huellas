@@ -177,6 +177,50 @@ Backend:
       });
     ```
 
+- Consultar mascotas
+    
+    ```
+    const response = await fetch('http://localhost:8080/api/pets', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    ```
+
+- Consulta mascota
+    
+    ```
+    const response = await fetch(`http://localhost:8080/api/pets/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    ```
+
+- Consulta mascota por sexo
+    
+    ```
+    const response = await fetch(`http://localhost:8080/api/pets?sexo=${sexo}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    ```
+
+- Consulta mascota despúes de cierta fecha
+    
+    ```
+    const response = await fetch(`http://localhost:8080/api/pets?lostAfter=${fecha}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    ```
+
 ## Avances 04/10/2024
 
 - Diseño y maquetacion de las paginas: Home, Detalle de Mascota, Formularios (Crear y Editar Mascota), Inicio de Sesión, Registro de Usuario, filtros
