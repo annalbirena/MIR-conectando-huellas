@@ -30,6 +30,27 @@ Backend:
 - PostgreSQL
 - Cypress para pruebas end-to-end
 
+## Peticiones a la Base de Datos
+
+  - Crear usuario
+    
+    ```
+    const res = await fetch('http://localhost:8080/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: "Ana",
+          correo: "ana84168@gmail.com",
+          phone: "999161999",
+          address: "Av. 7 de Abril - Lima",
+          password: "***********",
+        }),
+      });
+    ```
+
+
 
 ## Avances 04/10/2024
 
