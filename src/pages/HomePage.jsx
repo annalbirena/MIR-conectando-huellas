@@ -37,7 +37,7 @@ function HomePage() {
           </Text>
 
           <Group justify="center">
-            <Link to="/registro">
+            <Link to="/mi-cuenta/publicar-mascota">
               <Button variant="filled" c="dark">
                 ¡Registra tu mascota!
               </Button>

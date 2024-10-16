@@ -88,5 +88,38 @@
       "id": 3
     }
   ],
-  "users": []
+  "users": [
+    {
+      "id": "4ec0d485-8f54-429e-8ed7-ef9e9aa17d75",
+      "name": "Anna",
+      "email": "ana84168@gmail.com",
+      "password": "123456",
+      "phone": "999165999",
+      "address": "Av 7 de Abril - Punta Hermosa"
+    },
+    {
+      "id": "bcd7c40c-afaa-4a37-b8db-1db7ae76bf25",
+      "name": "Luis",
+      "email": "luis@gmail.com",
+      "password": "123456",
+      "phone": "999111999",
+      "address": "Av 7 de Abril - Punta Hermosa"
+    },
+    {
+      "id": "32860882-b4e7-4426-84e0-abdcc58611ff",
+      "name": "Teo",
+      "email": "teo@gmail.com",
+      "password": "123456",
+      "phone": "999123999",
+      "address": "Av. 7 de Abril - Punta Hermosa"
+    },
+    {
+      "id": "a8517a14-6304-4925-bad2-3784865010dd",
+      "name": "Emilio",
+      "email": "emilio@gmail.com",
+      "password": "123456",
+      "phone": "912123123",
+      "address": "Av. 28 de Julio"
+    }
+  ]
 }
