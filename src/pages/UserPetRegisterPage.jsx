@@ -5,7 +5,7 @@ import PanelLayout from '../components/PanelLayout';
 import LostPetForm from '../components/Forms/LostPetForm';
 import AdoptPetForm from '../components/Forms/AdoptPetForm';
 
-function PetRegisterPage() {
+function UserPetRegisterPage() {
   return (
     <AppLayout bgColor="#f8f9fa" maw={1280}>
       <PanelLayout>
@@ -28,4 +28,4 @@ function PetRegisterPage() {
   );
 }
 
-export default PetRegisterPage;
+export default UserPetRegisterPage;

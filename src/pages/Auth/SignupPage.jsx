@@ -20,8 +20,8 @@ import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { Link, useNavigate } from 'react-router-dom';
-import AppLayout from '../components/AppLayout';
-import { createUser, getUserIdByEmail } from '../services/user';
+import AppLayout from '../../components/AppLayout';
+import { createUser, getUserIdByEmail } from '../../services/user';
 
 function SignupPage() {
   const navigate = useNavigate();

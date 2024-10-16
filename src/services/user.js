@@ -11,7 +11,7 @@ export const createUser = async (user) => {
   try {
     const newUser = {
       id: uuidv4(),
-      ...user, // Spread operator para incluir el resto de las propiedades
+      ...user,
     };
 
     const response = await axios.post(`${BASE_URL}/users`, newUser);
@@ -29,5 +29,18 @@ export const getUserIdByEmail = async (email) => {
     return users.length > 0 ? users[0].id : null;
   } catch (error) {
     console.error('Error fetching user by email:', error);
+  }
+};
+
+// Función para autenticar usuario
+export const authenticateUser = async (email, password) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/users?email=${email}`);
+    const userData = response.data[0];
+    const data = userData.password === password ? userData : null;
+    return data;
+  } catch (error) {
+    console.error('Error authenticating user:', error);
+    return null;
   }
 };

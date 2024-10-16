@@ -16,10 +16,17 @@ import {
   Text,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { Link } from 'react-router-dom';
-import AppLayout from '../components/AppLayout';
+import { Link, useNavigate } from 'react-router-dom';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
+import AppLayout from '../../components/AppLayout';
+import { authenticateUser } from '../../services/user';
+import { useUserContext } from '../../context/UserContext';
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const { setUser } = useUserContext();
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -29,12 +36,43 @@ function LoginPage() {
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Correo inválido'),
       password: (val) =>
-        val.length <= 6 ? 'Debe tener al menos 6 carácteres' : null,
+        val.length <= 5 ? 'Debe tener al menos 6 carácteres' : null,
     },
   });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    try {
+      const user = await authenticateUser(values.email, values.password);
+
+      if (user) {
+        localStorage.setItem('userId', user.id);
+        setUser(user.id);
+
+        notifications.show({
+          title: 'Éxito!',
+          message: 'Inicio de sesión correcto.',
+          icon: <IconCheck size={20} />,
+        });
+
+        // Redirigir al perfil de usuario
+        form.reset();
+        navigate('/mi-cuenta/datos-personales');
+      } else {
+        notifications.show({
+          title: 'Error!',
+          message: 'Usuario o contraseña incorrectos.',
+          color: 'red',
+          icon: <IconX size={20} />,
+        });
+      }
+    } catch (error) {
+      notifications.show({
+        title: 'Error!',
+        message: `Hubo un error ${error}`,
+        color: 'red',
+        icon: <IconX size={20} />,
+      });
+    }
   };
 
   return (
