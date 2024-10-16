@@ -1,10 +1,11 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
-import { Stack } from '@mantine/core';
+import { Box, Stack } from '@mantine/core';
 import PropTypes from 'prop-types';
 import Footer from './Footer';
 import Header from './Header';
 
-function AppLayout({ children }) {
+function AppLayout({ children, bgColor = 'white', maw = 980 }) {
   return (
     <Stack mih="100vh" gap={0}>
       <Header />
@@ -12,11 +13,12 @@ function AppLayout({ children }) {
         style={{
           flex: 1,
           padding: '48px 16px 100px 16px',
+          backgroundColor: bgColor,
         }}
       >
-        <Stack gap={0} maw="980px" m="auto">
+        <Box maw={maw} m="auto">
           {children}
-        </Stack>
+        </Box>
       </main>
       <Footer />
     </Stack>
@@ -25,6 +27,8 @@ function AppLayout({ children }) {
 
 AppLayout.propTypes = {
   children: PropTypes.element.isRequired,
+  bgColor: PropTypes.string,
+  maw: PropTypes.number,
 };
 
 export default AppLayout;

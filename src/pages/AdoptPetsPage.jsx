@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { SimpleGrid, Button, Stack, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
@@ -5,7 +6,7 @@ import TitlePage from '../components/TitlePage';
 import PetCard from '../components/PetCard';
 import Filters from '../components/Filter';
 
-function AdoptionPage() {
+function AdoptPetsPage() {
   const [adoption, setPetsData] = useState([]);
 
   const getPetsData = async () => {
@@ -63,4 +64,4 @@ function AdoptionPage() {
   );
 }
 
-export default AdoptionPage;
+export default AdoptPetsPage;

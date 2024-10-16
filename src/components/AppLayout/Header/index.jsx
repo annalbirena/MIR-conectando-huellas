@@ -75,13 +75,19 @@ function Header() {
 
             <Menu.Dropdown>
               <Menu.Item>
-                <Link to="/registro" className={classes.userMenuLink}>
-                  Registrar mascota
+                <Link
+                  to="/mi-cuenta/datos-personales"
+                  className={classes.userMenuLink}
+                >
+                  Mi cuenta
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link to="/mis-mascotas" className={classes.userMenuLink}>
-                  Mis mascotas
+                <Link
+                  to="/mi-cuenta/publicar-mascota"
+                  className={classes.userMenuLink}
+                >
+                  Registrar mascota
                 </Link>
               </Menu.Item>
               <Menu.Item color="red">Salir</Menu.Item>
