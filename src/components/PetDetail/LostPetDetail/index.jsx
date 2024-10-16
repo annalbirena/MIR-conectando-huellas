@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Group, Image, Stack, Text, Title } from '@mantine/core';
 import PropTypes from 'prop-types';
 import PetMapCard from '../../PetMapCard';
+import { getLostPetById } from '../../../services/pets';
 
 function Field({ label, value }) {
   return (
@@ -24,17 +26,14 @@ function LostPetDetail() {
   const { id } = useParams();
   const [petData, setPetData] = useState();
 
+  const getPetData = async () => {
+    const data = await getLostPetById(id);
+    setPetData(data);
+  };
+
   useEffect(() => {
-    // const url=import.meta.env.VITE_API_URL_LOST
-    fetch(`http://localhost:8080/api/pets/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPetData(data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
+    getPetData();
+  }, [id]);
 
   return petData ? (
     <Stack>

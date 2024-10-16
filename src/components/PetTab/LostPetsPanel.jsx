@@ -2,18 +2,14 @@ import { Button, Group, SimpleGrid, Stack } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PetCard from '../PetCard';
+import { getLostPets } from '../../services/pets';
 
 function LostPetsPanel() {
   const [petsData, setPetsData] = useState([]);
 
   const getPetsData = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/pets?type=lost');
-      const data = await response.json();
-      setPetsData(data);
-    } catch (error) {
-      console.error('Error al obtener las mascotas:', error);
-    }
+    const data = await getLostPets();
+    setPetsData(data);
   };
 
   useEffect(() => {

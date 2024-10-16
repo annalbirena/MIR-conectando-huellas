@@ -57,6 +57,35 @@
       },
       "userId": "123456",
       "id": 2
+    },
+    {
+      "type": "lost",
+      "pet": {
+        "name": "dasha",
+        "type": "dog",
+        "age": {
+          "number": "6",
+          "type": "year"
+        },
+        "sex": "female",
+        "breed": "",
+        "size": "small",
+        "lostDate": "2024-10-11T05:00:00.000Z",
+        "location": {
+          "latitude": -12.11310782582531,
+          "longitude": -77.02640640825493
+        },
+        "state": "lost",
+        "image": {},
+        "description": ""
+      },
+      "contact": {
+        "name": "Jane",
+        "phone": "999165999",
+        "address": "Av. 7 de Abril 2020, Lima"
+      },
+      "userId": "123456",
+      "id": 3
     }
   ],
   "users": []

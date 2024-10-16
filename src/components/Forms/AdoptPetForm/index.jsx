@@ -23,6 +23,7 @@ import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import MapCard from '../../MapCard';
 import AgeInput from '../../AgeInput';
+import { createAdoptPet } from '../../../services/pets';
 
 function AdoptPetForm() {
   const [location, setLocation] = useState(null);
@@ -117,15 +118,9 @@ function AdoptPetForm() {
     setLocationError(false);
 
     try {
-      const res = await fetch('http://localhost:8080/api/pets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+      const addedPet = await createAdoptPet(JSON.stringify(values));
 
-      if (res.ok) {
+      if (addedPet) {
         notifications.show({
           title: 'Mascota registrada',
           message: 'Se registro tu mascota en adopción',

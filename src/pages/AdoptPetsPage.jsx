@@ -1,24 +1,17 @@
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { SimpleGrid, Button, Stack, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import TitlePage from '../components/TitlePage';
 import PetCard from '../components/PetCard';
 import Filters from '../components/Filter';
+import { getAdoptPets } from '../services/pets';
 
 function AdoptPetsPage() {
   const [adoption, setPetsData] = useState([]);
 
   const getPetsData = async () => {
-    try {
-      const response = await fetch(
-        'http://localhost:8080/api/pets?type=adoption',
-      );
-      const data = await response.json();
-      setPetsData(data);
-    } catch (error) {
-      console.error('Error al obtener las mascotas:', error);
-    }
+    const data = await getAdoptPets();
+    setPetsData(data);
   };
 
   useEffect(() => {
