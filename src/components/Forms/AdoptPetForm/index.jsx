@@ -24,16 +24,17 @@ import { notifications } from '@mantine/notifications';
 import MapCard from '../../MapCard';
 import AgeInput from '../../AgeInput';
 import { createAdoptPet } from '../../../services/pets';
+import { useUserContext } from '../../../context/UserContext';
 
 function AdoptPetForm() {
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(false);
   const [checked, setChecked] = useState(false);
+  const { userId } = useUserContext();
 
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      type: 'adoption', // lost / adoption
       pet: {
         name: '',
         type: '', // dog / cat / other
@@ -44,7 +45,6 @@ function AdoptPetForm() {
         sex: '', // female / male
         breed: '', // raza
         size: '', // small / medium / large
-        lostDate: null,
         location: null,
         state: 'available', // available / adopted
         image: null,
@@ -55,7 +55,7 @@ function AdoptPetForm() {
         phone: '',
         address: '',
       },
-      userId: '123456',
+      userId,
     },
 
     validate: {
@@ -118,7 +118,7 @@ function AdoptPetForm() {
     setLocationError(false);
 
     try {
-      const addedPet = await createAdoptPet(JSON.stringify(values));
+      const addedPet = await createAdoptPet(values);
 
       if (addedPet) {
         notifications.show({

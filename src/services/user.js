@@ -21,6 +21,16 @@ export const createUser = async (user) => {
   }
 };
 
+// Función para el usuario por id
+export const getUserById = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/users/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+  }
+};
+
 // Función para obtener id de usuario por correo
 export const getUserIdByEmail = async (email) => {
   try {
@@ -37,8 +47,8 @@ export const authenticateUser = async (email, password) => {
   try {
     const response = await axios.get(`${BASE_URL}/users?email=${email}`);
     const userData = response.data[0];
-    const data = userData.password === password ? userData : null;
-    return data;
+    const userId = userData.password === password ? userData.id : null;
+    return userId;
   } catch (error) {
     console.error('Error authenticating user:', error);
     return null;

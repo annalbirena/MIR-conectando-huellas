@@ -1,21 +1,18 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import { Stack, SimpleGrid, Title } from '@mantine/core';
+import { Stack, SimpleGrid, Title, Text } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import UserPetCard from '../components/UserPet/UserPetCard';
 import PanelLayout from '../components/PanelLayout';
+import { useUserContext } from '../context/UserContext';
+import { getAdoptPetsByUserId } from '../services/pets';
 
 function UserAdoptPetsPage() {
   const [petsData, setPetsData] = useState([]);
+  const { userId } = useUserContext();
 
   const getUserPetsData = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/pets');
-      const data = await response.json();
-      setPetsData(data);
-    } catch (error) {
-      console.error('Error al obtener las mascotas:', error);
-    }
+    const data = await getAdoptPetsByUserId(userId);
+    setPetsData(data);
   };
 
   useEffect(() => {
@@ -23,7 +20,7 @@ function UserAdoptPetsPage() {
   }, []);
 
   const pets = petsData.map((pet) => (
-    <UserPetCard key={pet.id} data={pet} isLost={pet.type === 'lost'} />
+    <UserPetCard key={pet.id} data={pet} isLost={false} />
   ));
 
   return (
@@ -41,7 +38,11 @@ function UserAdoptPetsPage() {
             spacing="xl"
             verticalSpacing="xl"
           >
-            {pets}
+            {petsData.length ? (
+              pets
+            ) : (
+              <Text>No tiene mascotas registradas</Text>
+            )}
           </SimpleGrid>
         </Stack>
       </PanelLayout>

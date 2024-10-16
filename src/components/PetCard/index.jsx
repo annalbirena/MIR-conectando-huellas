@@ -48,7 +48,6 @@ function PetCard({ data, isLost }) {
 
 PetCard.propTypes = {
   data: PropTypes.shape({
-    type: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,

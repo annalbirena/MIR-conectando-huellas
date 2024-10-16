@@ -1,15 +1,20 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const id = localStorage.getItem('userId');
+    setUserId(id);
+  }, []);
 
   const contextValue = {
-    user,
-    setUser,
+    userId,
+    setUserId,
   };
 
   return (

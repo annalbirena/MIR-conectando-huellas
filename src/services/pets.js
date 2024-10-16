@@ -7,7 +7,7 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 
 // Función para consultar mascotas perdidas
 export const getLostPets = async () => {
-  const URL = `${BASE_URL}/pets?type=lost`;
+  const URL = `${BASE_URL}/lostpets`;
   try {
     const response = await axios.get(URL);
     return response.data;
@@ -18,7 +18,7 @@ export const getLostPets = async () => {
 
 // Función para consultar mascotas en Adopción
 export const getAdoptPets = async () => {
-  const URL = `${BASE_URL}/pets?type=adoption`;
+  const URL = `${BASE_URL}/adoptionpets`;
   try {
     const response = await axios.get(URL);
     return response.data;
@@ -29,7 +29,7 @@ export const getAdoptPets = async () => {
 
 // Función para consultar mascota perdida por ID
 export const getLostPetById = async (id) => {
-  const URL = `${BASE_URL}/pets/${id}`;
+  const URL = `${BASE_URL}/lostpets/${id}`;
   try {
     const response = await axios.get(URL);
     return response.data;
@@ -40,7 +40,7 @@ export const getLostPetById = async (id) => {
 
 // Función para consultar mascota en adopcion por ID
 export const getAdoptPetById = async (id) => {
-  const URL = `${BASE_URL}/pets/${id}`;
+  const URL = `${BASE_URL}/adoptionpets/${id}`;
   try {
     const response = await axios.get(URL);
     return response.data;
@@ -51,7 +51,7 @@ export const getAdoptPetById = async (id) => {
 
 // Función para agregar una nueva mascota perdida
 export const createLostPet = async (data) => {
-  const URL = `${BASE_URL}/pets`;
+  const URL = `${BASE_URL}/lostpets`;
   try {
     const response = await axios.post(URL, data, {
       headers: {
@@ -67,7 +67,7 @@ export const createLostPet = async (data) => {
 
 // Función para agregar una nueva mascota en adopcion
 export const createAdoptPet = async (data) => {
-  const URL = `${BASE_URL}/pets`;
+  const URL = `${BASE_URL}/adoptionpets`;
   try {
     const response = await axios.post(URL, data, {
       headers: {
@@ -78,5 +78,27 @@ export const createAdoptPet = async (data) => {
   } catch (error) {
     console.error('Error adding pet:', error);
     return null;
+  }
+};
+
+// Función para consultar mascotas perdidas por usuario
+export const getLostPetsByUserId = async (id) => {
+  const URL = `${BASE_URL}/lostpets?userId=${id}`;
+  try {
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pets:', error);
+  }
+};
+
+// Función para consultar mascotas en adopcion por usuario
+export const getAdoptPetsByUserId = async (id) => {
+  const URL = `${BASE_URL}/adoptionpets?userId=${id}`;
+  try {
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pets:', error);
   }
 };

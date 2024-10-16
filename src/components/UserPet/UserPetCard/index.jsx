@@ -37,7 +37,7 @@ function UserPetCard({ data, isLost }) {
             </Text>
           </Stack>
 
-          <EditPetAction data={data} />
+          <EditPetAction data={data} isLost={isLost} />
         </Stack>
       </Group>
     </Card>
@@ -46,7 +46,6 @@ function UserPetCard({ data, isLost }) {
 
 UserPetCard.propTypes = {
   data: PropTypes.shape({
-    type: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,

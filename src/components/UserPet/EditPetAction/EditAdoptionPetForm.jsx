@@ -41,7 +41,6 @@ function EditAdoptionPetForm({ data, isOpen, close, onClose }) {
         sex: data.pet.sex,
         breed: data.pet.breed || '',
         size: data.pet.size,
-        lostDate: null,
         location: data.pet.location,
         state: data.pet.state,
         image: null,
@@ -264,7 +263,6 @@ function EditAdoptionPetForm({ data, isOpen, close, onClose }) {
 
 EditAdoptionPetForm.propTypes = {
   data: PropTypes.shape({
-    type: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,

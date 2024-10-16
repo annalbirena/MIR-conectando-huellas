@@ -7,9 +7,8 @@ import classes from './editpetaction.module.css';
 import EditAdoptionPetForm from './EditAdoptionPetForm';
 import EditLostPetForm from './EditLostPetForm';
 
-function EditPetAction({ data }) {
+function EditPetAction({ data, isLost }) {
   const [isOpen, { open, close }] = useDisclosure(false);
-
   return (
     <>
       <Button
@@ -20,7 +19,7 @@ function EditPetAction({ data }) {
       >
         Editar
       </Button>
-      {data.type === 'lost' ? (
+      {isLost ? (
         <EditLostPetForm
           data={data}
           isOpen={isOpen}
@@ -41,7 +40,6 @@ function EditPetAction({ data }) {
 
 EditPetAction.propTypes = {
   data: PropTypes.shape({
-    type: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
@@ -69,6 +67,7 @@ EditPetAction.propTypes = {
     userId: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
   }).isRequired,
+  isLost: PropTypes.bool.isRequired,
 };
 
 export default EditPetAction;
