@@ -48,7 +48,7 @@ function LoginPage() {
           <Stack>
             <Group gap={4} justify="center">
               <Text size="sm">¿No tienes una cuenta?</Text>
-              <Link to="/signup" style={{ textDecoration: 'none' }}>
+              <Link to="/registrar-usuario" style={{ textDecoration: 'none' }}>
                 <Text size="sm" c="purpleBrand.4">
                   Registrate
                 </Text>

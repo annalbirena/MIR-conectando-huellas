@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-curly-newline */
@@ -16,10 +17,14 @@ import {
   Text,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { Link } from 'react-router-dom';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import { Link, useNavigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
+import { createUser, getUserIdByEmail } from '../services/user';
 
 function SignupPage() {
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       name: '',
@@ -34,15 +39,42 @@ function SignupPage() {
         value.length < 3 ? 'Debe tener al menos 3 carácteres' : null,
       email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Correo inválido'),
       password: (val) =>
-        val.length <= 6 ? 'Debe tener al menos 6 carácteres' : null,
+        val.length <= 5 ? 'Debe tener al menos 6 carácteres' : null,
       phone: (val) => (/^\d{9,15}$/.test(val) ? null : 'Celular inválido'),
       address: (value) =>
         value.length < 3 ? 'Debe tener al menos 6 carácteres' : null,
     },
   });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    const userId = await getUserIdByEmail(values.email);
+    if (userId) {
+      notifications.show({
+        title: 'Correo ya existe',
+        message: 'Este correo ya está registrado.',
+        color: 'red',
+        icon: <IconX size={20} />,
+      });
+      return;
+    }
+
+    try {
+      const user = await createUser(values);
+
+      if (user) {
+        notifications.show({
+          title: 'Usuario registrado',
+          message: 'Se registro el usuario',
+          icon: <IconCheck size={20} />,
+        });
+
+        // Redirigir al perfil de usuario
+        form.reset();
+        navigate('/mi-cuenta/datos-personales');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -97,7 +129,7 @@ function SignupPage() {
 
           <Group justify="space-between" mt="xl">
             <Button type="submit" w="100%">
-              Inicia Sesión
+              Registrar
             </Button>
           </Group>
         </form>

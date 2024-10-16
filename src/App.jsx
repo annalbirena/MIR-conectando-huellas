@@ -40,7 +40,7 @@ function App() {
           element={<UserAdoptPetsPage />}
         />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/registrar-usuario" element={<SignupPage />} />
       </Routes>
     </BrowserRouter>
   );
