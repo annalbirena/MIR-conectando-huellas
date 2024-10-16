@@ -1,22 +1,17 @@
-/* eslint-disable object-curly-newline */
 import React, { useState, useEffect } from 'react';
 import { SimpleGrid, Button, Stack, Group } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import PetCard from '../components/PetCard';
 import TitlePage from '../components/TitlePage';
 import Filters from '../components/Filter';
+import { getLostPets } from '../services/pets';
 
 function LostsPetsPage() {
   const [petsData, setPetsData] = useState([]);
 
   const getPetsData = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/pets?type=lost');
-      const data = await response.json();
-      setPetsData(data);
-    } catch (error) {
-      console.error('Error al obtener las mascotas:', error);
-    }
+    const data = await getLostPets();
+    setPetsData(data);
   };
 
   useEffect(() => {

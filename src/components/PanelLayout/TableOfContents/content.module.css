@@ -1,0 +1,24 @@
+.link {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  padding: var(--mantine-spacing-md);
+  color: var(--mantine-color-text);
+  font-size: var(--mantine-font-size-md);
+  text-decoration: none;
+
+  @mixin hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-0),
+      var(--mantine-color-dark-6)
+    );
+  }
+}
+
+.linkActive {
+  font-weight: 500;
+
+  &,
+  &:hover {
+    background-color: var(--mantine-color-brand-3) !important;
+  }
+}

@@ -3,6 +3,7 @@ import { Group, Image, Stack, Text, Title } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PetMapCard from '../../PetMapCard';
+import { getAdoptPetById } from '../../../services/pets';
 
 function Field({ label, value }) {
   return (
@@ -23,16 +24,14 @@ function AdoptPetDetail() {
   const { id } = useParams();
   const [petData, setPetData] = useState();
 
+  const getPetData = async () => {
+    const data = await getAdoptPetById(id);
+    setPetData(data);
+  };
+
   useEffect(() => {
-    fetch(`http://localhost:8080/api/pets/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPetData(data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
+    getPetData();
+  }, [id]);
 
   return petData ? (
     <Stack>
