@@ -2,10 +2,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
+import { useEffect, useState } from 'react';
 import { Button, Group, Stack, TextInput } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { isEmail, useForm } from '@mantine/form';
+import { useUserContext } from '../../../context/UserContext';
 
 function UserForm() {
+  const { user } = useUserContext();
+  const [enableSubmit, setEnableSubmit] = useState(true);
+
   const form = useForm({
     initialValues: {
       name: '',
@@ -16,17 +21,47 @@ function UserForm() {
 
     validate: {
       name: (value) =>
-        value.length < 3 ? 'Debe tener al menos 3 carácteres' : null,
-      email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Correo inválido'),
+        value.length < 2 ? 'Debe tener al menos 3 carácteres' : null,
+      email: isEmail('Correo inválido'),
       phone: (val) => (/^\d{9,15}$/.test(val) ? null : 'Celular inválido'),
       address: (value) =>
-        value.length < 3 ? 'Debe tener al menos 6 carácteres' : null,
+        value.length < 5 ? 'Debe tener al menos 6 carácteres' : null,
     },
   });
 
   const handleSubmit = (values) => {
     console.log(values);
   };
+
+  // Inicializar los valores del formulario con los datos del usuario
+  useEffect(() => {
+    if (user) {
+      const data = {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+      };
+      form.setInitialValues(data);
+      form.setValues(data);
+      console.log();
+    }
+  }, [user]);
+
+  // Habilitar el guadar cambios solo si cambian los datos
+  useEffect(() => {
+    const values = form.getValues();
+    if (
+      user &&
+      (values.name !== user?.name ||
+        values.phone !== user?.phone ||
+        values.address !== user?.address)
+    ) {
+      setEnableSubmit(false);
+    } else {
+      setEnableSubmit(true);
+    }
+  }, [form, user]);
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -35,6 +70,7 @@ function UserForm() {
           withAsterisk
           label="Nombre"
           placeholder="Ingresa tu nombre"
+          key={form.key('name')}
           {...form.getInputProps('name')}
         />
         <Group grow>
@@ -60,7 +96,9 @@ function UserForm() {
       </Stack>
 
       <Group mt="xl" justify="flex-end">
-        <Button type="submit">Guardar Datos</Button>
+        <Button type="submit" disabled={enableSubmit}>
+          Guardar Datos
+        </Button>
       </Group>
     </form>
   );

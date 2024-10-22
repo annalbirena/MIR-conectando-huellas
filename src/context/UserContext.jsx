@@ -1,20 +1,35 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { getUserById } from '../services/user';
 
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
   const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const getUser = async (id) => {
+    const userData = await getUserById(id);
+    setUser(userData);
+  };
 
   useEffect(() => {
     const id = localStorage.getItem('userId');
     setUserId(id);
   }, []);
 
+  useEffect(() => {
+    if (userId) {
+      getUser(userId);
+    }
+  }, [userId]);
+
   const contextValue = {
     userId,
     setUserId,
+    user,
+    setUser,
   };
 
   return (
