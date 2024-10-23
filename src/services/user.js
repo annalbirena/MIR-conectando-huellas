@@ -34,9 +34,9 @@ export const getUserById = async (id) => {
 // Función para obtener id de usuario por correo
 export const getUserIdByEmail = async (email) => {
   try {
-    const response = await axios.get(`${BASE_URL}/users?email=${email}`);
+    const response = await axios.get(`${BASE_URL}/users/email/${email}`);
     const users = response.data;
-    return users.length > 0 ? users[0].id : null;
+    return users?.id ? users.id : null;
   } catch (error) {
     console.error('Error fetching user by email:', error);
   }
@@ -45,10 +45,13 @@ export const getUserIdByEmail = async (email) => {
 // Función para autenticar usuario
 export const authenticateUser = async (email, password) => {
   try {
-    const response = await axios.get(`${BASE_URL}/users?email=${email}`);
-    const userData = response.data[0];
-    const userId = userData.password === password ? userData.id : null;
-    return userId;
+    const data = {
+      email,
+      password,
+    };
+    const response = await axios.post(`${BASE_URL}/users/login`, data);
+    const userData = response.data?.user;
+    return userData?.id ? userData.id : null;
   } catch (error) {
     console.error('Error authenticating user:', error);
     return null;

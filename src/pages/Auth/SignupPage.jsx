@@ -19,12 +19,11 @@ import {
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AppLayout from '../../components/AppLayout';
 import { createUser, getUserIdByEmail } from '../../services/user';
 
 function SignupPage() {
-  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       name: '',
@@ -48,10 +47,11 @@ function SignupPage() {
 
   const handleSubmit = async (values) => {
     const userId = await getUserIdByEmail(values.email);
+
     if (userId) {
       notifications.show({
-        title: 'Correo ya existe',
-        message: 'Este correo ya está registrado.',
+        title: '¡Correo ya existe!',
+        message: `El correo ${values.email} ya está registrado.`,
         color: 'red',
         icon: <IconX size={20} />,
       });
@@ -63,14 +63,13 @@ function SignupPage() {
 
       if (user) {
         notifications.show({
-          title: 'Usuario registrado',
-          message: 'Se registro el usuario',
+          title: '¡Usuario registrado!',
+          message: 'Se envió un correo electrónico para validar su cuenta.',
           icon: <IconCheck size={20} />,
         });
 
-        // Redirigir al perfil de usuario
+        // Resetear formulario
         form.reset();
-        navigate('/mi-cuenta/datos-personales');
       }
     } catch (error) {
       console.log(error);
