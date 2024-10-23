@@ -57,3 +57,14 @@ export const authenticateUser = async (email, password) => {
     return null;
   }
 };
+
+// Función para consultar todas las especies
+export const getSpecies = async () => {
+  const URL = `${BASE_URL}/species`;
+  try {
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+  }
+};

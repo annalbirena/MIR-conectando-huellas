@@ -13,6 +13,7 @@ import SignupPage from './pages/Auth/SignupPage';
 import UserDataPage from './pages/UserDataPage';
 import UserAdoptPetsPage from './pages/UserAdoptPetsPage';
 import RequireAuth from './pages/Auth/RequiredAuth';
+import PublicRoute from './pages/Auth/PublicRoute';
 
 function App() {
   return (
@@ -45,8 +46,10 @@ function App() {
             element={<UserAdoptPetsPage />}
           />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/registrar-usuario" element={<SignupPage />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/registrar-usuario" element={<SignupPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

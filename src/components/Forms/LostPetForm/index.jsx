@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable operator-linebreak */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
@@ -27,7 +28,7 @@ import AgeInput from '../../AgeInput';
 import { createLostPet } from '../../../services/pets';
 import { useUserContext } from '../../../context/UserContext';
 
-function LostPetForm() {
+function LostPetForm({ species }) {
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -156,11 +157,7 @@ function LostPetForm() {
             withAsterisk
             label="Tipo"
             placeholder="Seleccione tipo"
-            data={[
-              { value: 'dog', label: 'Perro' },
-              { value: 'cat', label: 'Gato' },
-              { value: 'other', label: 'Otro' },
-            ]}
+            data={species}
             key={form.key('pet.type')}
             {...form.getInputProps('pet.type')}
           />

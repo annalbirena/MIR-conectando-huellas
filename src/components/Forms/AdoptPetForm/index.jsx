@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -26,7 +27,7 @@ import AgeInput from '../../AgeInput';
 import { createAdoptPet } from '../../../services/pets';
 import { useUserContext } from '../../../context/UserContext';
 
-function AdoptPetForm() {
+function AdoptPetForm({ species }) {
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -152,11 +153,7 @@ function AdoptPetForm() {
             withAsterisk
             label="Tipo"
             placeholder="Seleccione tipo"
-            data={[
-              { value: 'dog', label: 'Perro' },
-              { value: 'cat', label: 'Gato' },
-              { value: 'other', label: 'Otro' },
-            ]}
+            data={species}
             key={form.key('pet.type')}
             {...form.getInputProps('pet.type')}
           />
