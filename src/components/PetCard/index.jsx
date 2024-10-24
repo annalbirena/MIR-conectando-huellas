@@ -43,7 +43,7 @@ function PetCard({ data, isLost }) {
 
 PetCard.propTypes = {
   data: PropTypes.shape({
-    lostDate: PropTypes.string.isRequired,
+    lostDate: PropTypes.string,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
