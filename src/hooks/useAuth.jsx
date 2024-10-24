@@ -7,6 +7,7 @@ const useAuth = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userId');
+    localStorage.removeItem('token');
 
     notifications.show({
       title: 'Sesión Cerrada',
