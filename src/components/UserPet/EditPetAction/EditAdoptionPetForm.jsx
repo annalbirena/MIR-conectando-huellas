@@ -33,7 +33,7 @@ function EditAdoptionPetForm({ data, isOpen, close, onClose }) {
     initialValues: {
       pet: {
         name: data.pet.name,
-        type: data.pet.type,
+        specie: data.pet.specie,
         age: {
           number: data.pet.age.number,
           type: data.pet.age.type,
@@ -265,7 +265,7 @@ EditAdoptionPetForm.propTypes = {
   data: PropTypes.shape({
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
+      specie: PropTypes.string.isRequired,
       age: PropTypes.shape({
         number: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,

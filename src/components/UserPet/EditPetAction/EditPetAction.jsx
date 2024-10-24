@@ -42,7 +42,7 @@ EditPetAction.propTypes = {
   data: PropTypes.shape({
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
+      /*  specie: PropTypes.string.isRequired, */
       age: PropTypes.shape({
         number: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,

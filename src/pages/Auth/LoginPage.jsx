@@ -21,11 +21,9 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import AppLayout from '../../components/AppLayout';
 import { authenticateUser } from '../../services/user';
-/* import { useUserContext } from '../../context/UserContext'; */
 
 function LoginPage() {
   const navigate = useNavigate();
-  /* const { setUser } = useUserContext(); */
 
   const form = useForm({
     initialValues: {
@@ -42,11 +40,16 @@ function LoginPage() {
 
   const handleSubmit = async (values) => {
     try {
-      const userId = await authenticateUser(values.email, values.password);
+      const responseData = await authenticateUser(
+        values.email,
+        values.password,
+      );
 
-      if (userId) {
-        localStorage.setItem('userId', userId);
-        /* setUser(user); */
+      const { user, token } = responseData;
+
+      if (user) {
+        localStorage.setItem('userId', user.id);
+        localStorage.setItem('token', token);
 
         notifications.show({
           title: 'Éxito!',

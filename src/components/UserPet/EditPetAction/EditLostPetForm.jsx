@@ -34,7 +34,7 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
     initialValues: {
       pet: {
         name: data.pet.name,
-        type: data.pet.type,
+        specie: data.pet.specie,
         age: {
           number: data.pet.age.number,
           type: data.pet.age.type,
@@ -59,7 +59,8 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
       pet: {
         name: (value) =>
           value.length < 2 ? 'Nombre debe tener al menos 3 carácteres' : null,
-        type: (value) => (value.length < 2 ? 'Debe seleccionar un tipo' : null),
+        specie: (value) =>
+          value.length < 2 ? 'Debe seleccionar un tipo' : null,
         age: {
           number: (value) => (value > 0 ? null : 'Debe ingresar la edad'),
         },
@@ -142,8 +143,8 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
                 { value: 'cat', label: 'Gato' },
                 { value: 'other', label: 'Otro' },
               ]}
-              key={form.key('pet.type')}
-              {...form.getInputProps('pet.type')}
+              key={form.key('pet.specie')}
+              {...form.getInputProps('pet.specie')}
             />
           </Group>
           <Group grow align="flex-start">
@@ -275,7 +276,7 @@ EditLostPetForm.propTypes = {
   data: PropTypes.shape({
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
+      specie: PropTypes.string.isRequired,
       age: PropTypes.shape({
         number: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,

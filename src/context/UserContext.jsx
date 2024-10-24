@@ -8,7 +8,7 @@ const UserContext = createContext();
 export function UserProvider({ children }) {
   const [userId, setUserId] = useState(null);
   const [user, setUser] = useState(null);
-
+  const [token, setToken] = useState(null);
   const getUser = async (id) => {
     const userData = await getUserById(id);
     setUser(userData);
@@ -16,7 +16,9 @@ export function UserProvider({ children }) {
 
   useEffect(() => {
     const id = localStorage.getItem('userId');
+    const tokenId = localStorage.getItem('token');
     setUserId(id);
+    setToken(tokenId);
   }, []);
 
   useEffect(() => {
@@ -30,6 +32,8 @@ export function UserProvider({ children }) {
     setUserId,
     user,
     setUser,
+    token,
+    setToken,
   };
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable react/prop-types */
 /* eslint-disable operator-linebreak */
 /* eslint-disable implicit-arrow-linebreak */
@@ -32,14 +33,14 @@ function LostPetForm({ species }) {
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(false);
   const [checked, setChecked] = useState(false);
-  const { userId } = useUserContext();
+  const { userId, token } = useUserContext();
 
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
       pet: {
         name: '',
-        type: '', // dog / cat / other
+        specie: '', // dog / cat / other
         age: {
           number: 0,
           type: 'year', // year / month
@@ -65,7 +66,8 @@ function LostPetForm({ species }) {
       pet: {
         name: (value) =>
           value.length < 2 ? 'Nombre debe tener al menos 3 carácteres' : null,
-        type: (value) => (value.length < 2 ? 'Debe seleccionar un tipo' : null),
+        specie: (value) =>
+          value.length < 2 ? 'Debe seleccionar un tipo' : null,
         age: {
           number: (value) => (value > 0 ? null : 'Debe ingresar la edad'),
         },
@@ -88,6 +90,17 @@ function LostPetForm({ species }) {
             : null,
       },
     },
+
+    transformValues: (values) => ({
+      pet: {
+        ...values.pet,
+        state: values.pet.state === 'lost',
+        image:
+          'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
+      },
+      contact: values.contact,
+      userId: userId,
+    }),
   });
 
   const onSetDefaultDirection = (isChecked) => {
@@ -123,8 +136,7 @@ function LostPetForm({ species }) {
     setLocationError(false);
 
     try {
-      const addedPet = await createLostPet(values);
-
+      const addedPet = await createLostPet(values, token);
       if (addedPet) {
         notifications.show({
           title: 'Mascota registrada',
@@ -158,8 +170,8 @@ function LostPetForm({ species }) {
             label="Tipo"
             placeholder="Seleccione tipo"
             data={species}
-            key={form.key('pet.type')}
-            {...form.getInputProps('pet.type')}
+            key={form.key('pet.specie')}
+            {...form.getInputProps('pet.specie')}
           />
         </Group>
         <Group grow align="flex-start">

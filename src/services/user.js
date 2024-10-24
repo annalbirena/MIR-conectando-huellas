@@ -50,8 +50,8 @@ export const authenticateUser = async (email, password) => {
       password,
     };
     const response = await axios.post(`${BASE_URL}/users/login`, data);
-    const userData = response.data?.user;
-    return userData?.id ? userData.id : null;
+    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.error('Error authenticating user:', error);
     return null;

@@ -50,12 +50,14 @@ export const getAdoptPetById = async (id) => {
 };
 
 // Función para agregar una nueva mascota perdida
-export const createLostPet = async (data) => {
+export const createLostPet = async (data, token) => {
   const URL = `${BASE_URL}/lostpets`;
+
   try {
     const response = await axios.post(URL, data, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;

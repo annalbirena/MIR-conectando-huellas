@@ -38,7 +38,7 @@ function AdoptPetForm({ species }) {
     initialValues: {
       pet: {
         name: '',
-        type: '', // dog / cat / other
+        specie: '', // dog / cat / other
         age: {
           number: 0,
           type: 'year', // year / month
@@ -63,7 +63,8 @@ function AdoptPetForm({ species }) {
       pet: {
         name: (value) =>
           value.length < 2 ? 'Nombre debe tener al menos 3 carácteres' : null,
-        type: (value) => (value.length < 2 ? 'Debe seleccionar un tipo' : null),
+        specie: (value) =>
+          value.length < 2 ? 'Debe seleccionar un tipo' : null,
         age: {
           number: (value) => (value > 0 ? null : 'Debe ingresar la edad'),
         },
@@ -154,8 +155,8 @@ function AdoptPetForm({ species }) {
             label="Tipo"
             placeholder="Seleccione tipo"
             data={species}
-            key={form.key('pet.type')}
-            {...form.getInputProps('pet.type')}
+            key={form.key('pet.specie')}
+            {...form.getInputProps('pet.specie')}
           />
         </Group>
         <Group grow align="flex-start">
