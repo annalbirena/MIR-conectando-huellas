@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-wrap-multilines */
@@ -31,7 +32,7 @@ function AdoptPetForm({ species }) {
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(false);
   const [checked, setChecked] = useState(false);
-  const { userId } = useUserContext();
+  const { userId, token } = useUserContext();
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -85,6 +86,17 @@ function AdoptPetForm({ species }) {
             : null,
       },
     },
+
+    transformValues: (values) => ({
+      pet: {
+        ...values.pet,
+        state: values.pet.state === 'available',
+        image:
+          'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
+      },
+      contact: values.contact,
+      userId: userId,
+    }),
   });
 
   const onSetDefaultDirection = (isChecked) => {
@@ -120,7 +132,7 @@ function AdoptPetForm({ species }) {
     setLocationError(false);
 
     try {
-      const addedPet = await createAdoptPet(values);
+      const addedPet = await createAdoptPet(values, token);
 
       if (addedPet) {
         notifications.show({

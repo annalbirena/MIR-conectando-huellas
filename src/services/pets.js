@@ -68,12 +68,13 @@ export const createLostPet = async (data, token) => {
 };
 
 // Función para agregar una nueva mascota en adopcion
-export const createAdoptPet = async (data) => {
+export const createAdoptPet = async (data, token) => {
   const URL = `${BASE_URL}/adoptionpets`;
   try {
     const response = await axios.post(URL, data, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
