@@ -4,7 +4,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Stack,
   Button,
@@ -23,6 +23,7 @@ import AppLayout from '../../components/AppLayout';
 import { authenticateUser } from '../../services/user';
 
 function LoginPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -34,11 +35,12 @@ function LoginPage() {
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Correo inválido'),
       password: (val) =>
-        val.length <= 5 ? 'Debe tener al menos 6 carácteres' : null,
+        val.length <= 7 ? 'Debe tener al menos 8 carácteres' : null,
     },
   });
 
   const handleSubmit = async (values) => {
+    setIsLoading(true);
     try {
       const responseData = await authenticateUser(
         values.email,
@@ -57,8 +59,9 @@ function LoginPage() {
           icon: <IconCheck size={20} />,
         });
 
-        // Redirigir al perfil de usuario
         form.reset();
+        setIsLoading(false);
+        // Redirigir al perfil de usuario
         navigate('/mi-cuenta/datos-personales');
       } else {
         notifications.show({
@@ -67,14 +70,16 @@ function LoginPage() {
           color: 'red',
           icon: <IconX size={20} />,
         });
+        setIsLoading(false);
       }
     } catch (error) {
       notifications.show({
         title: 'Error!',
-        message: `Hubo un error ${error}`,
+        message: 'Hubo un error al iniciar sesión',
         color: 'red',
         icon: <IconX size={20} />,
       });
+      setIsLoading(false);
     }
   };
 
@@ -112,7 +117,7 @@ function LoginPage() {
           </Stack>
 
           <Group justify="space-between" mt="xl">
-            <Button type="submit" w="100%">
+            <Button type="submit" w="100%" loading={isLoading}>
               Inicia Sesión
             </Button>
           </Group>
