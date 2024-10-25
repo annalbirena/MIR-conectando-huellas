@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable object-curly-newline */
@@ -5,7 +7,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Stack,
   Button,
@@ -15,6 +17,8 @@ import {
   PasswordInput,
   Title,
   Text,
+  Center,
+  Box,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
@@ -23,7 +27,27 @@ import { Link } from 'react-router-dom';
 import AppLayout from '../../components/AppLayout';
 import { createUser, getUserIdByEmail } from '../../services/user';
 
+const requirements = [
+  'Mínimo 8 caracteres',
+  'Al menos una mayúscula',
+  'Al menos un número',
+  'Al menos un carácter especial',
+];
+
+function PasswordRequirement({ label }) {
+  return (
+    <Text component="div" c="dark" mt={5} size="xs">
+      <Center inline>
+        <IconCheck size="0.9rem" stroke={1.5} />
+        <Box ml={7}>{label}</Box>
+      </Center>
+    </Text>
+  );
+}
+
 function SignupPage() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm({
     initialValues: {
       name: '',
@@ -37,8 +61,24 @@ function SignupPage() {
       name: (value) =>
         value.length < 3 ? 'Debe tener al menos 3 carácteres' : null,
       email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Correo inválido'),
-      password: (val) =>
-        val.length <= 5 ? 'Debe tener al menos 6 carácteres' : null,
+      password: (val) => {
+        const errors = [];
+
+        if (val.length < 8) {
+          errors.push('Debe tener al menos 8 carácteres');
+        }
+        if (!/[A-Z]/.test(val)) {
+          errors.push('Debe tener al menos una mayuscula');
+        }
+        if (!/[0-9]/.test(val)) {
+          errors.push('Debe tener al menos un número');
+        }
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
+          errors.push('Debe tener al menos carácter especial');
+        }
+
+        return errors.length > 0 ? errors.join(', ') : null; // Unir errores como un string
+      },
       phone: (val) => (/^\d{9,15}$/.test(val) ? null : 'Celular inválido'),
       address: (value) =>
         value.length < 3 ? 'Debe tener al menos 6 carácteres' : null,
@@ -46,6 +86,7 @@ function SignupPage() {
   });
 
   const handleSubmit = async (values) => {
+    setIsLoading(true);
     const userId = await getUserIdByEmail(values.email);
 
     if (userId) {
@@ -55,6 +96,7 @@ function SignupPage() {
         color: 'red',
         icon: <IconX size={20} />,
       });
+      setIsLoading(false);
       return;
     }
 
@@ -70,11 +112,29 @@ function SignupPage() {
 
         // Resetear formulario
         form.reset();
+        setIsLoading(false);
+      } else {
+        notifications.show({
+          title: 'Error!',
+          message: 'No se pudo crear el usuario, intenta nuevamente.',
+          icon: <IconCheck size={20} />,
+        });
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
+      notifications.show({
+        title: 'Error!',
+        message: 'No se pudo crear el usuario, intenta nuevamente.',
+        icon: <IconCheck size={20} />,
+      });
+      setIsLoading(false);
     }
   };
+
+  const checks = requirements.map((requirement, index) => (
+    <PasswordRequirement key={index} label={requirement} />
+  ));
 
   return (
     <AppLayout>
@@ -106,12 +166,15 @@ function SignupPage() {
               placeholder="correo@email.com"
               {...form.getInputProps('email')}
             />
-            <PasswordInput
-              withAsterisk
-              label="Contraseña"
-              placeholder="Contraseña"
-              {...form.getInputProps('password')}
-            />
+            <Stack gap={4}>
+              <PasswordInput
+                withAsterisk
+                label="Contraseña"
+                placeholder="Contraseña"
+                {...form.getInputProps('password')}
+              />
+              <Stack gap={0}>{checks}</Stack>
+            </Stack>
             <TextInput
               label="Celular"
               placeholder="999111999"
@@ -127,7 +190,7 @@ function SignupPage() {
           </Stack>
 
           <Group justify="space-between" mt="xl">
-            <Button type="submit" w="100%">
+            <Button type="submit" w="100%" loading={isLoading}>
               Registrar
             </Button>
           </Group>
