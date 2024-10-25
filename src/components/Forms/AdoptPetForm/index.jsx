@@ -31,8 +31,9 @@ import { useUserContext } from '../../../context/UserContext';
 function AdoptPetForm({ species }) {
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
-  const { userId, token } = useUserContext();
+  const { userId, token, user } = useUserContext();
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -101,9 +102,9 @@ function AdoptPetForm({ species }) {
 
   const onSetDefaultDirection = (isChecked) => {
     if (isChecked) {
-      form.setFieldValue('contact.name', 'Jane');
-      form.setFieldValue('contact.phone', '999165999');
-      form.setFieldValue('contact.address', 'Av. 7 de Abril 2020, Lima');
+      form.setFieldValue('contact.name', user.name);
+      form.setFieldValue('contact.phone', user.phone);
+      form.setFieldValue('contact.address', user.address);
     } else {
       form.setFieldValue('contact.name', '');
       form.setFieldValue('contact.phone', '');
@@ -129,6 +130,7 @@ function AdoptPetForm({ species }) {
   };
 
   const handleSubmit = async (values) => {
+    setLoading(true);
     setLocationError(false);
 
     try {
@@ -143,11 +145,13 @@ function AdoptPetForm({ species }) {
 
         // Resetear valores
         form.reset();
+        setLoading(false);
         setLocation(null);
         setChecked(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -286,7 +290,9 @@ function AdoptPetForm({ species }) {
         />
 
         <Group mt="lg" justify="flex-end">
-          <Button type="submit">Registrar mascota</Button>
+          <Button type="submit" loading={loading}>
+            Registrar mascota
+          </Button>
         </Group>
       </Stack>
     </form>

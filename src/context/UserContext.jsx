@@ -9,6 +9,7 @@ export function UserProvider({ children }) {
   const [userId, setUserId] = useState(null);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+
   const getUser = async (id) => {
     const userData = await getUserById(id);
     setUser(userData);
