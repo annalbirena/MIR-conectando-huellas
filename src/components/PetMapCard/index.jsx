@@ -34,7 +34,7 @@ function PetMapCard({ location }) {
         {location ? (
           <Marker
             latitude={location.latitude}
-            longitude={location.latitude}
+            longitude={location.longitude}
             color="red"
           />
         ) : null}

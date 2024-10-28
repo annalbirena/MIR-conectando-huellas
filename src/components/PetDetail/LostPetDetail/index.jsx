@@ -1,10 +1,27 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Group, Image, Stack, Text, Title } from '@mantine/core';
+import {
+  Center,
+  Group,
+  Image,
+  Loader,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
 import PropTypes from 'prop-types';
 import PetMapCard from '../../PetMapCard';
 import { getLostPetById } from '../../../services/pets';
+import {
+  formatLostDate,
+  getAgeName,
+  getLostStateName,
+  getSexName,
+  getSizeName,
+} from '../../../utils/formatData';
 
 function Field({ label, value }) {
   return (
@@ -25,25 +42,29 @@ Field.propTypes = {
 function LostPetDetail() {
   const { id } = useParams();
   const [petData, setPetData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const getPetData = async () => {
+    setIsLoading(true);
     const data = await getLostPetById(id);
     setPetData(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    getPetData();
+    if (id) {
+      getPetData();
+    }
   }, [id]);
 
-  return petData ? (
+  return isLoading ? (
+    <Center h={100} w="100%">
+      <Loader size={30} />
+    </Center>
+  ) : petData ? (
     <Stack>
       <Group grow justify="space-between">
-        <Image
-          /* src={petData.pet.image} */
-          src="https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg"
-          alt="Foto de mascota"
-          h={550}
-        />
+        <Image src={petData.pet.image} alt="Foto de mascota" h={550} />
         <Stack gap="xl">
           <Title
             order={1}
@@ -58,19 +79,26 @@ function LostPetDetail() {
             <Group grow>
               <Field
                 label="Edad"
-                value={`${petData.pet.age.number} ${petData.pet.age.type}`}
+                value={`${petData.pet.age} ${getAgeName(petData.pet.ageUnit)}`}
               />
-              <Field label="Especie" value={petData.pet.type} />
+              {/* <Field label="Especie" value={petData.pet.specieId} /> */}
+              <Field label="Especie" value="Perro" />
             </Group>
             <Group grow>
-              <Field label="Sexo" value={petData.pet.sex} />
+              <Field label="Sexo" value={getSexName(petData.pet.sex)} />
               <Field label="Raza" value={petData.pet.breed} />
             </Group>
             <Group grow>
-              <Field label="Tamaño" value={petData.pet.size} />
-              <Field label="Estado" value={petData.pet.state} />
+              <Field label="Tamaño" value={getSizeName(petData.pet.size)} />
+              <Field
+                label="Estado"
+                value={getLostStateName(petData.statusLost)}
+              />
             </Group>
-            <Field label="Fecha de Perdida" value={petData.pet.lostDate} />
+            <Field
+              label="Fecha de Perdida"
+              value={formatLostDate(petData.lostDate)}
+            />
           </Stack>
 
           <Stack gap="xs">
@@ -81,11 +109,19 @@ function LostPetDetail() {
           </Stack>
         </Stack>
       </Group>
-      <Field label="Descripción adicional" value={petData.pet.description} />
+      <Field
+        label="Descripción adicional"
+        value={petData.pet.description ? petData.pet.description : '-'}
+      />
       <Text size="sm" c="dimmed">
         Ubicación de lugar de perdida
       </Text>
-      <PetMapCard location={petData.pet.location} />
+      <PetMapCard
+        location={{
+          latitude: petData.pet.location_latitude,
+          longitude: petData.pet.location_longitude,
+        }}
+      />
     </Stack>
   ) : null;
 }

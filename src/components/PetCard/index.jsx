@@ -1,8 +1,15 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
 import { Button, Card, Image, Stack, Text, Title } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classes from './petcard.module.css';
+import {
+  formatLostDate,
+  getAgeName,
+  getSexName,
+  getSizeName,
+} from '../../utils/formatData';
 
 function PetCard({ data, isLost }) {
   return (
@@ -17,17 +24,17 @@ function PetCard({ data, isLost }) {
           </Title>
 
           <Text c="dark.7" size="sm">
-            Edad: {data.pet.age} {data.pet.ageUnit}
+            Edad: {data.pet.age} {getAgeName(data.pet.ageUnit)}
           </Text>
           <Text c="dark.7" size="sm">
-            Sexo: {data.pet.sex}
+            Sexo: {getSexName(data.pet.sex)}
           </Text>
           <Text c="dark.7" size="sm">
-            Tamaño: {data.pet.size}
+            Tamaño: {getSizeName(data.pet.size)}
           </Text>
           {isLost ? (
             <Text c="dark.7" size="sm">
-              Fecha de perdida: {data.lostDate}
+              Fecha de perdida: {formatLostDate(data.lostDate)}
             </Text>
           ) : null}
         </Stack>
