@@ -20,33 +20,43 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { DateInput } from '@mantine/dates';
-import { IconPhotoScan } from '@tabler/icons-react';
+import { IconCheck, IconPhotoScan } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
 import PropTypes from 'prop-types';
 import AgeInput from '../../AgeInput';
 import MapCard from '../../MapCard';
+import { useUserContext } from '../../../context/UserContext';
+import { getLostPetsByUserId, updateLostPet } from '../../../services/pets';
 
-function EditLostPetForm({ data, isOpen, close, onClose }) {
-  const [location, setLocation] = useState(data.pet.location);
+function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
+  const petLocation = {
+    latitude: data.pet.location_latitude,
+    longitude: data.pet.location_longitude,
+  };
+
+  const [location, setLocation] = useState(petLocation);
   const [checked, setChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { species, user, userId, token } = useUserContext();
 
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
       pet: {
         name: data.pet.name,
-        specie: data.pet.specie,
+        specie: data.pet.specieId,
         age: {
-          number: data.pet.age.number,
-          type: data.pet.age.type,
+          number: data.pet.age,
+          type: data.pet.ageUnit,
         },
         sex: data.pet.sex,
         breed: data.pet.breed || '',
         size: data.pet.size,
-        lostDate: new Date(data.pet.lostDate),
-        location: data.pet.location,
-        state: data.pet.state,
-        image: null,
-        description: data.pet.description || '',
+        lostDate: new Date(data.lostDate),
+        location: petLocation,
+        state: data.statusLost === true ? 'lost' : 'found',
+        image: data.pet.image,
+        description: data.description || '',
       },
       contact: {
         name: data.contact.name,
@@ -83,13 +93,25 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
             : null,
       },
     },
+
+    transformValues: (values) => ({
+      pet: {
+        ...values.pet,
+        state: values.pet.state === 'lost',
+      },
+      contact: values.contact,
+    }),
   });
 
   const onSetDefaultDirection = (isChecked) => {
     if (isChecked) {
-      form.setFieldValue('contact.name', 'Jane');
-      form.setFieldValue('contact.phone', '999165999');
-      form.setFieldValue('contact.address', 'Av. 7 de Abril 2020, Lima');
+      form.setFieldValue('contact.name', user.name);
+      form.setFieldValue('contact.phone', user.phone);
+      form.setFieldValue('contact.address', user.address);
+    } else {
+      form.setFieldValue('contact.name', data.contact.name);
+      form.setFieldValue('contact.phone', data.contact.phone);
+      form.setFieldValue('contact.address', data.contact.address);
     }
   };
 
@@ -102,14 +124,33 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
     form.setFieldValue('pet.location', location);
   }, [location]);
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    setLoading(true);
 
-    // Resetear valores
-    form.reset();
-    setChecked(false);
+    try {
+      const updatedPet = await updateLostPet(data.id, values, token);
+      if (updatedPet) {
+        notifications.show({
+          title: 'Exito!',
+          message: 'Se actualizaron los datos de la mascota.',
+          icon: <IconCheck size={20} />,
+        });
 
-    close();
+        // Obtener mascotas actualizadas
+        const userPets = await getLostPetsByUserId(userId, token);
+        setPetsData(userPets);
+
+        // Resetear valores
+        form.reset();
+        setLoading(false);
+        setLocation(petLocation);
+        setChecked(false);
+        close();
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -138,11 +179,7 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
               withAsterisk
               label="Tipo"
               placeholder="Seleccione tipo"
-              data={[
-                { value: 'dog', label: 'Perro' },
-                { value: 'cat', label: 'Gato' },
-                { value: 'other', label: 'Otro' },
-              ]}
+              data={species}
               key={form.key('pet.specie')}
               {...form.getInputProps('pet.specie')}
             />
@@ -264,7 +301,9 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
           />
 
           <Group mt="lg" justify="flex-end">
-            <Button type="submit">Actualizar datos</Button>
+            <Button type="submit" loading={loading}>
+              Actualizar datos
+            </Button>
           </Group>
         </Stack>
       </form>
@@ -274,36 +313,33 @@ function EditLostPetForm({ data, isOpen, close, onClose }) {
 
 EditLostPetForm.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    lostDate: PropTypes.string,
+    statusLost: PropTypes.bool.isRequired,
+    description: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      specie: PropTypes.string.isRequired,
-      age: PropTypes.shape({
-        number: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }),
+      specieId: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+      ageUnit: PropTypes.string.isRequired,
       sex: PropTypes.string.isRequired,
       breed: PropTypes.string.isRequired,
       size: PropTypes.string.isRequired,
-      lostDate: PropTypes.string,
-      location: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-      }).isRequired,
-      state: PropTypes.string.isRequired,
-      image: PropTypes.shape().isRequired,
-      description: PropTypes.string.isRequired,
-    }),
+      location_latitude: PropTypes.number.isRequired,
+      location_longitude: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+    }).isRequired,
     contact: PropTypes.shape({
       name: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
       address: PropTypes.string.isRequired,
-    }),
-    userId: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    }).isRequired,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  setPetsData: PropTypes.func.isRequired,
 };
 
 export default EditLostPetForm;

@@ -1,6 +1,7 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import { Stack, SimpleGrid, Title, Text } from '@mantine/core';
+import { Stack, SimpleGrid, Title, Loader, Center, Alert } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
 import UserPetCard from '../components/UserPet/UserPetCard';
 import PanelLayout from '../components/PanelLayout';
@@ -9,19 +10,24 @@ import { getLostPetsByUserId } from '../services/pets';
 
 function UserLostPetsPage() {
   const [petsData, setPetsData] = useState([]);
-  const { userId } = useUserContext();
+  const [loading, setIsLoading] = useState(false);
+  const { userId, token } = useUserContext();
 
   const getUserPetsData = async () => {
-    const data = await getLostPetsByUserId(userId);
+    setIsLoading(true);
+    const data = await getLostPetsByUserId(userId, token);
     setPetsData(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    getUserPetsData();
-  }, []);
+    if (userId) {
+      getUserPetsData();
+    }
+  }, [userId]);
 
   const pets = petsData.map((pet) => (
-    <UserPetCard key={pet.id} data={pet} isLost />
+    <UserPetCard key={pet.id} data={pet} setPetsData={setPetsData} isLost />
   ));
 
   return (
@@ -31,21 +37,28 @@ function UserLostPetsPage() {
           <Title order={3} fw={500}>
             Mis Mascotas Perdidas
           </Title>
-          <SimpleGrid
-            cols={{
-              base: 1,
-              sm: 2,
-            }}
-            spacing="xl"
-            verticalSpacing="xl"
-          >
-            {petsData.length ? (
-              pets
-            ) : (
-              <Text>No tiene mascotas registradas</Text>
-            )}
-            {pets}
-          </SimpleGrid>
+          {loading ? (
+            <Center h={100} w="100%">
+              <Loader size={30} />
+            </Center>
+          ) : petsData.length ? (
+            <SimpleGrid
+              cols={{
+                base: 1,
+                sm: 2,
+              }}
+              spacing="xl"
+              verticalSpacing="xl"
+            >
+              {pets}
+            </SimpleGrid>
+          ) : (
+            <Center w="100%">
+              <Alert variant="light" color="grape">
+                No tiene mascotas registradas
+              </Alert>
+            </Center>
+          )}
         </Stack>
       </PanelLayout>
     </AppLayout>

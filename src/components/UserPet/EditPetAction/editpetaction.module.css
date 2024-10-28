@@ -1,4 +1,4 @@
 .modal {
-  border: rem(4px) solid var(--mantine-color-dark-7);
+  border: rem(3px) solid var(--mantine-color-dark-7);
   border-radius: rem(24px);
 }

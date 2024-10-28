@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 import classes from './userpetcard.module.css';
 import EditPetAction from '../EditPetAction/EditPetAction';
 
-function UserPetCard({ data, isLost }) {
+function UserPetCard({ data, setPetsData, isLost }) {
   return (
     <Card p={0} className={classes.card}>
       <Group grow gap={0}>
         <Image
-          /* src={data.pet.image} */
-          src="https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg"
+          src={data.pet.image}
           alt={data.pet.name}
-          height={250}
+          height="100%"
+          w="auto"
         />
         <Stack flex={1} h="100%" p="md" justify="space-between">
           <Stack gap="xs">
@@ -21,7 +21,7 @@ function UserPetCard({ data, isLost }) {
               {data.pet.name}
             </Title>
             <Text c="dark.7" size="sm">
-              Edad: {data.pet.age.number} {data.pet.age.type}
+              Edad: {data.pet.age} {data.pet.ageUnit}
             </Text>
             <Text c="dark.7" size="sm">
               Sexo: {data.pet.sex}
@@ -29,7 +29,7 @@ function UserPetCard({ data, isLost }) {
 
             {isLost ? (
               <Text c="dark.7" size="sm">
-                Fecha de perdida: {data.pet.lostDate}
+                Fecha de perdida: {data.lostDate}
               </Text>
             ) : null}
             <Text c="dark.7" size="sm">
@@ -37,7 +37,11 @@ function UserPetCard({ data, isLost }) {
             </Text>
           </Stack>
 
-          <EditPetAction data={data} isLost={isLost} />
+          <EditPetAction
+            data={data}
+            setPetsData={setPetsData}
+            isLost={isLost}
+          />
         </Stack>
       </Group>
     </Card>
@@ -46,33 +50,30 @@ function UserPetCard({ data, isLost }) {
 
 UserPetCard.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    lostDate: PropTypes.string,
+    statusLost: PropTypes.bool.isRequired,
+    description: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      /* specie: PropTypes.string.isRequired, */
-      age: PropTypes.shape({
-        number: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }),
+      specieId: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+      ageUnit: PropTypes.string.isRequired,
       sex: PropTypes.string.isRequired,
       breed: PropTypes.string.isRequired,
       size: PropTypes.string.isRequired,
-      lostDate: PropTypes.string,
-      location: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-      }).isRequired,
-      state: PropTypes.string.isRequired,
-      image: PropTypes.shape().isRequired,
-      description: PropTypes.string.isRequired,
-    }),
+      location_latitude: PropTypes.number.isRequired,
+      location_longitude: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+    }).isRequired,
     contact: PropTypes.shape({
       name: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
       address: PropTypes.string.isRequired,
-    }),
-    userId: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    }).isRequired,
   }).isRequired,
+  setPetsData: PropTypes.func.isRequired,
   isLost: PropTypes.bool.isRequired,
 };
 

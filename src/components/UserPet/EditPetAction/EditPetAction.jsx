@@ -7,8 +7,9 @@ import classes from './editpetaction.module.css';
 import EditAdoptionPetForm from './EditAdoptionPetForm';
 import EditLostPetForm from './EditLostPetForm';
 
-function EditPetAction({ data, isLost }) {
+function EditPetAction({ data, setPetsData, isLost }) {
   const [isOpen, { open, close }] = useDisclosure(false);
+
   return (
     <>
       <Button
@@ -25,6 +26,7 @@ function EditPetAction({ data, isLost }) {
           isOpen={isOpen}
           close={close}
           onClose={close}
+          setPetsData={setPetsData}
         />
       ) : (
         <EditAdoptionPetForm
@@ -32,6 +34,7 @@ function EditPetAction({ data, isLost }) {
           isOpen={isOpen}
           close={close}
           onClose={close}
+          setPetsData={setPetsData}
         />
       )}
     </>
@@ -40,33 +43,30 @@ function EditPetAction({ data, isLost }) {
 
 EditPetAction.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    lostDate: PropTypes.string,
+    statusLost: PropTypes.bool.isRequired,
+    description: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      /*  specie: PropTypes.string.isRequired, */
-      age: PropTypes.shape({
-        number: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }),
+      specieId: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+      ageUnit: PropTypes.string.isRequired,
       sex: PropTypes.string.isRequired,
       breed: PropTypes.string.isRequired,
       size: PropTypes.string.isRequired,
-      lostDate: PropTypes.string,
-      location: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-      }).isRequired,
-      state: PropTypes.string.isRequired,
-      image: PropTypes.shape().isRequired,
-      description: PropTypes.string.isRequired,
-    }),
+      location_latitude: PropTypes.number.isRequired,
+      location_longitude: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+    }).isRequired,
     contact: PropTypes.shape({
       name: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
       address: PropTypes.string.isRequired,
-    }),
-    userId: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    }).isRequired,
   }).isRequired,
+  setPetsData: PropTypes.func.isRequired,
   isLost: PropTypes.bool.isRequired,
 };
 

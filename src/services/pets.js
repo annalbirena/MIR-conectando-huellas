@@ -84,11 +84,33 @@ export const createAdoptPet = async (data, token) => {
   }
 };
 
-// Función para consultar mascotas perdidas por usuario
-export const getLostPetsByUserId = async (id) => {
-  const URL = `${BASE_URL}/lostpets?userId=${id}`;
+// Función para editar mascota perdida
+export const updateLostPet = async (id, data, token) => {
+  const URL = `${BASE_URL}/lostpets/${id}`;
   try {
-    const response = await axios.get(URL);
+    const response = await axios.put(URL, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error editing pet:', error);
+    return null;
+  }
+};
+
+// Función para consultar mascotas perdidas por usuario
+export const getLostPetsByUserId = async (id, token) => {
+  const URL = `${BASE_URL}/lostpets/user/${id}`;
+  try {
+    const response = await axios.get(URL, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching pets:', error);
