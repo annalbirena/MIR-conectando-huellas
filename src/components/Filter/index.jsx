@@ -1,9 +1,14 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { Accordion, Button, Checkbox, Stack, Title } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import PropTypes from 'prop-types';
-import { IconFilter } from '@tabler/icons-react';
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconFilter,
+} from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import { useUserContext } from '../../context/UserContext';
 
@@ -88,6 +93,8 @@ function Filters({ isLost }) {
                   <DatePickerInput
                     type="range"
                     placeholder="Seleccione fecha"
+                    previousIcon={<IconChevronLeft size={18} />}
+                    nextIcon={<IconChevronRight size={18} />}
                     key={form.key('lostDateRange')}
                     {...form.getInputProps('lostDateRange')}
                   />

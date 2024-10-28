@@ -21,7 +21,12 @@ import {
   TextInput,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import { IconCheck, IconPhotoScan } from '@tabler/icons-react';
+import {
+  IconCheck,
+  IconChevronLeft,
+  IconChevronRight,
+  IconPhotoScan,
+} from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import MapCard from '../../MapCard';
@@ -215,6 +220,8 @@ function LostPetForm({ species }) {
             withAsterisk
             label="Fecha de perdida"
             placeholder="Seleccione fecha"
+            previousIcon={<IconChevronLeft size={18} />}
+            nextIcon={<IconChevronRight size={18} />}
             key={form.key('pet.lostDate')}
             {...form.getInputProps('pet.lostDate')}
           />

@@ -5,6 +5,7 @@ import {
   parseThemeColor,
 } from '@mantine/core';
 import { yellowGreen, brightPurple, darkBrand } from './colors';
+import classes from '../components/Forms/LostPetForm/lostpetform.module.css';
 
 const theme = createTheme({
   colors: {
@@ -27,6 +28,20 @@ const theme = createTheme({
           borderRadius: '50px',
           fontSize: t.fontSizes.md,
         },
+      }),
+    },
+    DatePickerInput: {
+      classNames: () => ({
+        calendarHeaderControl: classes.headerControl,
+        calendarHeader: classes.calendarHeader,
+        monthCell: classes.monthCell,
+      }),
+    },
+    DateInput: {
+      classNames: () => ({
+        calendarHeaderControl: classes.headerControl,
+        calendarHeader: classes.calendarHeader,
+        monthCell: classes.monthCell,
       }),
     },
   },

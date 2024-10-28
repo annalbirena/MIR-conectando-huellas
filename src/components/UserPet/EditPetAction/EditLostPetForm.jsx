@@ -20,7 +20,12 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { DateInput } from '@mantine/dates';
-import { IconCheck, IconPhotoScan } from '@tabler/icons-react';
+import {
+  IconCheck,
+  IconChevronLeft,
+  IconChevronRight,
+  IconPhotoScan,
+} from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import PropTypes from 'prop-types';
 import AgeInput from '../../AgeInput';
@@ -221,6 +226,8 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
               withAsterisk
               label="Fecha de perdida"
               placeholder="Seleccione fecha"
+              previousIcon={<IconChevronLeft size={18} />}
+              nextIcon={<IconChevronRight size={18} />}
               key={form.key('pet.lostDate')}
               {...form.getInputProps('pet.lostDate')}
             />

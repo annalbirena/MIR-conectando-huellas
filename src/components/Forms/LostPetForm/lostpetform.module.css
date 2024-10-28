@@ -1,0 +1,15 @@
+.headerControl {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.monthCell {
+  height: 36px;
+  width: 36px;
+}
