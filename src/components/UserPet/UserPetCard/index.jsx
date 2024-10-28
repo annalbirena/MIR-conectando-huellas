@@ -53,7 +53,8 @@ UserPetCard.propTypes = {
     id: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
     lostDate: PropTypes.string,
-    statusLost: PropTypes.bool.isRequired,
+    statusLost: PropTypes.bool,
+    statusAdopt: PropTypes.bool,
     description: PropTypes.string.isRequired,
     pet: PropTypes.shape({
       name: PropTypes.string.isRequired,

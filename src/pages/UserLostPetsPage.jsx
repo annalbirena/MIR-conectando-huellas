@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { Stack, SimpleGrid, Title, Loader, Center, Alert } from '@mantine/core';
 import AppLayout from '../components/AppLayout';
