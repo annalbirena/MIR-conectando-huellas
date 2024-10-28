@@ -105,3 +105,14 @@ export const getAdoptPetsByUserId = async (id) => {
     console.error('Error fetching pets:', error);
   }
 };
+
+// Función para consultar todas las especies
+export const getSpecies = async () => {
+  const URL = `${BASE_URL}/species`;
+  try {
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+  }
+};

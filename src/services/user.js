@@ -57,13 +57,16 @@ export const authenticateUser = async (email, password) => {
   }
 };
 
-// Función para consultar todas las especies
-export const getSpecies = async () => {
-  const URL = `${BASE_URL}/species`;
+// Actualizar datos de usuario
+export const updateUser = async (userId, data, token) => {
   try {
-    const response = await axios.get(URL);
+    const response = await axios.put(`${BASE_URL}/users/${userId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('Error updating user:', error);
   }
 };

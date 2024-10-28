@@ -4,7 +4,7 @@ import AppLayout from '../components/AppLayout';
 import PanelLayout from '../components/PanelLayout';
 import LostPetForm from '../components/Forms/LostPetForm';
 import AdoptPetForm from '../components/Forms/AdoptPetForm';
-import { getSpecies } from '../services/user';
+import { getSpecies } from '../services/pets';
 
 function UserPetRegisterPage() {
   const [species, setSpecies] = useState([]);

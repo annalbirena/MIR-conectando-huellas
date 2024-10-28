@@ -5,11 +5,15 @@
 import { useEffect, useState } from 'react';
 import { Button, Group, Stack, TextInput } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 import { useUserContext } from '../../../context/UserContext';
+import { getUserById, updateUser } from '../../../services/user';
 
 function UserForm() {
-  const { user } = useUserContext();
+  const { user, setUser, token } = useUserContext();
   const [enableSubmit, setEnableSubmit] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -29,8 +33,43 @@ function UserForm() {
     },
   });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    setLoading(true);
+
+    const data = {
+      name: values.name,
+      phone: values.phone,
+      address: values.address,
+    };
+
+    try {
+      const userUpdated = await updateUser(user.id, data, token);
+
+      if (userUpdated) {
+        setLoading(false);
+        notifications.show({
+          title: 'Éxito!',
+          message: 'Datos actualizados correctamente.',
+          icon: <IconCheck size={20} />,
+        });
+
+        // Obtener datos actualizados del usuario
+        const getUser = async (id) => {
+          const userData = await getUserById(id);
+          setUser(userData);
+        };
+
+        getUser(user.id);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      notifications.show({
+        title: 'Error!',
+        message: 'Hubo un erro al actualizar los datos, intenta nuevamente.',
+        icon: <IconCheck size={20} />,
+      });
+    }
   };
 
   // Inicializar los valores del formulario con los datos del usuario
@@ -44,7 +83,6 @@ function UserForm() {
       };
       form.setInitialValues(data);
       form.setValues(data);
-      console.log();
     }
   }, [user]);
 
@@ -75,13 +113,13 @@ function UserForm() {
         />
         <Group grow>
           <TextInput
-            withAsterisk
             disabled
             label="Correo"
             placeholder="correo@email.com"
             {...form.getInputProps('email')}
           />
           <TextInput
+            withAsterisk
             label="Celular"
             placeholder="999111999"
             {...form.getInputProps('phone')}
@@ -96,7 +134,7 @@ function UserForm() {
       </Stack>
 
       <Group mt="xl" justify="flex-end">
-        <Button type="submit" disabled={enableSubmit}>
+        <Button type="submit" disabled={enableSubmit} loading={loading}>
           Guardar Datos
         </Button>
       </Group>
