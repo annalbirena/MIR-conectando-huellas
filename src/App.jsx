@@ -14,6 +14,7 @@ import UserDataPage from './pages/UserDataPage';
 import UserAdoptPetsPage from './pages/UserAdoptPetsPage';
 import RequireAuth from './pages/Auth/RequiredAuth';
 import PublicRoute from './pages/Auth/PublicRoute';
+import VerifyAccountPage from './pages/Auth/VerifyAccount';
 
 function App() {
   return (
@@ -49,6 +50,10 @@ function App() {
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registrar-usuario" element={<SignupPage />} />
+          <Route
+            path="/verificar-usuario/:token"
+            element={<VerifyAccountPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
