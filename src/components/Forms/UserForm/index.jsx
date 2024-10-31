@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Group, Stack, TextInput } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';

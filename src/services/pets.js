@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -60,6 +59,7 @@ export const createLostPet = async (data, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+
     return response.data;
   } catch (error) {
     console.error('Error adding pet:', error);
@@ -158,5 +158,21 @@ export const getSpecies = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
+  }
+};
+
+export const uploadImage = async (path, image, token) => {
+  const URL = `${BASE_URL}${path}/upload`;
+  try {
+    const response = await axios.post(URL, image, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding pet:', error);
+    return null;
   }
 };

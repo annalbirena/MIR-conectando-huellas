@@ -25,7 +25,7 @@ import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import MapCard from '../../MapCard';
 import AgeInput from '../../AgeInput';
-import { createAdoptPet } from '../../../services/pets';
+import { createAdoptPet, uploadImage } from '../../../services/pets';
 import { useUserContext } from '../../../context/UserContext';
 
 function AdoptPetForm({ species }) {
@@ -92,8 +92,6 @@ function AdoptPetForm({ species }) {
       pet: {
         ...values.pet,
         state: values.pet.state === 'available',
-        image:
-          'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
       },
       contact: values.contact,
       userId: userId,
@@ -134,7 +132,20 @@ function AdoptPetForm({ species }) {
     setLocationError(false);
 
     try {
-      const addedPet = await createAdoptPet(values, token);
+      const path = '/adoptionpets';
+      if (values.pet.image) {
+        const image = new FormData();
+        image.append('image', values.pet.image);
+        values.pet.image = await uploadImage(path, image, token);
+        console.log(values.pet.image);
+      }
+
+      const formData = new FormData();
+      formData.append('pet', JSON.stringify(values.pet));
+      formData.append('contact', JSON.stringify(values.contact));
+      formData.append('userId', userId);
+
+      const addedPet = await createAdoptPet(formData, token);
 
       if (addedPet) {
         notifications.show({
@@ -222,8 +233,8 @@ function AdoptPetForm({ species }) {
                 stroke={1.5}
               />
             }
-            key={form.key('pet.image')}
             {...form.getInputProps('pet.image')}
+            onChange={(file) => form.setFieldValue('pet.image', file)}
           />
           <Select
             withAsterisk
