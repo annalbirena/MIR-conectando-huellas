@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-console */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
@@ -8,12 +10,25 @@ import {
   IconChevronLeft,
   IconChevronRight,
   IconFilter,
+  IconX,
 } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import { useUserContext } from '../../context/UserContext';
+import {
+  getAdoptPetsByFilters,
+  getLostPetsByFilters,
+} from '../../services/pets';
+import buildFilterURL from '../../utils/buildFilterUrl';
+import 'dayjs/locale/es';
 
-function Filters({ isLost }) {
-  const [loading, setLoading] = useState(false);
+function Filters({
+  setPetsData,
+  loadingFilterPets,
+  setLoadingFilterPets,
+  isLost,
+}) {
+  const [items, setItems] = useState([]);
   const { species } = useUserContext();
 
   const form = useForm({
@@ -26,9 +41,30 @@ function Filters({ isLost }) {
   });
 
   const handleSubmit = async (values) => {
-    setLoading(true);
-    console.log(values);
-    setLoading(false);
+    setLoadingFilterPets(true);
+    const filters = buildFilterURL(values);
+
+    try {
+      // Ejecutar la funcion correspondiente a perdidos o adopcion
+      const data = isLost
+        ? await getLostPetsByFilters(filters)
+        : await getAdoptPetsByFilters(filters);
+
+      if (data) {
+        setLoadingFilterPets(false);
+        setPetsData(data);
+      }
+
+      setLoadingFilterPets(false);
+    } catch (error) {
+      setLoadingFilterPets(false);
+      console.log(error);
+      notifications.show({
+        title: 'Error!',
+        message: 'No se pudo aplicar el filtro, intenta nuevamente.',
+        icon: <IconX size={20} />,
+      });
+    }
   };
 
   return (
@@ -36,7 +72,7 @@ function Filters({ isLost }) {
       <Title order={4}>Filtrar por</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
-          <Accordion w={200}>
+          <Accordion w={200} multiple value={items} onChange={setItems}>
             <Accordion.Item value="especie">
               <Accordion.Control>Especie</Accordion.Control>
               <Accordion.Panel>
@@ -92,7 +128,9 @@ function Filters({ isLost }) {
                 <Accordion.Panel>
                   <DatePickerInput
                     type="range"
-                    placeholder="Seleccione fecha"
+                    clearable
+                    locale="es"
+                    placeholder="Seleccione rango de fecha"
                     previousIcon={<IconChevronLeft size={18} />}
                     nextIcon={<IconChevronRight size={18} />}
                     key={form.key('lostDateRange')}
@@ -109,7 +147,7 @@ function Filters({ isLost }) {
           </Accordion>
           <Button
             type="submit"
-            loading={loading}
+            loading={loadingFilterPets}
             rightSection={<IconFilter size={14} />}
           >
             Filtrar
@@ -121,6 +159,9 @@ function Filters({ isLost }) {
 }
 
 Filters.propTypes = {
+  setPetsData: PropTypes.func.isRequired,
+  loadingFilterPets: PropTypes.bool.isRequired,
+  setLoadingFilterPets: PropTypes.func.isRequired,
   isLost: PropTypes.bool.isRequired,
 };
 

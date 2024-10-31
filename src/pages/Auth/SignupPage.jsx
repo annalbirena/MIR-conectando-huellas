@@ -117,7 +117,7 @@ function SignupPage() {
         notifications.show({
           title: 'Error!',
           message: 'No se pudo crear el usuario, intenta nuevamente.',
-          icon: <IconCheck size={20} />,
+          icon: <IconX size={20} />,
         });
         setIsLoading(false);
       }
@@ -126,7 +126,7 @@ function SignupPage() {
       notifications.show({
         title: 'Error!',
         message: 'No se pudo crear el usuario, intenta nuevamente.',
-        icon: <IconCheck size={20} />,
+        icon: <IconX size={20} />,
       });
       setIsLoading(false);
     }

@@ -1,0 +1,81 @@
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerControl {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+
+  &:hover {
+    background-color: var(--mantine-color-gray-0);
+  }
+}
+
+.calendarHeaderLevel {
+  flex: 1;
+  text-align: center;
+
+  &:hover {
+    background-color: var(--mantine-color-gray-0);
+  }
+}
+
+.monthCell {
+  height: 36px;
+  width: 36px;
+}
+
+.weekday {
+  color: var(--mantine-color-dimmed);
+  font-weight: 400;
+  font-size: var(--wr-fz, var(--mantine-font-size-sm));
+  text-transform: capitalize;
+}
+
+.day {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font-size: rem(13px);
+
+  &:hover {
+    background-color: var(--mantine-color-gray-0);
+  }
+  &:where([data-in-range]) {
+    background-color: var(--mantine-color-brand-1);
+  }
+  &:where([data-first-in-range]) {
+    background-color: var(--mantine-color-brand-6);
+    border-start-start-radius: var(--mantine-radius-default);
+    border-end-start-radius: var(--mantine-radius-default);
+  }
+  &:where([data-last-in-range]) {
+    background-color: var(--mantine-color-brand-6);
+    border-end-end-radius: var(--mantine-radius-default);
+    border-start-end-radius: var(--mantine-radius-default);
+  }
+  &:where([data-weekend]) {
+    color: var(--mantine-color-red-6);
+  }
+  &:where([data-outside]) {
+    color: var(--mantine-color-dimmed);
+    opacity: 0.5;
+  }
+
+  &:where([data-selected]) {
+    background-color: var(--mantine-color-brand-6);
+  }
+}
+
+.monthsListControl {
+  width: 85px;
+  height: 36px;
+  text-align: center;
+  font-size: rem(13px);
+
+  &:hover {
+    background-color: var(--mantine-color-gray-0);
+  }
+}
