@@ -172,7 +172,7 @@ export const uploadImage = async (path, image, token) => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error('Error adding pet:', error);
+    console.error('Error uploading image:', error);
     return null;
   }
 };

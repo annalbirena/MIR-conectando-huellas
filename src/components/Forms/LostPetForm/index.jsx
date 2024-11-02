@@ -21,7 +21,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import { IconCheck, IconPhotoScan } from '@tabler/icons-react';
+import { IconCheck, IconPhotoScan, IconX } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import MapCard from '../../MapCard';
@@ -40,18 +40,25 @@ function LostPetForm({ species }) {
     initialValues: {
       pet: {
         name: '',
-        specie: '',
-        age: { number: 0, type: 'year' },
-        sex: '',
-        breed: '',
-        size: '',
+        specie: '', // dog / cat / other
+        age: {
+          number: 0,
+          type: 'year', // year / month
+        },
+        sex: '', // female / male
+        breed: '', // raza
+        size: '', // small / medium / large
         lostDate: null,
         location: null,
-        state: true,
+        state: 'lost', // lost / found
         image: null,
         description: '',
       },
-      contact: { name: '', phone: '', address: '' },
+      contact: {
+        name: '',
+        phone: '',
+        address: '',
+      },
       userId,
     },
 
@@ -117,34 +124,58 @@ function LostPetForm({ species }) {
 
     try {
       const path = '/lostpets';
-      if (values.pet.image) {
-        const image = new FormData();
-        image.append('image', values.pet.image);
-        values.pet.image = await uploadImage(path, image, token);
-        console.log(values.pet.image);
-      }
+      const image = new FormData();
+      image.append('image', values.pet.image);
+      const imageUrl = await uploadImage(path, image, token);
 
-      const formData = new FormData();
-      formData.append('pet', JSON.stringify(values.pet));
-      formData.append('contact', JSON.stringify(values.contact));
-      formData.append('userId', userId);
+      if (imageUrl) {
+        const formValues = {
+          ...values,
+          pet: {
+            ...values.pet,
+            image: imageUrl,
+          },
+        };
 
-      const addedPet = await createLostPet(formData, token);
-      if (addedPet) {
-        notifications.show({
-          title: 'Mascota registrada',
-          message: 'Se registró tu mascota perdida',
-          icon: <IconCheck size={20} />,
-        });
+        const addedPet = await createLostPet(formValues, token);
+        if (addedPet) {
+          notifications.show({
+            title: 'Mascota registrada',
+            message: 'Se registró tu mascota perdida',
+            icon: <IconCheck size={20} />,
+          });
 
-        form.reset();
+          form.reset();
+          setLoading(false);
+          setLocation(null);
+          setChecked(false);
+        } else {
+          setLoading(false);
+          notifications.show({
+            title: 'Error!',
+            message: 'Hubo un error al crear la mascota, intenta nuevamente.',
+            color: 'red',
+            icon: <IconX size={20} />,
+          });
+        }
+      } else {
         setLoading(false);
-        setLocation(null);
-        setChecked(false);
+        notifications.show({
+          title: 'Error!',
+          message: 'Hubo un error al cargar la imagen, intenta nuevamente.',
+          color: 'red',
+          icon: <IconX size={20} />,
+        });
       }
     } catch (error) {
       console.error(error);
       setLoading(false);
+      notifications.show({
+        title: 'Error!',
+        message: `Hubo un error al crear la mascota: ${error}'`,
+        color: 'red',
+        icon: <IconX size={20} />,
+      });
     }
   };
 
@@ -229,7 +260,6 @@ function LostPetForm({ species }) {
             />
           }
           {...form.getInputProps('pet.image')}
-          onChange={(file) => form.setFieldValue('pet.image', file)}
         />
         <Stack spacing={4}>
           <Text fw={500} size="sm">
