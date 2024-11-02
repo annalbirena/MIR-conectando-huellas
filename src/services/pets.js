@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -102,6 +101,21 @@ export const createAdoptPet = async (data, token) => {
     return response.data;
   } catch (error) {
     console.error('Error adding pet:', error);
+    return null;
+  }
+};
+
+export const uploadPetImage = async (path, image, token) => {
+  const URL = `${BASE_URL}${path}/upload`;
+  try {
+    const response = await axios.post(URL, image, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading image:', error);
     return null;
   }
 };

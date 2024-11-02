@@ -20,12 +20,12 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core';
-import { IconCheck, IconPhotoScan } from '@tabler/icons-react';
+import { IconCheck, IconPhotoScan, IconX } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import MapCard from '../../MapCard';
 import AgeInput from '../../AgeInput';
-import { createAdoptPet } from '../../../services/pets';
+import { createAdoptPet, uploadPetImage } from '../../../services/pets';
 import { useUserContext } from '../../../context/UserContext';
 
 function AdoptPetForm({ species }) {
@@ -82,7 +82,7 @@ function AdoptPetForm({ species }) {
         phone: (value) =>
           value.length < 8 ? 'Celular debe tener al menos 9 carácteres' : null,
         address: (value) =>
-          value.length < 2
+          value.length < 9
             ? 'Dirección debe tener al menos 10 carácteres'
             : null,
       },
@@ -92,8 +92,6 @@ function AdoptPetForm({ species }) {
       pet: {
         ...values.pet,
         state: values.pet.state === 'available',
-        image:
-          'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
       },
       contact: values.contact,
       userId: userId,
@@ -134,24 +132,64 @@ function AdoptPetForm({ species }) {
     setLocationError(false);
 
     try {
-      const addedPet = await createAdoptPet(values, token);
+      const path = '/adoptionpets';
 
-      if (addedPet) {
-        notifications.show({
-          title: 'Mascota registrada',
-          message: 'Se registro tu mascota en adopción',
-          icon: <IconCheck size={20} />,
-        });
+      // Formatear imagen
+      const formatImage = new FormData();
+      formatImage.append('image', values.pet.image);
 
-        // Resetear valores
-        form.reset();
+      // Cargar imagen
+      const imageUrl = await uploadPetImage(path, formatImage, token);
+
+      if (imageUrl) {
+        const formValues = {
+          ...values,
+          pet: {
+            ...values.pet,
+            image: imageUrl,
+          },
+        };
+
+        // Crear mascota
+        const addedPet = await createAdoptPet(formValues, token);
+        if (addedPet) {
+          notifications.show({
+            title: 'Mascota registrada',
+            message: 'Se registró tu mascota en adopcion',
+            icon: <IconCheck size={20} />,
+          });
+
+          form.reset();
+          setLoading(false);
+          setLocation(null);
+          setChecked(false);
+        } else {
+          setLoading(false);
+          notifications.show({
+            title: 'Error!',
+            message: 'Hubo un error al crear la mascota, intenta nuevamente.',
+            color: 'red',
+            icon: <IconX size={20} />,
+          });
+        }
+      } else {
         setLoading(false);
-        setLocation(null);
-        setChecked(false);
+        notifications.show({
+          title: 'Error!',
+          message: 'Hubo un error al cargar la imagen, intenta nuevamente.',
+          color: 'red',
+          icon: <IconX size={20} />,
+        });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setLoading(false);
+      notifications.show({
+        title: 'Error!',
+        message: `Hubo un error al crear la mascota: ${error}'`,
+        color: 'red',
+        icon: <IconX size={20} />,
+      });
     }
   };
 

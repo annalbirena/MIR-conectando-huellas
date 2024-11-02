@@ -26,12 +26,13 @@ import {
   IconChevronLeft,
   IconChevronRight,
   IconPhotoScan,
+  IconX,
 } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import MapCard from '../../MapCard';
 import AgeInput from '../../AgeInput';
-import { createLostPet } from '../../../services/pets';
+import { createLostPet, uploadPetImage } from '../../../services/pets';
 import { useUserContext } from '../../../context/UserContext';
 import 'dayjs/locale/es';
 
@@ -92,7 +93,7 @@ function LostPetForm({ species }) {
         phone: (value) =>
           value.length < 8 ? 'Celular debe tener al menos 9 carácteres' : null,
         address: (value) =>
-          value.length < 2
+          value.length < 9
             ? 'Dirección debe tener al menos 10 carácteres'
             : null,
       },
@@ -102,8 +103,6 @@ function LostPetForm({ species }) {
       pet: {
         ...values.pet,
         state: values.pet.state === 'lost',
-        image:
-          'https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg',
       },
       contact: values.contact,
       userId: userId,
@@ -144,23 +143,64 @@ function LostPetForm({ species }) {
     setLocationError(false);
 
     try {
-      const addedPet = await createLostPet(values, token);
-      if (addedPet) {
-        notifications.show({
-          title: 'Mascota registrada',
-          message: 'Se registro tu mascota perdida',
-          icon: <IconCheck size={20} />,
-        });
+      const path = '/lostpets';
 
-        // Resetear valores
-        form.reset();
+      // Formatear imagen
+      const formatImage = new FormData();
+      formatImage.append('image', values.pet.image);
+
+      // Cargar imagen
+      const imageUrl = await uploadPetImage(path, formatImage, token);
+
+      if (imageUrl) {
+        const formValues = {
+          ...values,
+          pet: {
+            ...values.pet,
+            image: imageUrl,
+          },
+        };
+
+        // Crear mascota
+        const addedPet = await createLostPet(formValues, token);
+        if (addedPet) {
+          notifications.show({
+            title: 'Mascota registrada',
+            message: 'Se registró tu mascota perdida',
+            icon: <IconCheck size={20} />,
+          });
+
+          form.reset();
+          setLoading(false);
+          setLocation(null);
+          setChecked(false);
+        } else {
+          setLoading(false);
+          notifications.show({
+            title: 'Error!',
+            message: 'Hubo un error al crear la mascota, intenta nuevamente.',
+            color: 'red',
+            icon: <IconX size={20} />,
+          });
+        }
+      } else {
         setLoading(false);
-        setLocation(null);
-        setChecked(false);
+        notifications.show({
+          title: 'Error!',
+          message: 'Hubo un error al cargar la imagen, intenta nuevamente.',
+          color: 'red',
+          icon: <IconX size={20} />,
+        });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setLoading(false);
+      notifications.show({
+        title: 'Error!',
+        message: `Hubo un error al crear la mascota: ${error}'`,
+        color: 'red',
+        icon: <IconX size={20} />,
+      });
     }
   };
 
