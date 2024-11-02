@@ -32,6 +32,7 @@ import AgeInput from '../../AgeInput';
 import MapCard from '../../MapCard';
 import { useUserContext } from '../../../context/UserContext';
 import { getLostPetsByUserId, updateLostPet } from '../../../services/pets';
+import 'dayjs/locale/es';
 
 function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
   const petLocation = {
@@ -224,6 +225,7 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
           <Group grow align="flex-start">
             <DateInput
               withAsterisk
+              locale="es"
               label="Fecha de perdida"
               placeholder="Seleccione fecha"
               previousIcon={<IconChevronLeft size={18} />}

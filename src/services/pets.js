@@ -15,6 +15,28 @@ export const getLostPets = async () => {
   }
 };
 
+// Función para consultar mascotas perdidas por filtros
+export const getLostPetsByFilters = async (filters) => {
+  const URL = `${BASE_URL}/lostpets/filters/filter?${filters}`;
+  try {
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching lost pets by filters:', error);
+  }
+};
+
+// Función para consultar mascotas en adopcion por filtros
+export const getAdoptPetsByFilters = async (filters) => {
+  const URL = `${BASE_URL}/adoptionpets/filters/filter?${filters}`;
+  try {
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching adoption pets by filters:', error);
+  }
+};
+
 // Función para consultar mascotas en Adopción
 export const getAdoptPets = async () => {
   const URL = `${BASE_URL}/adoptionpets`;

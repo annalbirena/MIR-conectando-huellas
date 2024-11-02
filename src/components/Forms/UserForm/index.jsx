@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Group, Stack, TextInput } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { IconCheck } from '@tabler/icons-react';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { useUserContext } from '../../../context/UserContext';
 import { getUserById, updateUser } from '../../../services/user';
 
@@ -67,7 +67,7 @@ function UserForm() {
       notifications.show({
         title: 'Error!',
         message: 'Hubo un erro al actualizar los datos, intenta nuevamente.',
-        icon: <IconCheck size={20} />,
+        icon: <IconX size={20} />,
       });
     }
   };

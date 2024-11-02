@@ -5,7 +5,7 @@ import {
   parseThemeColor,
 } from '@mantine/core';
 import { yellowGreen, brightPurple, darkBrand } from './colors';
-import classes from '../components/Forms/LostPetForm/lostpetform.module.css';
+import classes from './styles.module.css';
 
 const theme = createTheme({
   colors: {
@@ -34,14 +34,24 @@ const theme = createTheme({
       classNames: () => ({
         calendarHeaderControl: classes.headerControl,
         calendarHeader: classes.calendarHeader,
+        calendarHeaderLevel: classes.calendarHeaderLevel,
         monthCell: classes.monthCell,
+        weekday: classes.weekday,
+        day: classes.day,
+        monthsListControl: classes.monthsListControl,
+        yearsListControl: classes.monthsListControl,
       }),
     },
     DateInput: {
       classNames: () => ({
         calendarHeaderControl: classes.headerControl,
         calendarHeader: classes.calendarHeader,
+        calendarHeaderLevel: classes.calendarHeaderLevel,
         monthCell: classes.monthCell,
+        weekday: classes.weekday,
+        day: classes.day,
+        monthsListControl: classes.monthsListControl,
+        yearsListControl: classes.monthsListControl,
       }),
     },
   },
