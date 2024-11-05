@@ -14,8 +14,7 @@ function EditPetAction({ data, setPetsData, isLost }) {
     <>
       <Button
         onClick={open}
-        variant="default"
-        className={classes.modal}
+        className={classes.button}
         rightSection={<IconEdit size={20} />}
       >
         Editar
@@ -50,6 +49,7 @@ EditPetAction.propTypes = {
     statusAdopt: PropTypes.bool,
     description: PropTypes.string.isRequired,
     pet: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       specieId: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
@@ -59,7 +59,8 @@ EditPetAction.propTypes = {
       size: PropTypes.string.isRequired,
       location_latitude: PropTypes.number.isRequired,
       location_longitude: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+      imageId: PropTypes.string.isRequired,
     }).isRequired,
     contact: PropTypes.shape({
       name: PropTypes.string.isRequired,

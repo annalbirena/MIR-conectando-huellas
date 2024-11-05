@@ -1,4 +1,12 @@
-import { Button, Group, SimpleGrid, Stack } from '@mantine/core';
+/* eslint-disable object-curly-newline */
+import {
+  Button,
+  Center,
+  Group,
+  Loader,
+  SimpleGrid,
+  Stack,
+} from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PetCard from '../PetCard';
@@ -6,10 +14,13 @@ import { getLostPets } from '../../services/pets';
 
 function LostPetsPanel() {
   const [petsData, setPetsData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getPetsData = async () => {
+    setLoading(true);
     const data = await getLostPets();
     setPetsData(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -22,7 +33,11 @@ function LostPetsPanel() {
     </Group>
   ));
 
-  return (
+  return loading ? (
+    <Center h={100} w="100%">
+      <Loader size={30} />
+    </Center>
+  ) : (
     <Stack>
       <SimpleGrid
         cols={{

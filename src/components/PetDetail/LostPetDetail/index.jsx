@@ -21,7 +21,9 @@ import {
   getLostStateName,
   getSexName,
   getSizeName,
+  getSpecieById,
 } from '../../../utils/formatData';
+import { useUserContext } from '../../../context/UserContext';
 
 function Field({ label, value }) {
   return (
@@ -43,6 +45,7 @@ function LostPetDetail() {
   const { id } = useParams();
   const [petData, setPetData] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const { species } = useUserContext();
 
   const getPetData = async () => {
     setIsLoading(true);
@@ -64,7 +67,7 @@ function LostPetDetail() {
   ) : petData ? (
     <Stack>
       <Group grow justify="space-between">
-        <Image src={petData.pet.image} alt="Foto de mascota" h={550} />
+        <Image src={petData.pet.imageUrl} alt="Foto de mascota" h={550} />
         <Stack gap="xl">
           <Title
             order={1}
@@ -81,8 +84,10 @@ function LostPetDetail() {
                 label="Edad"
                 value={`${petData.pet.age} ${getAgeName(petData.pet.ageUnit)}`}
               />
-              {/* <Field label="Especie" value={petData.pet.specieId} /> */}
-              <Field label="Especie" value="Perro" />
+              <Field
+                label="Especie"
+                value={getSpecieById(species, petData.pet.specieId)}
+              />
             </Group>
             <Group grow>
               <Field label="Sexo" value={getSexName(petData.pet.sex)} />

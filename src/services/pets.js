@@ -105,8 +105,8 @@ export const createAdoptPet = async (data, token) => {
   }
 };
 
-export const uploadPetImage = async (path, image, token) => {
-  const URL = `${BASE_URL}${path}/upload`;
+export const uploadPetImage = async (image, token) => {
+  const URL = `${BASE_URL}/images/upload`;
   try {
     const response = await axios.post(URL, image, {
       headers: {
@@ -116,6 +116,21 @@ export const uploadPetImage = async (path, image, token) => {
     return response.data;
   } catch (error) {
     console.error('Error uploading image:', error);
+    return null;
+  }
+};
+
+export const deletePetImage = async (petId, token) => {
+  const URL = `${BASE_URL}/images/delete/${petId}`;
+  try {
+    const response = await axios.delete(URL, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting image:', error);
     return null;
   }
 };

@@ -47,3 +47,8 @@ export const formatLostDate = (date) => {
 
   return formatDate;
 };
+
+export const getSpecieById = (data, id) => {
+  const item = data.find((obj) => obj.value === id);
+  return item ? item.label : '-';
+};
