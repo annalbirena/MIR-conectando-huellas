@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable operator-linebreak */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
@@ -6,12 +7,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import {
+  BackgroundImage,
   Button,
+  Center,
   Checkbox,
-  FileInput,
+  FileButton,
   Group,
   Modal,
-  rem,
   Select,
   Stack,
   Text,
@@ -24,14 +26,19 @@ import {
   IconCheck,
   IconChevronLeft,
   IconChevronRight,
-  IconPhotoScan,
+  IconX,
 } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import PropTypes from 'prop-types';
 import AgeInput from '../../AgeInput';
 import MapCard from '../../MapCard';
 import { useUserContext } from '../../../context/UserContext';
-import { getLostPetsByUserId, updateLostPet } from '../../../services/pets';
+import {
+  deletePetImage,
+  getLostPetsByUserId,
+  updateLostPet,
+  uploadPetImage,
+} from '../../../services/pets';
 import 'dayjs/locale/es';
 
 function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
@@ -43,6 +50,8 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
   const [location, setLocation] = useState(petLocation);
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const { species, user, userId, token } = useUserContext();
 
   const form = useForm({
@@ -61,7 +70,7 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
         lostDate: new Date(data.lostDate),
         location: petLocation,
         state: data.statusLost === true ? 'lost' : 'found',
-        image: data.pet.image,
+        image: data.pet.imageUrl,
         description: data.description || '',
       },
       contact: {
@@ -121,6 +130,17 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
     }
   };
 
+  const handleImageUpload = (file) => {
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImageSrc(reader.result);
+      };
+    }
+  };
+
   useEffect(() => {
     const isChecked = checked;
     onSetDefaultDirection(isChecked);
@@ -134,7 +154,47 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
     setLoading(true);
 
     try {
-      const updatedPet = await updateLostPet(data.id, values, token);
+      let imageResult = null;
+
+      if (imageFile) {
+        try {
+          const deleteResponse = await deletePetImage(data.pet.id, token);
+
+          if (deleteResponse) {
+            const formatImage = new FormData();
+            formatImage.append('image', imageFile);
+
+            const uploadResponse = await uploadPetImage(formatImage, token);
+
+            if (uploadResponse) {
+              imageResult = {
+                imageUrl: uploadResponse.secure_url,
+                imageId: uploadResponse.public_id,
+              };
+            }
+          }
+        } catch (imageError) {
+          console.error('Error al cargar la imagen:', imageError);
+          notifications.show({
+            title: 'Error',
+            message: 'No se pudo actualizar la imagen de la mascota.',
+            icon: <IconX size={20} />,
+            color: 'red',
+          });
+        }
+      }
+
+      const formValues = {
+        ...values,
+        pet: {
+          ...values.pet,
+          image: imageResult ? imageResult.imageUrl : data.pet.imageUrl,
+          imageId: imageResult ? imageResult.imageId : data.pet.imageId,
+        },
+      };
+
+      // Actualizar los datos de la mascota
+      const updatedPet = await updateLostPet(data.id, formValues, token);
       if (updatedPet) {
         notifications.show({
           title: 'Exito!',
@@ -146,23 +206,36 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
         const userPets = await getLostPetsByUserId(userId, token);
         setPetsData(userPets);
 
-        // Resetear valores
-        form.reset();
-        setLoading(false);
-        setLocation(petLocation);
-        setChecked(false);
         close();
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error al actualizar los datos de la mascota:', error);
+      notifications.show({
+        title: 'Error',
+        message: 'Hubo un problema al actualizar los datos de la mascota.',
+        icon: <IconX size={20} />,
+        color: 'red',
+      });
+    } finally {
       setLoading(false);
     }
+  };
+
+  const handleClose = () => {
+    // Reset values
+    form.reset();
+    setLocation(petLocation);
+    setChecked(false);
+    setImageFile(null);
+    setImageSrc(null);
+    // Close Modal
+    onClose();
   };
 
   return (
     <Modal
       opened={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       title={
         <Text size="xl" fw="bold">
           Editar Mascota
@@ -173,36 +246,57 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
-          <Group grow align="flex-start">
-            <TextInput
-              withAsterisk
-              label="Nombre de mascota"
-              placeholder="Ingrese nombre de mascota"
-              key={form.key('pet.name')}
-              {...form.getInputProps('pet.name')}
-            />
-            <Select
-              withAsterisk
-              label="Tipo"
-              placeholder="Seleccione tipo"
-              data={species}
-              key={form.key('pet.specie')}
-              {...form.getInputProps('pet.specie')}
-            />
+          <Group justify="stretch">
+            <BackgroundImage
+              h={300}
+              flex={1}
+              src={imageSrc || data.pet.imageUrl}
+              radius="sm"
+            >
+              <Center p="md" h="100%">
+                <FileButton
+                  size="xs"
+                  accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp, image/avif, image/heic, image/heif"
+                  onChange={handleImageUpload}
+                >
+                  {(props) => <Button {...props}>Cargar foto</Button>}
+                </FileButton>
+              </Center>
+            </BackgroundImage>
+            <Stack flex={1}>
+              <TextInput
+                withAsterisk
+                label="Nombre de mascota"
+                placeholder="Ingrese nombre de mascota"
+                key={form.key('pet.name')}
+                {...form.getInputProps('pet.name')}
+              />
+              <Select
+                withAsterisk
+                allowDeselect={false}
+                label="Tipo"
+                placeholder="Seleccione tipo"
+                data={species}
+                key={form.key('pet.specie')}
+                {...form.getInputProps('pet.specie')}
+              />
+              <AgeInput form={form} />
+              <Select
+                withAsterisk
+                allowDeselect={false}
+                label="Sexo"
+                placeholder="Seleccione sexo"
+                data={[
+                  { value: 'female', label: 'Hembra' },
+                  { value: 'male', label: 'Macho' },
+                ]}
+                key={form.key('pet.sex')}
+                {...form.getInputProps('pet.sex')}
+              />
+            </Stack>
           </Group>
+
           <Group grow align="flex-start">
-            <AgeInput form={form} />
-            <Select
-              withAsterisk
-              label="Sexo"
-              placeholder="Seleccione sexo"
-              data={[
-                { value: 'female', label: 'Hembra' },
-                { value: 'male', label: 'Macho' },
-              ]}
-              key={form.key('pet.sex')}
-              {...form.getInputProps('pet.sex')}
-            />
             <TextInput
               label="Raza"
               placeholder="Ingrese raza"
@@ -211,6 +305,7 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
             />
             <Select
               withAsterisk
+              allowDeselect={false}
               label="Tamaño"
               placeholder="Seleccione tamaño"
               data={[
@@ -235,6 +330,7 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
             />
             <Select
               withAsterisk
+              allowDeselect={false}
               label="Estado"
               placeholder="Seleccione estado"
               data={[
@@ -245,23 +341,6 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
               {...form.getInputProps('pet.state')}
             />
           </Group>
-          <FileInput
-            withAsterisk
-            label="Cargar imagen"
-            placeholder="Seleccione imagen desde su equipo"
-            leftSectionPointerEvents="none"
-            leftSection={
-              <IconPhotoScan
-                style={{
-                  width: rem(18),
-                  height: rem(18),
-                }}
-                stroke={1.5}
-              />
-            }
-            key={form.key('pet.image')}
-            {...form.getInputProps('pet.image')}
-          />
 
           <Stack gap={4}>
             <Text fw={500} size="sm">
@@ -329,6 +408,7 @@ EditLostPetForm.propTypes = {
     statusAdopt: PropTypes.bool,
     description: PropTypes.string.isRequired,
     pet: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       specieId: PropTypes.string.isRequired,
       age: PropTypes.number.isRequired,
@@ -338,7 +418,8 @@ EditLostPetForm.propTypes = {
       size: PropTypes.string.isRequired,
       location_latitude: PropTypes.number.isRequired,
       location_longitude: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+      imageId: PropTypes.string.isRequired,
     }).isRequired,
     contact: PropTypes.shape({
       name: PropTypes.string.isRequired,

@@ -11,6 +11,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Button,
   Checkbox,
+  Divider,
   FileInput,
   Group,
   rem,
@@ -132,21 +133,20 @@ function AdoptPetForm({ species }) {
     setLocationError(false);
 
     try {
-      const path = '/adoptionpets';
-
       // Formatear imagen
       const formatImage = new FormData();
       formatImage.append('image', values.pet.image);
 
       // Cargar imagen
-      const imageUrl = await uploadPetImage(path, formatImage, token);
+      const imageResponse = await uploadPetImage(formatImage, token);
 
-      if (imageUrl) {
+      if (imageResponse) {
         const formValues = {
           ...values,
           pet: {
             ...values.pet,
-            image: imageUrl,
+            image: imageResponse.secure_url,
+            imageId: imageResponse.public_id,
           },
         };
 
@@ -160,11 +160,9 @@ function AdoptPetForm({ species }) {
           });
 
           form.reset();
-          setLoading(false);
           setLocation(null);
           setChecked(false);
         } else {
-          setLoading(false);
           notifications.show({
             title: 'Error!',
             message: 'Hubo un error al crear la mascota, intenta nuevamente.',
@@ -173,7 +171,6 @@ function AdoptPetForm({ species }) {
           });
         }
       } else {
-        setLoading(false);
         notifications.show({
           title: 'Error!',
           message: 'Hubo un error al cargar la imagen, intenta nuevamente.',
@@ -183,69 +180,75 @@ function AdoptPetForm({ species }) {
       }
     } catch (error) {
       console.error(error);
-      setLoading(false);
       notifications.show({
         title: 'Error!',
         message: `Hubo un error al crear la mascota: ${error}'`,
         color: 'red',
         icon: <IconX size={20} />,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit, handleError)}>
-      <Stack>
-        <Group grow align="flex-start">
-          <TextInput
-            withAsterisk
-            label="Nombre de mascota"
-            placeholder="Ingrese nombre de mascota"
-            key={form.key('pet.name')}
-            {...form.getInputProps('pet.name')}
+      <Stack gap="xl">
+        <Stack>
+          <Divider
+            color="purpleBrand.2"
+            label="Datos de Mascota"
+            labelPosition="left"
           />
-          <Select
-            withAsterisk
-            label="Tipo"
-            placeholder="Seleccione tipo"
-            data={species}
-            key={form.key('pet.specie')}
-            {...form.getInputProps('pet.specie')}
-          />
-        </Group>
-        <Group grow align="flex-start">
-          <AgeInput form={form} />
-          <Select
-            withAsterisk
-            label="Sexo"
-            placeholder="Seleccione sexo"
-            data={[
-              { value: 'female', label: 'Hembra' },
-              { value: 'male', label: 'Macho' },
-            ]}
-            key={form.key('pet.sex')}
-            {...form.getInputProps('pet.sex')}
-          />
-          <TextInput
-            label="Raza"
-            placeholder="Ingrese raza"
-            key={form.key('pet.breed')}
-            {...form.getInputProps('pet.breed')}
-          />
-          <Select
-            withAsterisk
-            label="Tamaño"
-            placeholder="Seleccione tamaño"
-            data={[
-              { value: 'small', label: 'Pequeño' },
-              { value: 'medium', label: 'Mediano' },
-              { value: 'large', label: 'Grande' },
-            ]}
-            key={form.key('pet.size')}
-            {...form.getInputProps('pet.size')}
-          />
-        </Group>
-        <Group grow align="flex-start">
+          <Group grow align="flex-start">
+            <TextInput
+              withAsterisk
+              label="Nombre de mascota"
+              placeholder="Ingrese nombre de mascota"
+              key={form.key('pet.name')}
+              {...form.getInputProps('pet.name')}
+            />
+            <Select
+              withAsterisk
+              label="Tipo"
+              placeholder="Seleccione tipo"
+              data={species}
+              key={form.key('pet.specie')}
+              {...form.getInputProps('pet.specie')}
+            />
+          </Group>
+          <Group grow align="flex-start">
+            <AgeInput form={form} />
+            <Select
+              withAsterisk
+              label="Sexo"
+              placeholder="Seleccione sexo"
+              data={[
+                { value: 'female', label: 'Hembra' },
+                { value: 'male', label: 'Macho' },
+              ]}
+              key={form.key('pet.sex')}
+              {...form.getInputProps('pet.sex')}
+            />
+            <TextInput
+              label="Raza"
+              placeholder="Ingrese raza"
+              key={form.key('pet.breed')}
+              {...form.getInputProps('pet.breed')}
+            />
+            <Select
+              withAsterisk
+              label="Tamaño"
+              placeholder="Seleccione tamaño"
+              data={[
+                { value: 'small', label: 'Pequeño' },
+                { value: 'medium', label: 'Mediano' },
+                { value: 'large', label: 'Grande' },
+              ]}
+              key={form.key('pet.size')}
+              {...form.getInputProps('pet.size')}
+            />
+          </Group>
           <FileInput
             withAsterisk
             label="Cargar imagen"
@@ -263,7 +266,33 @@ function AdoptPetForm({ species }) {
             key={form.key('pet.image')}
             {...form.getInputProps('pet.image')}
           />
-          <Select
+
+          <Textarea
+            autosize
+            minRows={2}
+            label="Descripción adicional"
+            placeholder="Ingrese descripción"
+            key={form.key('pet.description')}
+            {...form.getInputProps('pet.description')}
+          />
+
+          <Stack gap={4}>
+            <Text fw={500} size="sm">
+              Ubicación de mascota en adopción{' '}
+              <Text span c="red">
+                *
+              </Text>
+            </Text>
+            <MapCard location={location} setLocation={setLocation} />
+            {locationError && (
+              <Text c="red" size="xs">
+                Seleccionar ubicación en mapa
+              </Text>
+            )}
+          </Stack>
+        </Stack>
+
+        {/* <Select
             withAsterisk
             label="Estado"
             placeholder="Seleccione estado"
@@ -273,61 +302,45 @@ function AdoptPetForm({ species }) {
             ]}
             key={form.key('pet.state')}
             {...form.getInputProps('pet.state')}
-          />
-        </Group>
+          /> */}
 
-        <Stack gap={4}>
-          <Text fw={500} size="sm">
-            Ubicación de mascota en adopción{' '}
-            <Text span c="red">
-              *
-            </Text>
-          </Text>
-          <MapCard location={location} setLocation={setLocation} />
-          {locationError && (
-            <Text c="red" size="xs">
-              Seleccionar ubicación en mapa
-            </Text>
-          )}
+        <Stack>
+          <Divider
+            color="purpleBrand.2"
+            label="Datos de Contacto"
+            labelPosition="left"
+          />
+          <Checkbox
+            label="Usar dirección de usuario registrada"
+            checked={checked}
+            onChange={(event) => setChecked(event.currentTarget.checked)}
+          />
+          <Group grow align="flex-start">
+            <TextInput
+              withAsterisk
+              label="Nombre de Contacto"
+              placeholder="Nombre de Contacto"
+              key={form.key('contact.name')}
+              {...form.getInputProps('contact.name')}
+            />
+            <TextInput
+              withAsterisk
+              label="Celular de Contacto"
+              placeholder="Ingrese Celular"
+              key={form.key('contact.phone')}
+              {...form.getInputProps('contact.phone')}
+            />
+          </Group>
+          <TextInput
+            withAsterisk
+            label="Dirección de Contacto"
+            placeholder="Ingrese Dirección"
+            key={form.key('contact.address')}
+            {...form.getInputProps('contact.address')}
+          />
         </Stack>
-        <Textarea
-          autosize
-          minRows={2}
-          label="Descripción adicional"
-          placeholder="Ingrese descripción"
-          key={form.key('pet.description')}
-          {...form.getInputProps('pet.description')}
-        />
-        <Checkbox
-          label="Usar dirección de usuario registrada"
-          checked={checked}
-          onChange={(event) => setChecked(event.currentTarget.checked)}
-        />
-        <Group grow align="flex-start">
-          <TextInput
-            withAsterisk
-            label="Nombre de Contacto"
-            placeholder="Nombre de Contacto"
-            key={form.key('contact.name')}
-            {...form.getInputProps('contact.name')}
-          />
-          <TextInput
-            withAsterisk
-            label="Celular de Contacto"
-            placeholder="Ingrese Celular"
-            key={form.key('contact.phone')}
-            {...form.getInputProps('contact.phone')}
-          />
-        </Group>
-        <TextInput
-          withAsterisk
-          label="Dirección de Contacto"
-          placeholder="Ingrese Dirección"
-          key={form.key('contact.address')}
-          {...form.getInputProps('contact.address')}
-        />
 
-        <Group mt="lg" justify="flex-end">
+        <Group justify="flex-end">
           <Button type="submit" loading={loading}>
             Registrar mascota
           </Button>

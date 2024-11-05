@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   SimpleGrid,
-  Button,
   Stack,
   Group,
   Loader,
@@ -80,10 +79,6 @@ function LostsPetsPage() {
                 </SimpleGrid>
               </Box>
             )}
-
-            <Button variant="filled" color="purpleBrand.3" mt="xl" m="auto">
-              Mostrar más
-            </Button>
           </Stack>
         </Group>
       </Stack>

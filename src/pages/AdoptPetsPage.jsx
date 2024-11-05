@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   SimpleGrid,
-  Button,
   Stack,
   Group,
   Center,
@@ -79,10 +78,6 @@ function AdoptPetsPage() {
                 </SimpleGrid>
               </Box>
             )}
-
-            <Button variant="filled" color="purpleBrand.3" mt="xl" m="auto">
-              Mostrar más
-            </Button>
           </Stack>
         </Group>
       </Stack>

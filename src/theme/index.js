@@ -54,6 +54,17 @@ const theme = createTheme({
         yearsListControl: classes.monthsListControl,
       }),
     },
+    Tabs: {
+      classNames: () => ({
+        tab: classes.tab,
+        tabLabel: classes.tabLabel,
+      }),
+    },
+    Divider: {
+      classNames: () => ({
+        label: classes.dividerLabel,
+      }),
+    },
   },
   variantColorResolver: (input) => {
     const defaultResolvedColors = defaultVariantColorsResolver(input);
