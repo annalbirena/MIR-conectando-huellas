@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage';
 import LostsPetsPage from './pages/LostPetsPage';
 import AdoptPetsPage from './pages/AdoptPetsPage';
 import UserPetRegisterPage from './pages/UserPetRegisterPage';
-/* import SheltersPage from './pages/SheltersPage'; */
 import PetDetailsPage from './pages/PetDetailsPage';
 import UserLostPetsPage from './pages/UserLostPetsPage';
 import LoginPage from './pages/Auth/LoginPage';
@@ -15,6 +14,7 @@ import UserAdoptPetsPage from './pages/UserAdoptPetsPage';
 import RequireAuth from './pages/Auth/RequiredAuth';
 import PublicRoute from './pages/Auth/PublicRoute';
 import VerifyAccountPage from './pages/Auth/VerifyAccount';
+import MapPage from './pages/MapPage';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           path="/adopcion/:id"
           element={<PetDetailsPage isLost={false} />}
         />
-        {/*  <Route path="/albergues" element={<SheltersPage />} /> */}
+        <Route path="/mapa" element={<MapPage />} />
         <Route element={<RequireAuth />}>
           <Route
             path="/mi-cuenta/datos-personales"

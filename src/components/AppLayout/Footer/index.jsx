@@ -13,10 +13,10 @@ const links = [
     link: '/adopcion',
     label: 'Adopción',
   },
-  /*  {
-    link: '/albergues',
-    label: 'Albergues',
-  }, */
+  {
+    link: '/mapa',
+    label: 'Mapa',
+  },
 ];
 
 function Footer() {
