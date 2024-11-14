@@ -13,12 +13,6 @@ const containerStyle = {
   borderRadius: 5,
 };
 
-const viewPort = {
-  latitude: -12.113887,
-  longitude: -77.033996,
-  zoom: 10,
-};
-
 function MapCard({ location = null, setLocation }) {
   const mapRef = useRef(null);
 
@@ -34,7 +28,11 @@ function MapCard({ location = null, setLocation }) {
     <Box h={300}>
       <Map
         ref={mapRef}
-        initialViewState={viewPort}
+        initialViewState={{
+          latitude: location?.latitude ? location?.latitude : -12.04318,
+          longitude: location?.longitude ? location?.longitude : -77.02824,
+          zoom: location?.longitude ? 16 : 10,
+        }}
         mapLib={MapLibreGl}
         style={containerStyle}
         onClick={(e) => handleClick(e)}

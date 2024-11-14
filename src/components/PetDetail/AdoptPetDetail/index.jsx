@@ -40,7 +40,7 @@ Field.propTypes = {
 
 function AdoptPetDetail() {
   const { id } = useParams();
-  const [petData, setPetData] = useState();
+  const [petData, setPetData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { species } = useUserContext();
 

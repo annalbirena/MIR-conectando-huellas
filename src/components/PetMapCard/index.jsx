@@ -4,7 +4,7 @@ import { Box } from '@mantine/core';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import MapLibreGl from 'maplibre-gl';
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Map, Marker } from 'react-map-gl';
 
 const containerStyle = {
@@ -21,6 +21,16 @@ const viewPort = {
 
 function PetMapCard({ location }) {
   const mapRef = useRef(null);
+
+  useEffect(() => {
+    if (location.longitude) {
+      mapRef.current?.getMap().flyTo({
+        center: [location.longitude, location.latitude],
+        duration: 2000,
+        zoom: 16,
+      });
+    }
+  }, [location]);
 
   return (
     <Box h={400}>
@@ -44,10 +54,13 @@ function PetMapCard({ location }) {
 }
 
 PetMapCard.propTypes = {
-  location: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
-  }).isRequired,
+  location: PropTypes.oneOfType([
+    PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+    }),
+    PropTypes.oneOf([null]),
+  ]).isRequired,
 };
 
 export default PetMapCard;
