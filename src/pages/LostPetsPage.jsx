@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-console */
 /* eslint-disable object-curly-newline */
 import React, { useState, useEffect } from 'react';
 import {
@@ -8,7 +10,10 @@ import {
   Center,
   Box,
   LoadingOverlay,
+  Alert,
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react';
 import AppLayout from '../components/AppLayout';
 import PetCard from '../components/PetCard';
 import TitlePage from '../components/TitlePage';
@@ -19,12 +24,24 @@ function LostsPetsPage() {
   const [petsData, setPetsData] = useState([]);
   const [loadingPets, setLoadingPets] = useState(false);
   const [loadingFilterPets, setLoadingFilterPets] = useState(false);
+  const [loadingClearFilterPets, setLoadingClearFilterPets] = useState(false);
 
   const getPetsData = async () => {
     setLoadingPets(true);
-    const data = await getLostPets();
-    setPetsData(data);
-    setLoadingPets(false);
+
+    try {
+      const data = await getLostPets();
+      setPetsData(data);
+    } catch (error) {
+      console.log(error);
+      notifications.show({
+        title: 'Error!',
+        message: 'No se pudo obtener las mascotas.',
+        icon: <IconX size={20} />,
+      });
+    } finally {
+      setLoadingPets(false);
+    }
   };
 
   useEffect(() => {
@@ -51,6 +68,8 @@ function LostsPetsPage() {
             setPetsData={setPetsData}
             loadingFilterPets={loadingFilterPets}
             setLoadingFilterPets={setLoadingFilterPets}
+            loadingClearFilterPets={loadingClearFilterPets}
+            setLoadingClearFilterPets={setLoadingClearFilterPets}
             isLost
           />
 
@@ -59,10 +78,10 @@ function LostsPetsPage() {
               <Center h={100} w="100%">
                 <Loader color="brand" />
               </Center>
-            ) : (
+            ) : petsData.length ? (
               <Box pos="relative">
                 <LoadingOverlay
-                  visible={loadingFilterPets}
+                  visible={loadingClearFilterPets || loadingFilterPets}
                   zIndex={1000}
                   overlayProps={{ radius: 'sm', blur: 0.5 }}
                 />
@@ -78,6 +97,12 @@ function LostsPetsPage() {
                   {pets}
                 </SimpleGrid>
               </Box>
+            ) : (
+              <Center w="100%">
+                <Alert variant="light" color="grape">
+                  No existen mascotas
+                </Alert>
+              </Center>
             )}
           </Stack>
         </Group>

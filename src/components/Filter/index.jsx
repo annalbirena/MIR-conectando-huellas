@@ -11,12 +11,15 @@ import {
   IconChevronRight,
   IconFilter,
   IconX,
+  IconFilterOff,
 } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import { useUserContext } from '../../context/UserContext';
 import {
+  getAdoptPets,
   getAdoptPetsByFilters,
+  getLostPets,
   getLostPetsByFilters,
 } from '../../services/pets';
 import buildFilterURL from '../../utils/buildFilterUrl';
@@ -26,6 +29,8 @@ function Filters({
   setPetsData,
   loadingFilterPets,
   setLoadingFilterPets,
+  loadingClearFilterPets,
+  setLoadingClearFilterPets,
   isLost,
 }) {
   const [items, setItems] = useState([]);
@@ -65,6 +70,30 @@ function Filters({
         icon: <IconX size={20} />,
       });
     }
+  };
+
+  const handleResetFilters = () => {
+    form.reset();
+
+    // Mostrar todas las mascotas al borrar los filtros
+    const fetchAllPets = async () => {
+      setLoadingClearFilterPets(true);
+      try {
+        const data = isLost ? await getLostPets() : await getAdoptPets();
+        setPetsData(data);
+      } catch (error) {
+        console.log(error);
+        notifications.show({
+          title: 'Error!',
+          message: 'No se pudo obtener las mascotas, intenta nuevamente.',
+          icon: <IconX size={20} />,
+        });
+      } finally {
+        setLoadingClearFilterPets(false);
+      }
+    };
+
+    fetchAllPets();
   };
 
   return (
@@ -139,11 +168,6 @@ function Filters({
                 </Accordion.Panel>
               </Accordion.Item>
             ) : null}
-
-            {/*  <Accordion.Item value="ubicacion">
-          <Accordion.Control disabled>Ubicacion</Accordion.Control>
-          <Accordion.Panel>Content</Accordion.Panel>
-        </Accordion.Item> */}
           </Accordion>
           <Button
             type="submit"
@@ -151,6 +175,15 @@ function Filters({
             rightSection={<IconFilter size={14} />}
           >
             Filtrar
+          </Button>
+          <Button
+            c="dark"
+            variant="outline"
+            loading={loadingClearFilterPets}
+            rightSection={<IconFilterOff size={14} />}
+            onClick={handleResetFilters}
+          >
+            Borrar filtros
           </Button>
         </Stack>
       </form>
@@ -162,6 +195,8 @@ Filters.propTypes = {
   setPetsData: PropTypes.func.isRequired,
   loadingFilterPets: PropTypes.bool.isRequired,
   setLoadingFilterPets: PropTypes.func.isRequired,
+  loadingClearFilterPets: PropTypes.bool.isRequired,
+  setLoadingClearFilterPets: PropTypes.func.isRequired,
   isLost: PropTypes.bool.isRequired,
 };
 
