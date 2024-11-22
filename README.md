@@ -240,5 +240,5 @@ Backend:
 ## Integrantes
 
 - Ana Albirena
-- Alexander Puma
 - Antony Antezana
+- Alexander Puma
