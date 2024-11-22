@@ -1,191 +1,23 @@
 {
-  "lostPetData": [
+  "lostpets": [
     {
       "pet": {
-        "name": "lost",
-        "type": "perro",
-        "age": {
-          "number": "8",
-          "type": "year"
-        },
-        "sex": "macho",
-        "breed": "monches",
-        "size": "mediano",
-        "lostDate": "2024-10-01T05:00:00.000Z",
-        "lostLocation": {
-          "latitude": -12.064650904770119,
-          "longitude": -77.02991116697203
-        },
-        "state": "perdido",
-        "image": "https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg",
-        "description": ""
-      },
-      "contact": {
-        "name": "Jane",
-        "phone": "999165999",
-        "address": "Av. 7 de Abril 2020, Lima"
-      },
-      "userId": "123456",
-      "id": 1
-    },
-    {
-      "pet": {
-        "name": "lina",
-        "type": "perro",
-        "age": {
-          "number": "2",
-          "type": "year"
-        },
-        "sex": "hembra",
-        "breed": "pug",
-        "size": "pequeño",
-        "lostDate": "2024-10-03T05:00:00.000Z",
-        "lostLocation": {
-          "latitude": -12.072070865294236,
-          "longitude": -77.07485140771499
-        },
-        "state": "perdido",
-        "image": "https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg",
-        "description": ""
-      },
-      "contact": {
-        "name": "Jane",
-        "phone": "999165999",
-        "address": "Av. 7 de Abril 2020, Lima"
-      },
-      "userId": "123456",
-      "id": 2
-    },
-    {
-      "pet": {
-        "name": "suki",
-        "type": "perro",
-        "age": {
-          "number": "12",
-          "type": "year"
-        },
-        "sex": "hembra",
-        "breed": "teckel",
-        "size": "pequeño",
-        "lostDate": "2024-10-04T05:00:00.000Z",
-        "lostLocation": {
-          "latitude": -12.086250964799362,
-          "longitude": -77.04850656960026
-        },
-        "state": "perdido",
-        "image": "https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg",
-        "description": ""
-      },
-      "contact": {
-        "name": "Jane",
-        "phone": "999165999",
-        "address": "Av. 7 de Abril 2020, Lima"
-      },
-      "userId": "123456",
-      "id": 3
-    },
-    {
-      "pet": {
-        "name": "teodoro",
-        "type": "perro",
-        "age": {
-          "number": "6",
-          "type": "year"
-        },
-        "sex": "macho",
-        "breed": "",
-        "size": "mediano",
-        "lostDate": "2024-10-24T05:00:00.000Z",
-        "lostLocation": {
-          "latitude": -12.122425666951656,
-          "longitude": -77.0226663491211
-        },
-        "state": "perdido",
-        "image": "https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg",
-        "description": ""
-      },
-      "contact": {
-        "name": "Jane",
-        "phone": "999165999",
-        "address": "Av. 7 de Abril 2020, Lima"
-      },
-      "userId": "123456",
-      "id": 4
-    }
-  ],
-  "adoptPetData": [
-    {
-      "pet": {
-        "name": "lost",
-        "type": "perro",
-        "age": {
-          "number": "8",
-          "type": "year"
-        },
-        "sex": "macho",
-        "breed": "monches",
-        "size": "mediano",
-        "lostDate": "2024-10-01T05:00:00.000Z",
-        "lostLocation": {
-          "latitude": -12.064650904770119,
-          "longitude": -77.02991116697203
-        },
-        "state": "perdido",
-        "image": "https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg",
-        "description": ""
-      },
-      "contact": {
-        "name": "Jane",
-        "phone": "999165999",
-        "address": "Av. 7 de Abril 2020, Lima"
-      },
-      "userId": "123456",
-      "id": 1
-    },
-    {
-      "pet": {
-        "name": "leia",
-        "type": "perro",
-        "age": {
-          "number": "6",
-          "type": "year"
-        },
-        "sex": "hembra",
-        "breed": "pug",
-        "size": "pequeño",
-        "location": {
-          "latitude": -12.07679639912999,
-          "longitude": -77.08289386440224
-        },
-        "state": "en adopcion",
-        "image": "https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg",
-        "description": ""
-      },
-      "contact": {
-        "name": "Jane",
-        "phone": "999165999",
-        "address": "Av. 7 de Abril 2020, Lima"
-      },
-      "userId": "123456",
-      "id": 2
-    },
-    {
-      "pet": {
-        "name": "kiara",
-        "type": "gato",
+        "name": "teo",
+        "type": "dog",
         "age": {
           "number": "3",
           "type": "year"
         },
-        "sex": "hembra",
+        "sex": "female",
         "breed": "",
-        "size": "pequeño",
+        "size": "small",
+        "lostDate": "2024-10-04T05:00:00.000Z",
         "location": {
-          "latitude": -12.116918572740971,
-          "longitude": -77.01579989404304
+          "latitude": -12.140414715481612,
+          "longitude": -77.03571261376955
         },
-        "state": "enAdopcion",
-        "image": "https://media.es.wired.com/photos/65845b5ea4076464da362974/16:9/w_2560%2Cc_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg",
+        "state": "lost",
+        "image": {},
         "description": ""
       },
       "contact": {
@@ -193,9 +25,71 @@
         "phone": "999165999",
         "address": "Av. 7 de Abril 2020, Lima"
       },
-      "userId": "123456",
-      "id": 3
+      "userId": "4ec0d485-8f54-429e-8ed7-ef9e9aa17d75",
+      "id": 1
     }
   ],
-  "users": []
+  "adoptionpets": [
+    {
+      "pet": {
+        "name": "kiara",
+        "type": "dog",
+        "age": {
+          "number": "4",
+          "type": "year"
+        },
+        "sex": "female",
+        "breed": "",
+        "size": "small",
+        "location": {
+          "latitude": -12.145648618705778,
+          "longitude": -77.03296603173811
+        },
+        "state": "available",
+        "image": {},
+        "description": ""
+      },
+      "contact": {
+        "name": "Jane",
+        "phone": "999165999",
+        "address": "Av. 7 de Abril 2020, Lima"
+      },
+      "userId": "4ec0d485-8f54-429e-8ed7-ef9e9aa17d75",
+      "id": 1
+    }
+  ],
+  "users": [
+    {
+      "id": "4ec0d485-8f54-429e-8ed7-ef9e9aa17d75",
+      "name": "Anna",
+      "email": "ana84168@gmail.com",
+      "password": "123456",
+      "phone": "999165999",
+      "address": "Av 7 de Abril - Punta Hermosa"
+    },
+    {
+      "id": "bcd7c40c-afaa-4a37-b8db-1db7ae76bf25",
+      "name": "Luis",
+      "email": "luis@gmail.com",
+      "password": "123456",
+      "phone": "999111999",
+      "address": "Av 7 de Abril - Punta Hermosa"
+    },
+    {
+      "id": "32860882-b4e7-4426-84e0-abdcc58611ff",
+      "name": "Teo",
+      "email": "teo@gmail.com",
+      "password": "123456",
+      "phone": "999123999",
+      "address": "Av. 7 de Abril - Punta Hermosa"
+    },
+    {
+      "id": "a8517a14-6304-4925-bad2-3784865010dd",
+      "name": "Emilio",
+      "email": "emilio@gmail.com",
+      "password": "123456",
+      "phone": "912123123",
+      "address": "Av. 28 de Julio"
+    }
+  ]
 }

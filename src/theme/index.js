@@ -5,6 +5,7 @@ import {
   parseThemeColor,
 } from '@mantine/core';
 import { yellowGreen, brightPurple, darkBrand } from './colors';
+import classes from './styles.module.css';
 
 const theme = createTheme({
   colors: {
@@ -27,6 +28,41 @@ const theme = createTheme({
           borderRadius: '50px',
           fontSize: t.fontSizes.md,
         },
+      }),
+    },
+    DatePickerInput: {
+      classNames: () => ({
+        calendarHeaderControl: classes.headerControl,
+        calendarHeader: classes.calendarHeader,
+        calendarHeaderLevel: classes.calendarHeaderLevel,
+        monthCell: classes.monthCell,
+        weekday: classes.weekday,
+        day: classes.day,
+        monthsListControl: classes.monthsListControl,
+        yearsListControl: classes.monthsListControl,
+      }),
+    },
+    DateInput: {
+      classNames: () => ({
+        calendarHeaderControl: classes.headerControl,
+        calendarHeader: classes.calendarHeader,
+        calendarHeaderLevel: classes.calendarHeaderLevel,
+        monthCell: classes.monthCell,
+        weekday: classes.weekday,
+        day: classes.day,
+        monthsListControl: classes.monthsListControl,
+        yearsListControl: classes.monthsListControl,
+      }),
+    },
+    Tabs: {
+      classNames: () => ({
+        tab: classes.tab,
+        tabLabel: classes.tabLabel,
+      }),
+    },
+    Divider: {
+      classNames: () => ({
+        label: classes.dividerLabel,
       }),
     },
   },

@@ -1,38 +1,97 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import { Card, Image, Group, Text, Title, Stack } from '@mantine/core';
+import {
+  Card,
+  Group,
+  Text,
+  Title,
+  Stack,
+  Badge,
+  BackgroundImage,
+} from '@mantine/core';
 import PropTypes from 'prop-types';
 import classes from './userpetcard.module.css';
 import EditPetAction from '../EditPetAction/EditPetAction';
+import {
+  formatLostDate,
+  getAgeName,
+  getSexName,
+  getSizeName,
+} from '../../../utils/formatData';
 
-function UserPetCard({ data, isLost }) {
+function UserPetCard({ data, setPetsData, isLost }) {
   return (
     <Card p={0} className={classes.card}>
       <Group grow gap={0}>
-        <Image flex={1} src={data.image} alt={data.name} height={250} />
+        <BackgroundImage
+          h="100%"
+          w="auto"
+          p="xs"
+          src={data.pet.imageUrl}
+          alt={data.pet.name}
+        >
+          {isLost ? (
+            <Badge color={data.statusLost ? 'red' : 'cyan'}>
+              {data.statusLost ? 'Perdido' : 'Encontrado'}
+            </Badge>
+          ) : (
+            <Badge color={data.statusAdopt ? 'red' : 'cyan'}>
+              {data.statusAdopt ? 'En Adopción' : 'Adoptado'}
+            </Badge>
+          )}
+        </BackgroundImage>
+
         <Stack flex={1} h="100%" p="md" justify="space-between">
           <Stack gap="xs">
             <Title order={3} c="dark.9">
-              {data.name}
+              {data.pet.name}
             </Title>
-            <Text c="dark.7" size="sm">
-              Edad: {data.age}
-            </Text>
-            <Text c="dark.7" size="sm">
-              Sexo: {data.sex}
-            </Text>
-
             {isLost ? (
-              <Text c="dark.7" size="sm">
-                Fecha de perdida: {data.lostDate}
-              </Text>
+              <Stack gap={0}>
+                <Text c="dark.7" size="sm" fw={500}>
+                  Fecha de perdida:
+                </Text>
+                <Text c="dark.7" size="sm">
+                  {formatLostDate(data.lostDate)}
+                </Text>
+              </Stack>
             ) : null}
-            <Text c="dark.7" size="sm">
-              Tamaño: {data.size}
-            </Text>
+
+            <Group>
+              <Stack gap={0} flex={1}>
+                <Text c="dark.7" size="sm" fw={500}>
+                  Edad:
+                </Text>
+                <Text c="dark.7" size="sm">
+                  {data.pet.age} {getAgeName(data.pet.ageUnit)}
+                </Text>
+              </Stack>
+
+              <Stack gap={0} flex={1}>
+                <Text c="dark.7" size="sm" fw={500}>
+                  Sexo:
+                </Text>
+                <Text c="dark.7" size="sm">
+                  {getSexName(data.pet.sex)}
+                </Text>
+              </Stack>
+            </Group>
+
+            <Stack gap={0}>
+              <Text c="dark.7" size="sm" fw={500}>
+                Tamaño:
+              </Text>
+              <Text c="dark.7" size="sm">
+                {getSizeName(data.pet.size)}
+              </Text>
+            </Stack>
           </Stack>
 
-          <EditPetAction data={data} />
+          <EditPetAction
+            data={data}
+            setPetsData={setPetsData}
+            isLost={isLost}
+          />
         </Stack>
       </Group>
     </Card>
@@ -41,14 +100,33 @@ function UserPetCard({ data, isLost }) {
 
 UserPetCard.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    age: PropTypes.string.isRequired,
-    sex: PropTypes.string.isRequired,
-    size: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
     lostDate: PropTypes.string,
+    statusLost: PropTypes.bool,
+    statusAdopt: PropTypes.bool,
+    description: PropTypes.string.isRequired,
+    pet: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      specieId: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+      ageUnit: PropTypes.string.isRequired,
+      sex: PropTypes.string.isRequired,
+      breed: PropTypes.string.isRequired,
+      size: PropTypes.string.isRequired,
+      location_latitude: PropTypes.number.isRequired,
+      location_longitude: PropTypes.number.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+      imageId: PropTypes.string.isRequired,
+    }).isRequired,
+    contact: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
+  setPetsData: PropTypes.func.isRequired,
   isLost: PropTypes.bool.isRequired,
 };
 

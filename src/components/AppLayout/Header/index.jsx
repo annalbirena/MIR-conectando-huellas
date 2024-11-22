@@ -1,18 +1,19 @@
 /* eslint-disable object-curly-newline */
-// eslint-disable-next-line object-curly-newline
 import React from 'react';
 import {
   Avatar,
   Burger,
+  Button,
   Group,
   Image,
   Menu,
   UnstyledButton,
-  // eslint-disable-next-line object-curly-newline
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
+import { IconLogout } from '@tabler/icons-react';
 import classes from './header.module.css';
+import useAuth from '../../../hooks/useAuth';
 
 const links = [
   {
@@ -24,13 +25,15 @@ const links = [
     label: 'Adopción',
   },
   {
-    link: '/albergues',
-    label: 'Albergues',
+    link: '/mapa',
+    label: 'Mapa',
   },
 ];
 
 function Header() {
   const [opened, { toggle }] = useDisclosure(false);
+  const isLoggedIn = localStorage.getItem('userId') !== null;
+  const { handleLogout } = useAuth();
 
   const items = links.map((link) => (
     <Link key={link.label} to={link.link} className={classes.link}>
@@ -64,30 +67,60 @@ function Header() {
         </Group>
 
         <Group>
-          <Menu shadow="md" width={200}>
-            <Menu.Target>
-              <UnstyledButton>
-                <Avatar variant="filled" size="md" color="brand" radius="xl">
-                  MK
-                </Avatar>
-              </UnstyledButton>
-            </Menu.Target>
+          {isLoggedIn ? (
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
+                <UnstyledButton>
+                  <Avatar
+                    variant="filled"
+                    size="md"
+                    color="brand"
+                    radius="xl"
+                  />
+                </UnstyledButton>
+              </Menu.Target>
 
-            <Menu.Dropdown>
-              <Menu.Item>
-                <Link to="/registro" className={classes.userMenuLink}>
-                  Registrar mascota
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to="/mis-mascotas" className={classes.userMenuLink}>
-                  Mis mascotas
-                </Link>
-              </Menu.Item>
-              <Menu.Item color="red">Salir</Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
-          {/* <Button variant="filled">Inicia Sesión</Button> */}
+              <Menu.Dropdown>
+                <Menu.Item>
+                  <Link
+                    to="/mi-cuenta/datos-personales"
+                    className={classes.userMenuLink}
+                  >
+                    Mi cuenta
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link
+                    to="/mi-cuenta/publicar-mascota"
+                    className={classes.userMenuLink}
+                  >
+                    Registrar mascota
+                  </Link>
+                </Menu.Item>
+                <Menu.Item
+                  color="red"
+                  onClick={handleLogout}
+                  leftSection={
+                    <IconLogout size={16} stroke={1.5} color="red" />
+                  }
+                >
+                  Cerrar sesión
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          ) : (
+            <Link to="/login">
+              <Button
+                variant="filled"
+                color="purpleBrand.3"
+                h={36}
+                px={16}
+                fz="sm"
+              >
+                Inicia Sesión
+              </Button>
+            </Link>
+          )}
         </Group>
       </div>
     </header>

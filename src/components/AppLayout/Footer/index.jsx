@@ -1,5 +1,6 @@
 import React from 'react';
 import { Divider, Group, Image, Stack, Text } from '@mantine/core';
+import { IconHeartFilled } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import classes from './footer.module.css';
 
@@ -13,8 +14,8 @@ const links = [
     label: 'Adopción',
   },
   {
-    link: '/albergues',
-    label: 'Albergues',
+    link: '/mapa',
+    label: 'Mapa',
   },
 ];
 
@@ -39,9 +40,12 @@ function Footer() {
         </Group>
         <Divider w="100%" my="md" color="purpleBrand.2" />
         <Stack p="lg" gap={8}>
-          <Text ta="center" size="sm" c="white">
-            Made with by Team6
-          </Text>
+          <Group gap="xs" justify="center">
+            <Text ta="center" size="sm" c="white">
+              Made with
+            </Text>
+            <IconHeartFilled color="white" size={16} />
+          </Group>
           <Text ta="center" size="xs" c="white">
             © 2022 Conectando Huellas. All rights reserved.
           </Text>
