@@ -53,7 +53,7 @@ function Header() {
             hiddenFrom="sm"
           />
           <Link to="/">
-            <Image height={60} src="/src/assets/images/logo-color.svg" />
+            <Image height={60} src="/logo-color.svg" />
           </Link>
         </Group>
 
