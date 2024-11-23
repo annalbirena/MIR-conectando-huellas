@@ -21,7 +21,7 @@ function LoadingAccountVerifiedMessage() {
           Espera unos momentos, estamos verificando tu cuenta.
         </Text>
       </Stack>
-      <Image height={400} src="/src/assets/images/pet-and-dog.png" />
+      <Image height={400} src="/pet-and-dog.png" />
     </Group>
   );
 }

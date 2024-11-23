@@ -31,7 +31,7 @@ function Footer() {
       <Stack className={classes.footerContent}>
         <Group py="xl" w="100%" justify="space-between">
           <Link to="/">
-            <Image height={80} src="/src/assets/images/logo-white.svg" />
+            <Image height={80} src="/logo-white.svg" />
           </Link>
 
           <Group gap={5} className={classes.links}>

@@ -59,7 +59,7 @@ function LostsPetsPage() {
       <Stack>
         <TitlePage
           text="Mascotas"
-          image="/src/assets/images/lost-text.svg"
+          image="/lost-text.svg"
           imagePosition="right"
         />
 

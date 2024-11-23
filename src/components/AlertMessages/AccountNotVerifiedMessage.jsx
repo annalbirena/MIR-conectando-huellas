@@ -30,7 +30,7 @@ function AccountNotVerifiedMessage() {
           .
         </Text>
       </Stack>
-      <Image height={400} src="/src/assets/images/cat-crying.png" />
+      <Image height={400} src="/cat-crying.png" />
     </Group>
   );
 }

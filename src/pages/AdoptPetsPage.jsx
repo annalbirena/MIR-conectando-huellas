@@ -59,7 +59,7 @@ function AdoptPetsPage() {
       <Stack>
         <TitlePage
           text="una Mascota"
-          image="/src/assets/images/adoption-text.svg"
+          image="/adoption-text.svg"
           imagePosition="left"
         />
         <Group align="flex-start">
