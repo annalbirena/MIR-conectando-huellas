@@ -28,7 +28,7 @@ function AccountVerifiedMessage() {
           </Button>
         </Link>
       </Stack>
-      <Image height={400} src="/src/assets/images/pet-and-dog.png" />
+      <Image height={400} src="/pet-and-dog.png" />
     </Group>
   );
 }
