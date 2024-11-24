@@ -1,9 +1,10 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import {
+  Box,
   Button,
-  Container,
   Group,
+  Image,
   rem,
   Stack,
   Text,
@@ -17,23 +18,20 @@ function HomePage() {
   return (
     <AppLayout>
       <Stack>
-        <Container size="md" pb={100}>
-          <Title ta="center" size={rem('48px')}>
+        <Stack align="center" pb={100}>
+          <Title ta="center" size={rem('42px')}>
             ¡Busca a tu amigo perdido o encuentra a tu nuevo compañero!
           </Title>
-          <Title
-            ta="center"
-            size={rem('60px')}
-            ff="Cherry Bomb One"
-            fw={400}
-            c="purpleBrand.3"
-          >
-            Conectando Huellas
-          </Title>
+          <Box>
+            <Image h={350} w="auto" src="/pet-and-dog.png" />
+          </Box>
           <Text size="xl" my="xl" ta="center">
             El amor de un animal no tiene límites. Busca a tu amigo perdido o da
-            un hogar a uno que te necesita. En Conectando Huellas, la conexión
-            con las mascotas es el corazón de nuestra comunidad.
+            un hogar a uno que te necesita. En{' '}
+            <Text span c="purpleBrand.3" fw={500} inherit>
+              Conectando huellas
+            </Text>
+            , la conexión con las mascotas es el corazón de nuestra comunidad.
           </Text>
 
           <Group justify="center">
@@ -43,7 +41,8 @@ function HomePage() {
               </Button>
             </Link>
           </Group>
-        </Container>
+        </Stack>
+
         <PetTab />
       </Stack>
     </AppLayout>
