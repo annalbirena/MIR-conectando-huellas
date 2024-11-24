@@ -1,244 +1,225 @@
-![logo-color](https://github.com/user-attachments/assets/4bfc5671-9f28-4340-a1fc-7f97d110e2f9)
 
+![logo-color](https://github.com/user-attachments/assets/4bfc5671-9f28-4340-a1fc-7f97d110e2f9)
 # Aplicación web para adopción y busqueda de mascotas
 
-Conectando Huellas es una aplicación web que busca ayudar a conectar refugios de animales con futuros dueños y ayudar a difundir información de mascotas perdidas.
+Es una aplicación sin fines de lucro que busca conectar a las mascotas en adopción con posibles dueños interesados, y también permite que los dueños que han extraviado sus mascotas puedan publicar un anuncio para poder encontrar a su respectiva mascota extraviada.
 
-## Funcionalidades Principales
+#### Mision 
 
-- Visualizar mascotas perdidas y en adopción
-- Filtrar mascotas
-- Registrar mascotas
-- Gestión de mascotas por usuario
-- Registro y autenticación de usuarios
-- Visualizacion de datos en mapa.
-- Carga de Imágenes.
-- Envío de Correos.
+Ser la primera opción para la publicación de mascotas en adopción, y de anuncios de mascotas perdidas.
 
-## Tecnologías utilizadas
+#### Vision
 
-Frontend:
+Lograr aumentar el índice de adopción de mascotas, y la reducción de animales perdidos en el Perú.
 
-- React, Vite, Mantine, React Map GL
-- React Router DOM
-- JSON Server
-- ESLint, Prettier, ESLint y Prettier
+## 🚀 Características
+* 🔐 Autenticación y registro de usuarios
+* 🐕 Publicación de mascotas perdidas
+* 🔍 Búsqueda avanzada de mascotas
+* 📍 Geolocalización
+* 📱 Diseño responsive
+* 🖼️ Carga de imágenes
+* 🗺️ Integración con mapas
 
-Backend:
+## 🚀 Tecnologías
+* ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white)
+* ![Trello](https://img.shields.io/badge/Trello-0079BF?style=for-the-badge&logo=trello&logoColor=white)
+* ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+* ![Mantine UI](https://img.shields.io/badge/Mantine-000000?style=for-the-badge&logo=mantine&logoColor=white)
+* ![MapLibre](https://img.shields.io/badge/MapLibre-000000?style=for-the-badge&logo=maplibre&logoColor=white) 
+* ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
+* ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-- Node.js (Express) usando TypeScript
-- PostgreSQL
-- Cypress para pruebas end-to-end
+## 📋 Requisitos Previos
+* ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+* ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
+* ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 
-## Peticiones a la Base de Datos
 
-- Crear usuario
 
-  ```
-  const res = await fetch('http://localhost:8080/api/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: "Ana",
-        correo: "ana84168@gmail.com",
-        phone: "999161999",
-        address: "Av. 7 de Abril - Lima",
-        password: "***********",
-      }),
-    });
-  ```
 
-- Actualizar usuario
 
-  ```
-  const res = await fetch('http://localhost:8080/api/users', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: "Ana",
-        correo: "ana84168@gmail.com",
-        phone: "999161988",
-        address: "Av. 8 de Abril - Lima",
-        password: "***********",
-      }),
-    });
-  ```
 
-- Crear mascota en Adopción
+## 📁 Estructura del Proyecto
+```
+MIR-conectando-huellas/
+src/
+├── assets/        
+├── components/    
+│   ├── common/    
+│   ├── forms/     
+│   └── layout/    
+├── context/       
+├── hooks/         
+├── pages/         
+├── services/      
+├── store/         
+├── styles/        
+├── types/         
+└── utils/  
+```
 
-  ```
-  const res = await fetch('http://localhost:8080/api/registeradoption_pets', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: "Firulais",
-        type:'Perro',
-        age_unit:'1'. / 0:meses. 1:años
-        age:'1',
-        sex:'Macho',
-        breed:'Dalmata',
-        size:'Pequeño',
-        image:'.............',
-        location_latitude:'15511',
-        location_length:'82551',
-        contact_name:'Luis',
-        contact_phone:'958952515',
-        contact_adreess:'Av. Los Cipreses 18 Lima',
-        status_adopt:'0', / 0:en adopcion, 1:adoptado
-        aditional_descripcion:'Perrito de 1 año que se encuentra en búsqueda de un hogar',
-      }),
-    });
-  ```
+## ⚙️ Configuración
+Variables de Entorno
 
-- Actualizar "ESTADO" de mascota en Adopción
+#### .env
+```
+VITE_API_URL=http://localhost:9090/api
+VITE_GOOGLE_MAPS_KEY=tu_api_key
+VITE_APP_NAME="MIR Conectando Huellas"
+```
 
-  ```
-  const res = await fetch('http://localhost:8080/api/registeradoption_pets/1', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        status_adopt:'1', / 0:en adopcion, 1:adoptado
-      }),
-    });
-  ```
+## 🔍 Características Detalladas
+#### Sistema de Autenticación
+* Registro de usuarios
+* Inicio de sesión
+* Recuperación de contraseña
+* Verificación de email
+#### Gestión de Mascotas
+* Publicación de mascotas perdidas/en adopción
+* Galería de imágenes
+* Geolocalización
+* Filtros avanzados de búsqueda
 
-- Crear mascota Perdida
+#### Panel de Usuario
+* Perfil editable
+* Historial de publicaciones
 
-  ```
-  const res = await fetch('http://localhost:8080/api/registerlost_pets', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: "Michi",
-        type:'Gato',
-        age_unit:'0'. / 0:meses. 1:años
-        age:'8',
-        sex:'Hembra',
-        breed:'Cruzado',
-        size:'Pequeño',
-        image:'.............',
-        location_latitude:'5151',
-        location_length:'98754',
-        lost_date:'07/10/2024'
-        contact_name:'Tomas',
-        contact_phone:'957752515',
-        contact_adreess:'Calle Los Olmos 25 Magdalena del Mar Lima',
-        status_lost:'0', / 0:perdido, 1:encontrado
-        aditional_descripcion:'Se perdio el día Lunes cerca a la caceta de vigilantes del mercado Central',
-      }),
-    });
-  ```
 
-- Actualizar "ESTADO" de mascota Perdida
 
-  ```
-  const res = await fetch('http://localhost:8080/api/registerlost_pets/2', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        status_lost:'1', / 0:perdido, 1:encontrado
-      }),
-    });
-  ```
 
-- Actualizar mascota
+## 🎨 Paleta de Colores
+| Color         | Hex |
+|---------------|-----|
+| Color 3 | ![#070707](https://via.placeholder.com/10/070707/070707?text=+) #070707 |
+| Color 2 | ![#E5FF6E](https://via.placeholder.com/10/E5FF6E/E5FF6E?text=+) #E5FF6E |
+| Color 1 | ![#B7BAF0](https://via.placeholder.com/10/B7BAF0/B7BAF0?text=+) #B7BAF0 |
 
-  ```
-  const res = await fetch('http://localhost:8080/api/pets/2', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: "Michi",
-        type:'Gato',
-        age_unit:'1'. / 0:meses. 1:años
-        age:'1',
-        sex:'Hembra',
-        breed:'Cruzado',
-        size:'Mediano',
-        image:'.............',
-        location_latitude:'5151',
-        location_length:'98754',
-      }),
-    });
-  ```
 
-- Consultar mascotas
 
-  ```
-  const response = await fetch('http://localhost:8080/api/pets', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  ```
+## Instalación
 
-- Consulta mascota
+#### Bash
 
-  ```
-  const response = await fetch(`http://localhost:8080/api/pets/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  ```
+```
+  git clone https://github.com/tu-usuario/MIR-conectando-huellas.git
 
-- Consulta mascota por sexo
+  cd MIR-conectando-huellas
 
-  ```
-  const response = await fetch(`http://localhost:8080/api/pets?sexo=${sexo}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  ```
+  npm install
 
-- Consulta mascota despúes de cierta fecha
-  ```
-  const response = await fetch(`http://localhost:8080/api/pets?lostAfter=${fecha}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  ```
+  npm run dev
+```
 
-## Avances 04/10/2024
 
-- Diseño y maquetacion de las paginas: Home, Detalle de Mascota, Formularios (Crear y Editar Mascota), Inicio de Sesión, Registro de Usuario, filtros
-- Seleccion de libreria de mapa e implementación
-- Validación de datos en formularios
-- Implementación de json server para el registro y lectura de mascotas
-- Actualización de ReadMe
+## 📁 Estructura del Proyecto
+```
+MIR-conectando-huellas/
+src/
+├── assets/        
+├── components/    
+│   ├── common/    
+│   ├── forms/     
+│   └── layout/    
+├── context/       
+├── hooks/         
+├── pages/         
+├── services/      
+├── store/         
+├── styles/        
+├── types/         
+└── utils/  
+```
 
-## Avances 11/10/2024
+## ⚙️ Configuración
+Variables de Entorno
 
-- Crear el diagrama relacional que incluya las tablas necesarias para la aplicación
-- Especificar las relaciones entre las tablas
-- Definir las operaciones CRUD para cada tabla
-- Agregar ejemplos de peticiones para cada una de las operaciones definidas al ReadMe
-- Registro y actualización de registros de mascotas con json-server
-- Registro de usuarios con json-server
-- Implementación de contexto en la aplicación
+#### .env
+```
+VITE_API_URL=http://localhost:9090/api
+VITE_GOOGLE_MAPS_KEY=tu_api_key
+VITE_APP_NAME="MIR Conectando Huellas"
+```
 
-## Integrantes
+## 🔍 Características Detalladas
+#### Sistema de Autenticación
+* Registro de usuarios
+* Inicio de sesión
+* Recuperación de contraseña
+* Verificación de email
+#### Gestión de Mascotas
+* Publicación de mascotas perdidas/en adopción
+* Galería de imágenes
+* Geolocalización
+* Filtros avanzados de búsqueda
 
-- Ana Albirena
-- Antony Antezana
-- Alexander Puma
+#### Panel de Usuario
+* Perfil editable
+* Historial de publicaciones
+
+
+## Mapa de Navegación
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7aec51e6-1c22-4327-8a56-458a1eb16562" alt="Mapa de Navegación" width="600"/>
+</p>
+---
+
+
+## Flujo de Navegación
+#### Registrar mascota
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6be51ee1-6571-4327-bfe0-4d7f5ad5c1e3" alt="Registrar mascota" width="600"/>
+</p>
+
+
+#### Buscar mascotas
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6be51ee1-6571-4327-bfe0-4d7f5ad5c1e3" alt="Buscar mascotas" width="600"/>
+</p>
+
+#### Visualizar mascotas registradas por usuario
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9837157c-5ed1-47a1-82f1-c10d66b5e7f3" alt="Visualizar mascotas registradas" width="600"/>
+</p>
+
+---
+## 📸 Screenshots
+
+#### Página de Inicio
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/13450861-dc62-433b-b681-7f15ab493fc2" alt="Página inicio" width="600"/>
+</p>
+
+#### Página de Inicio - Móvil
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/66a601fa-24d9-4bdc-9576-8faceb16849f" alt="Buscar mascotas" width="200"/>
+</p>
+
+## ⚡ Despliegue 
+
+- **Aplicación en Vercel**: [mir-conectando-huellas](https://mir-conectando-huellas.vercel.app/)
+- **Repositorio Backend**: [MIR-conectando-huellas-backend](https://github.com/annalbirena/MIR-conectando-huellas-backend.git)
+- **Despliegue Backend**: [API Docs](https://mir-conectando-huellas-backend.onrender.com/api/docs)
+
+## 📝 Licencia
+Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE.md para detalles 
+
+## 🙏 Agradecimientos
+* A todos los participantes del proyecto.
+* Profesores de Make It Real
+
+## 🔗 Autores
+#### Ana Albirena
+[![github](https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/annalbirena)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ana-albirena/)
+
+#### Anthony Antezanza
+[![portfolio](https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Akuma2522)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+#### Alexander Puma
+[![portfolio](https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AlexPumaPrado)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alexander-puma-prado/)
+
