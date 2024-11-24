@@ -189,14 +189,15 @@ VITE_APP_NAME="MIR Conectando Huellas"
 #### Página de Inicio
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/13450861-dc62-433b-b681-7f15ab493fc2" alt="Página inicio" width="600"/>
+  <img src="https://github.com/user-attachments/assets/2fa34cb2-ff27-4efe-bf44-18a1ad31f899" alt="Página inicio" width="600"/>
 </p>
 
 #### Página de Inicio - Móvil
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/66a601fa-24d9-4bdc-9576-8faceb16849f" alt="Buscar mascotas" width="200"/>
+  <img src="https://github.com/user-attachments/assets/1b87941b-fcd3-4d3e-ba1c-6a44b00addfd" alt="Buscar mascotas" width="200"/>
 </p>
+
 
 ## ⚡ Despliegue 
 
