@@ -47,7 +47,7 @@ function Footer() {
             <IconHeartFilled color="white" size={16} />
           </Group>
           <Text ta="center" size="xs" c="white">
-            © 2022 Conectando Huellas. All rights reserved.
+            © 2024 Conectando Huellas. All rights reserved.
           </Text>
         </Stack>
       </Stack>
