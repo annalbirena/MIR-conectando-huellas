@@ -19,6 +19,7 @@ import TitlePage from '../components/TitlePage';
 import PetCard from '../components/PetCard';
 import Filters from '../components/Filter';
 import { getAdoptPets } from '../services/pets';
+import classes from './pages.module.css';
 
 function AdoptPetsPage() {
   const [petsData, setPetsData] = useState([]);
@@ -62,7 +63,7 @@ function AdoptPetsPage() {
           image="/adoption-text.svg"
           imagePosition="left"
         />
-        <Group align="flex-start">
+        <Group align="flex-start" className={classes.petsContainer}>
           <Filters
             setPetsData={setPetsData}
             loadingFilterPets={loadingFilterPets}
@@ -87,11 +88,11 @@ function AdoptPetsPage() {
                 <SimpleGrid
                   cols={{
                     base: 1,
-                    sm: 2,
-                    md: 3,
+                    sm: 1,
+                    md: 2,
                   }}
                   spacing="xs"
-                  verticalSpacing="lg"
+                  verticalSpacing="xl"
                 >
                   {pets}
                 </SimpleGrid>

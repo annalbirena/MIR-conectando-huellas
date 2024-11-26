@@ -19,6 +19,7 @@ import PetCard from '../components/PetCard';
 import TitlePage from '../components/TitlePage';
 import Filters from '../components/Filter';
 import { getLostPets } from '../services/pets';
+import classes from './pages.module.css';
 
 function LostsPetsPage() {
   const [petsData, setPetsData] = useState([]);
@@ -63,7 +64,7 @@ function LostsPetsPage() {
           imagePosition="right"
         />
 
-        <Group align="flex-start">
+        <Group align="flex-start" className={classes.petsContainer}>
           <Filters
             setPetsData={setPetsData}
             loadingFilterPets={loadingFilterPets}
@@ -88,11 +89,11 @@ function LostsPetsPage() {
                 <SimpleGrid
                   cols={{
                     base: 1,
-                    sm: 2,
-                    md: 3,
+                    sm: 1,
+                    md: 2,
                   }}
                   spacing="xs"
-                  verticalSpacing="lg"
+                  verticalSpacing="xl"
                 >
                   {pets}
                 </SimpleGrid>

@@ -1,29 +1,21 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import {
-  Box,
-  Button,
-  Group,
-  Image,
-  rem,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
+import { Box, Button, Group, Image, Stack, Text, Title } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import AppLayout from '../components/AppLayout';
-import PetTab from '../components/PetTab';
+import AppLayout from '../../components/AppLayout';
+import PetTab from '../../components/PetTab';
+import classes from './home.module.css';
 
 function HomePage() {
   return (
     <AppLayout>
       <Stack>
         <Stack align="center" pb={100}>
-          <Title ta="center" size={rem('42px')}>
+          <Title className={classes.title} ta="center">
             ¡Busca a tu amigo perdido o encuentra a tu nuevo compañero!
           </Title>
           <Box>
-            <Image h={350} w="auto" src="/pet-and-dog.png" />
+            <Image h={{ base: 250, sm: 350 }} w="auto" src="/pet-and-dog.png" />
           </Box>
           <Text size="xl" my="xl" ta="center">
             El amor de un animal no tiene límites. Busca a tu amigo perdido o da
