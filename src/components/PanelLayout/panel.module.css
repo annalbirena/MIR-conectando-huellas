@@ -1,0 +1,12 @@
+.container {
+  @media (max-width: $mantine-breakpoint-md) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.content {
+  @media (max-width: $mantine-breakpoint-md) {
+    width: 100%;
+  }
+}

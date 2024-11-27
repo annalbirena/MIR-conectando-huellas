@@ -28,6 +28,7 @@ import MapCard from '../../MapCard';
 import AgeInput from '../../AgeInput';
 import { createAdoptPet, uploadPetImage } from '../../../services/pets';
 import { useUserContext } from '../../../context/UserContext';
+import classes from '../form.module.css';
 
 function AdoptPetForm({ species }) {
   const [location, setLocation] = useState(null);
@@ -200,13 +201,14 @@ function AdoptPetForm({ species }) {
             label="Datos de Mascota"
             labelPosition="left"
           />
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <TextInput
               withAsterisk
               label="Nombre de mascota"
               placeholder="Ingrese nombre de mascota"
               key={form.key('pet.name')}
               {...form.getInputProps('pet.name')}
+              className={classes.input}
             />
             <Select
               withAsterisk
@@ -215,9 +217,10 @@ function AdoptPetForm({ species }) {
               data={species}
               key={form.key('pet.specie')}
               {...form.getInputProps('pet.specie')}
+              className={classes.input}
             />
           </Group>
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <AgeInput form={form} />
             <Select
               withAsterisk
@@ -229,12 +232,14 @@ function AdoptPetForm({ species }) {
               ]}
               key={form.key('pet.sex')}
               {...form.getInputProps('pet.sex')}
+              className={classes.input}
             />
             <TextInput
               label="Raza"
               placeholder="Ingrese raza"
               key={form.key('pet.breed')}
               {...form.getInputProps('pet.breed')}
+              className={classes.input}
             />
             <Select
               withAsterisk
@@ -247,6 +252,7 @@ function AdoptPetForm({ species }) {
               ]}
               key={form.key('pet.size')}
               {...form.getInputProps('pet.size')}
+              className={classes.input}
             />
           </Group>
           <FileInput
@@ -315,13 +321,14 @@ function AdoptPetForm({ species }) {
             checked={checked}
             onChange={(event) => setChecked(event.currentTarget.checked)}
           />
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <TextInput
               withAsterisk
               label="Nombre de Contacto"
               placeholder="Nombre de Contacto"
               key={form.key('contact.name')}
               {...form.getInputProps('contact.name')}
+              className={classes.input}
             />
             <TextInput
               withAsterisk
@@ -329,6 +336,7 @@ function AdoptPetForm({ species }) {
               placeholder="Ingrese Celular"
               key={form.key('contact.phone')}
               {...form.getInputProps('contact.phone')}
+              className={classes.input}
             />
           </Group>
           <TextInput

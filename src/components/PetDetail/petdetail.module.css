@@ -1,0 +1,19 @@
+.petDetailedContainer {
+  @media (max-width: $mantine-breakpoint-sm) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.petImage {
+  @media (max-width: $mantine-breakpoint-sm) {
+    height: 400px !important;
+  }
+}
+
+.petDataContainer {
+  @media (max-width: $mantine-breakpoint-sm) {
+    width: 100%;
+  }
+}

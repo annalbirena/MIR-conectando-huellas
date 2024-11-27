@@ -29,7 +29,7 @@ function LostPetsPanel() {
 
   const pets = petsData.map((pet) => (
     <Group key={pet.id} justify="center">
-      <PetCard data={pet} isLost />
+      <PetCard key={pet.id} data={pet} isLost />
     </Group>
   ));
 
@@ -45,8 +45,8 @@ function LostPetsPanel() {
           sm: 2,
           md: 3,
         }}
-        spacing="xs"
-        verticalSpacing="lg"
+        spacing="xl"
+        verticalSpacing="xl"
       >
         {pets}
       </SimpleGrid>

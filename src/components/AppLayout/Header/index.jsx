@@ -79,7 +79,7 @@ function Header() {
           />
           <Link to="/">
             <Image visibleFrom="sm" height={60} src="/logo-color.svg" />
-            <Image hiddenFrom="sm" height={60} src="/isotipo.png" />
+            <Image hiddenFrom="sm" height={48} src="/isotipo.png" />
           </Link>
         </Group>
 

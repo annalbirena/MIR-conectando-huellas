@@ -36,6 +36,7 @@ import AgeInput from '../../AgeInput';
 import { createLostPet, uploadPetImage } from '../../../services/pets';
 import { useUserContext } from '../../../context/UserContext';
 import 'dayjs/locale/es';
+import classes from '../form.module.css';
 
 function LostPetForm({ species }) {
   const [location, setLocation] = useState(null);
@@ -211,13 +212,14 @@ function LostPetForm({ species }) {
             label="Datos de Mascota"
             labelPosition="left"
           />
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <TextInput
               withAsterisk
               label="Nombre de mascota"
               placeholder="Ingrese nombre de mascota"
               key={form.key('pet.name')}
               {...form.getInputProps('pet.name')}
+              className={classes.input}
             />
             <Select
               withAsterisk
@@ -227,9 +229,10 @@ function LostPetForm({ species }) {
               data={species}
               key={form.key('pet.specie')}
               {...form.getInputProps('pet.specie')}
+              className={classes.input}
             />
           </Group>
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <AgeInput form={form} />
             <Select
               withAsterisk
@@ -242,12 +245,14 @@ function LostPetForm({ species }) {
               ]}
               key={form.key('pet.sex')}
               {...form.getInputProps('pet.sex')}
+              className={classes.input}
             />
             <TextInput
               label="Raza"
               placeholder="Ingrese raza"
               key={form.key('pet.breed')}
               {...form.getInputProps('pet.breed')}
+              className={classes.input}
             />
             <Select
               withAsterisk
@@ -261,6 +266,7 @@ function LostPetForm({ species }) {
               ]}
               key={form.key('pet.size')}
               {...form.getInputProps('pet.size')}
+              className={classes.input}
             />
           </Group>
           <FileInput
@@ -296,7 +302,7 @@ function LostPetForm({ species }) {
             label="Datos de Pérdida"
             labelPosition="left"
           />
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <DateInput
               withAsterisk
               locale="es"
@@ -306,6 +312,7 @@ function LostPetForm({ species }) {
               nextIcon={<IconChevronRight size={18} />}
               key={form.key('pet.lostDate')}
               {...form.getInputProps('pet.lostDate')}
+              className={classes.input}
             />
             <Select
               withAsterisk
@@ -319,6 +326,7 @@ function LostPetForm({ species }) {
               ]}
               key={form.key('pet.state')}
               {...form.getInputProps('pet.state')}
+              className={classes.input}
             />
           </Group>
 
@@ -349,13 +357,14 @@ function LostPetForm({ species }) {
             checked={checked}
             onChange={(event) => setChecked(event.currentTarget.checked)}
           />
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <TextInput
               withAsterisk
               label="Nombre de Contacto"
               placeholder="Nombre de Contacto"
               key={form.key('contact.name')}
               {...form.getInputProps('contact.name')}
+              className={classes.input}
             />
             <TextInput
               withAsterisk
@@ -363,6 +372,7 @@ function LostPetForm({ species }) {
               placeholder="Ingrese Celular"
               key={form.key('contact.phone')}
               {...form.getInputProps('contact.phone')}
+              className={classes.input}
             />
           </Group>
           <TextInput

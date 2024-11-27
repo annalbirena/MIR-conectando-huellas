@@ -101,7 +101,7 @@ function Filters({
       <Title order={4}>Filtrar por</Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
-          <Accordion w={200} multiple value={items} onChange={setItems}>
+          <Accordion w={250} multiple value={items} onChange={setItems}>
             <Accordion.Item value="especie">
               <Accordion.Control>Especie</Accordion.Control>
               <Accordion.Panel>

@@ -2,6 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Center,
   Group,
   Image,
@@ -22,6 +23,7 @@ import {
   getSpecieById,
 } from '../../../utils/formatData';
 import { useUserContext } from '../../../context/UserContext';
+import classes from '../petdetail.module.css';
 
 function Field({ label, value }) {
   return (
@@ -63,10 +65,17 @@ function AdoptPetDetail() {
     </Center>
   ) : petData ? (
     <Stack>
-      <Group grow justify="space-between">
-        <Image src={petData.pet.imageUrl} alt="Foto de mascota" h={550} />
-
-        <Stack gap="xl">
+      <Group gap="xl" className={classes.petDetailedContainer}>
+        <Box flex={1}>
+          <Image
+            src={petData.pet.imageUrl}
+            alt="Foto de mascota"
+            h={500}
+            radius="md"
+            className={classes.petImage}
+          />
+        </Box>
+        <Stack flex={1} gap="xl" className={classes.petDataContainer}>
           <Title
             order={1}
             ff="Cherry Bomb One"

@@ -22,7 +22,7 @@ import {
 function UserPetCard({ data, setPetsData, isLost }) {
   return (
     <Card p={0} className={classes.card}>
-      <Group grow gap={0}>
+      <Group grow gap={0} className={classes.content}>
         <BackgroundImage
           h="100%"
           w="auto"

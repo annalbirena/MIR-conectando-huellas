@@ -13,7 +13,7 @@ import {
 
 function PetCard({ data, isLost }) {
   return (
-    <Card w="100%" maw={250} className={classes.card}>
+    <Card w="100%" maw={310} className={classes.card}>
       <Card.Section>
         <Image src={data.pet.imageUrl} alt={data.pet.name} height={250} />
       </Card.Section>
@@ -24,10 +24,10 @@ function PetCard({ data, isLost }) {
           </Title>
           {isLost ? (
             <Stack gap={0}>
-              <Text c="dark.7" size="sm" fw={500}>
+              <Text c="red.7" size="sm" fw={500}>
                 Fecha de perdida:
               </Text>
-              <Text c="dark.7" size="sm">
+              <Text c="red.7" size="sm">
                 {formatLostDate(data.lostDate)}
               </Text>
             </Stack>
