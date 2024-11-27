@@ -9,6 +9,7 @@ import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useUserContext } from '../../../context/UserContext';
 import { getUserById, updateUser } from '../../../services/user';
+import classes from '../form.module.css';
 
 function UserForm() {
   const { user, setUser, token } = useUserContext();
@@ -111,18 +112,20 @@ function UserForm() {
           key={form.key('name')}
           {...form.getInputProps('name')}
         />
-        <Group grow>
+        <Group grow wrap="nowrap" className={classes.row}>
           <TextInput
             disabled
             label="Correo"
             placeholder="correo@email.com"
             {...form.getInputProps('email')}
+            className={classes.input}
           />
           <TextInput
             withAsterisk
             label="Celular"
             placeholder="999111999"
             {...form.getInputProps('phone')}
+            className={classes.input}
           />
         </Group>
         <TextInput

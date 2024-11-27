@@ -40,6 +40,7 @@ import {
   uploadPetImage,
 } from '../../../services/pets';
 import 'dayjs/locale/es';
+import classes from './editpetaction.module.css';
 
 function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
   const petLocation = {
@@ -246,14 +247,14 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
-          <Group justify="stretch">
+          <Group className={classes.row}>
             <BackgroundImage
               h={300}
               flex={1}
               src={imageSrc || data.pet.imageUrl}
               radius="sm"
             >
-              <Center p="md" h="100%">
+              <Center p="md" h="100%" className={classes.image}>
                 <FileButton
                   size="xs"
                   accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp, image/avif, image/heic, image/heif"
@@ -296,12 +297,13 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
             </Stack>
           </Group>
 
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <TextInput
               label="Raza"
               placeholder="Ingrese raza"
               key={form.key('pet.breed')}
               {...form.getInputProps('pet.breed')}
+              className={classes.input}
             />
             <Select
               withAsterisk
@@ -315,9 +317,10 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
               ]}
               key={form.key('pet.size')}
               {...form.getInputProps('pet.size')}
+              className={classes.input}
             />
           </Group>
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <DateInput
               withAsterisk
               locale="es"
@@ -327,6 +330,7 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
               nextIcon={<IconChevronRight size={18} />}
               key={form.key('pet.lostDate')}
               {...form.getInputProps('pet.lostDate')}
+              className={classes.input}
             />
             <Select
               withAsterisk
@@ -339,6 +343,7 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
               ]}
               key={form.key('pet.state')}
               {...form.getInputProps('pet.state')}
+              className={classes.input}
             />
           </Group>
 
@@ -364,13 +369,14 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
             checked={checked}
             onChange={(event) => setChecked(event.currentTarget.checked)}
           />
-          <Group grow align="flex-start">
+          <Group grow wrap="nowrap" className={classes.row}>
             <TextInput
               withAsterisk
               label="Nombre de Contacto"
               placeholder="Nombre de Contacto"
               key={form.key('contact.name')}
               {...form.getInputProps('contact.name')}
+              className={classes.input}
             />
             <TextInput
               withAsterisk
@@ -378,6 +384,7 @@ function EditLostPetForm({ data, isOpen, close, onClose, setPetsData }) {
               placeholder="Ingrese Celular"
               key={form.key('contact.phone')}
               {...form.getInputProps('contact.phone')}
+              className={classes.input}
             />
           </Group>
           <TextInput

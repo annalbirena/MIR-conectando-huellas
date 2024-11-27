@@ -42,6 +42,7 @@ function AgeInput({ form }) {
       rightSectionWidth={92}
       key={form.key('pet.age.number')}
       {...form.getInputProps('pet.age.number')}
+      maw="100%"
     />
   );
 }
