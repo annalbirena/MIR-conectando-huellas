@@ -7,7 +7,7 @@ import {
   SimpleGrid,
   Stack,
 } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PetCard from '../PetCard';
 import { getAdoptPets } from '../../services/pets';

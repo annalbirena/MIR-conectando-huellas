@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "test": "echo \"Error: no test specified\"",
-    "api": "json-server --watch db.json --port 8080 --routes routes.json"
+    "api": "json-server --watch db.json --port 8080 --routes routes.json",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@mantine/core": "^7.12.2",
@@ -42,6 +43,8 @@
     "@eslint/js": "^9.9.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "cypress": "^13.16.0",
+    "cypress-file-upload": "^5.0.8",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.30.0",

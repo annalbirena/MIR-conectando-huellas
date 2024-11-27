@@ -1,0 +1,51 @@
+{
+  "id": "cm3wlp672000f99633rkxhz7a",
+  "statusAdopt": true,
+  "description": "Pequeño gato, quiere una familia que lo adopte para poder crecer junto a ella.",
+  "petId": "cm3wlp66x000d996328zkviig",
+  "userId": "cm3wldmz10005996329ivjkic",
+  "contactId": "cm3wlp66s000b9963fw2no0nd",
+  "createdAt": "2024-11-25T05:42:01.118Z",
+  "updatedAt": "2024-11-25T05:42:01.118Z",
+  "isDeleted": false,
+  "pet": {
+    "id": "cm3wlp66x000d996328zkviig",
+    "name": "Garfield",
+    "ageUnit": "month",
+    "age": 3,
+    "sex": "male",
+    "breed": "",
+    "size": "small",
+    "imageUrl": "https://res.cloudinary.com/dzqoedgug/image/upload/v1732513319/pets-photos/1757a0bdcb0fd180fc1435a8dccb704a.jpg",
+    "imageId": "pets-photos/1757a0bdcb0fd180fc1435a8dccb704a",
+    "location_latitude": -11.96214246179976,
+    "location_longitude": -77.08889220430441,
+    "specieId": "cm2m9vswx00012ur3flu5mp4n",
+    "createdAt": "2024-11-25T05:42:01.113Z",
+    "updatedAt": "2024-11-25T05:42:01.113Z",
+    "isDeleted": false
+  },
+  "user": {
+    "id": "cm3wldmz10005996329ivjkic",
+    "email": "alex_pumaprado@hotmail.com",
+    "name": "Alex Puma Prado",
+    "phone": "975565672",
+    "address": "Av Lima 154 SMP",
+    "role": "USER",
+    "passwordHash": "$2b$10$RRT7AgC3hC4DxPyhPSgyXO4xoMa.KEw4eF/AoRqAljhkOp4i4BJxO",
+    "isVerified": false,
+    "verificationToken": "b8b0b56c391a18b741c186bc682868ff2a25914a1839c407c8a9cd6b7557c297",
+    "createdAt": "2024-11-25T05:33:02.674Z",
+    "updateAt": "2024-11-25T05:33:02.674Z",
+    "isDeleted": false
+  },
+  "contact": {
+    "id": "cm3wlp66s000b9963fw2no0nd",
+    "name": "Alex Puma Prado",
+    "phone": "975565672",
+    "address": "Av Lima 154 SMP",
+    "createdAt": "2024-11-25T05:42:01.106Z",
+    "updatedAt": "2024-11-25T05:42:01.106Z",
+    "isDeleted": false
+  }
+}

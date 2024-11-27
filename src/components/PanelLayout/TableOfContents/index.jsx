@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Box, Paper } from '@mantine/core';
 import { IconDog, IconLogout, IconUserEdit } from '@tabler/icons-react';
