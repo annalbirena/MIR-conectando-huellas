@@ -1,3 +1,4 @@
+import React from 'react';
 import { notifications } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';

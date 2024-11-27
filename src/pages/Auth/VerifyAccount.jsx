@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mantine/core';
 import AppLayout from '../../components/AppLayout';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Group, Image, Stack, Text, ThemeIcon } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';

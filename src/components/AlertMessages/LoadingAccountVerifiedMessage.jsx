@@ -1,3 +1,4 @@
+import React from 'react';
 import { Group, Image, Loader, Stack, Text } from '@mantine/core';
 
 function LoadingAccountVerifiedMessage() {

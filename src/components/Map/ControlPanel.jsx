@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import { IconPawFilled } from '@tabler/icons-react';
 import { Checkbox, Group, Paper, Stack, Text } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './map.module.css';
 
 function ControlPanel({ onFilterChange }) {

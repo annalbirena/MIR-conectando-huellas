@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Button, Image, Stack, Text } from '@mantine/core';
 import { IconPawFilled } from '@tabler/icons-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
 import { Link } from 'react-router-dom';
 

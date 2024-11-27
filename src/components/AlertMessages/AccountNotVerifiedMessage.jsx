@@ -1,4 +1,5 @@
 /* eslint-disable object-curly-newline */
+import React from 'react';
 import { Anchor, Group, Image, Stack, Text, ThemeIcon } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 

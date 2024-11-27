@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cm2m9vp6d00002ur3m326cq9u",
+    "name": "perro",
+    "createdAt": "2024-10-23T19:33:46.041Z",
+    "updatedAt": "2024-10-23T19:33:46.041Z",
+    "isDeleted": false,
+    "pets": []
+  },
+  {
+    "id": "cm2m9vswx00012ur3flu5mp4n",
+    "name": "gato",
+    "createdAt": "2024-10-23T19:33:51.009Z",
+    "updatedAt": "2024-10-23T19:33:51.009Z",
+    "isDeleted": false,
+    "pets": []
+  },
+  {
+    "id": "cm2m9vvys00022ur30iu6wrw7",
+    "name": "otros",
+    "createdAt": "2024-10-23T19:33:54.965Z",
+    "updatedAt": "2024-10-23T19:33:54.965Z",
+    "isDeleted": false,
+    "pets": []
+  }
+]
