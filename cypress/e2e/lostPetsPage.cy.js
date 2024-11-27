@@ -6,7 +6,7 @@ describe('Página de Perdidos - Conectando Huellas', () => {
     cy.visit(`${baseUrl}/perdidos`); // Navegar directamente a la página de adopción
   });
 
-  it('Debe cargar correctamente la página de adopción', () => {
+  it('Debe cargar correctamente la página de perdidos', () => {
     // Verificar elementos principales
     cy.contains('Especie').should('exist');
     cy.get('h1').should('contain.text', 'Mascotas'); // Título principal
@@ -49,7 +49,24 @@ describe('Página de Perdidos - Conectando Huellas', () => {
     cy.get('input[value="small"]').click(); // Hacer click en la opción 'Perro';
     cy.get('button').contains('Filtrar').click();
     cy.wait('@filterPets'); // hacer click en filtrar
-    cy.get('div[class="m_4081bf90 mantine-Group-root"]').should('exist'); // Verificar que hay resultados
+    cy.get('div[class="m_4081bf90 mantine-Group-root"]').should('exist');
+  });
+  it('Debe filtrar mascotas por fecha de perdida ', () => {
+    // Seleccionar una especie en el filtro
+    cy.intercept(
+      'GET',
+      '/api/lostpets/filters/filter?lostDateMin=2024-11-05T05%3A00%3A00.000Z&lostDateMax=2024-11-21T05%3A00%3A00.000Z',
+      {
+        fixture: 'lostPetsPage/filteredPets.json',
+      },
+    ).as('filterPets');
+    cy.contains('Fecha de perdida').click();
+    cy.contains('Seleccione rango de fecha').click();
+    cy.get('button').contains('5').click();
+    cy.get('button').contains('21').click();
+    cy.get('button').contains('Filtrar').click();
+    cy.wait('@filterPets');
+    cy.get('div[class="m_4081bf90 mantine-Group-root"]').should('exist');
   });
 
   it('Debe filtrar mascotas por mas de un filtro (tamaño y sexo) ', () => {

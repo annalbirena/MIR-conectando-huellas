@@ -1,0 +1,52 @@
+{
+  "id": "cm3vzq8d00004lv2y64s6ucku",
+  "lostDate": "2024-11-24T05:00:00.000Z",
+  "statusLost": true,
+  "description": "",
+  "petId": "cm3vzq8cs0002lv2ywvjulrys",
+  "userId": "cm2rqm5fw0001o9gqst8vu4dc",
+  "contactId": "cm3vzq8bv0000lv2yd2tvo8gl",
+  "createdAt": "2024-11-24T19:26:59.028Z",
+  "updatedAt": "2024-11-24T19:26:59.028Z",
+  "isDeleted": false,
+  "pet": {
+    "id": "cm3vzq8cs0002lv2ywvjulrys",
+    "name": "YUKI",
+    "ageUnit": "year",
+    "age": 5,
+    "sex": "female",
+    "breed": "Bulldog",
+    "size": "medium",
+    "imageUrl": "https://res.cloudinary.com/dzqoedgug/image/upload/v1732476417/pets-photos/577c205edbd70fc199bb01afee12fe73.jpg",
+    "imageId": "pets-photos/577c205edbd70fc199bb01afee12fe73",
+    "location_latitude": -11.82564685163523,
+    "location_longitude": -77.01718637500801,
+    "specieId": "cm2m9vp6d00002ur3m326cq9u",
+    "createdAt": "2024-11-24T19:26:59.020Z",
+    "updatedAt": "2024-11-24T19:26:59.020Z",
+    "isDeleted": false
+  },
+  "user": {
+    "id": "cm2rqm5fw0001o9gqst8vu4dc",
+    "email": "aantezana25@gmail.com",
+    "name": "antony antezana cavero",
+    "phone": "980559058",
+    "address": "CARABAYLLO",
+    "role": "USER",
+    "passwordHash": "$2b$10$L5Zaqsqg8yh2ZDsiR2z.l.N3EwiC/9j2iPyX8l5Jr83roS7Okx3Z.",
+    "isVerified": true,
+    "verificationToken": null,
+    "createdAt": "2024-10-27T15:21:04.791Z",
+    "updateAt": "2024-10-27T15:21:22.348Z",
+    "isDeleted": false
+  },
+  "contact": {
+    "id": "cm3vzq8bv0000lv2yd2tvo8gl",
+    "name": "antony antezana cavero",
+    "phone": "980559058",
+    "address": "CARABAYLLO",
+    "createdAt": "2024-11-24T19:26:58.986Z",
+    "updatedAt": "2024-11-24T19:26:58.986Z",
+    "isDeleted": false
+  }
+}
